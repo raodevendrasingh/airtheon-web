@@ -63,9 +63,27 @@ body {
 }
 
 @layer base {
+    ::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: #999;
+        border-radius: 3px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: #666;
+    }
+
     * {
         @apply border-border;
     }
+
     body {
         @apply bg-background text-foreground;
     }

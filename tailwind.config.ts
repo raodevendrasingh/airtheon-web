@@ -9,6 +9,12 @@ export default {
     ],
     theme: {
         extend: {
+            screens: {
+                xs: "480px",
+            },
+            fontFamily: {
+                outfit: "var(--font-outfit)",
+            },
             colors: {
                 background: "hsl(var(--background))",
                 foreground: "hsl(var(--foreground))",
@@ -58,5 +64,27 @@ export default {
             },
         },
     },
-    plugins: [require("tailwindcss-animate")],
+    plugins: [
+        require("tailwindcss-animate"),
+        function ({
+            addUtilities,
+        }: {
+            addUtilities: (utilities: Record<string, any>) => void;
+        }) {
+            addUtilities({
+                ".scrollbar-hide": {
+                    /* IE and Edge */
+                    "-ms-overflow-style": "none",
+
+                    /* Firefox */
+                    "scrollbar-width": "none",
+
+                    /* Safari and Chrome */
+                    "&::-webkit-scrollbar": {
+                        display: "none",
+                    },
+                },
+            });
+        },
+    ],
 } satisfies Config;
