@@ -13,7 +13,8 @@ export default {
                 xs: "480px",
             },
             fontFamily: {
-                outfit: "var(--font-outfit)",
+                sans: "var(--font-outfit)",
+                serif: "var(--font-newsreader)",
             },
             colors: {
                 background: "hsl(var(--background))",

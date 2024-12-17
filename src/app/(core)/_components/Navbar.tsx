@@ -1,6 +1,7 @@
 import React from "react";
 import { UserMenuDropdown } from "./UserMenuDropdown";
 import { SearchBox } from "./SearchBox";
+import { ThemeModeToggle } from "@/components/ThemeModeToggle";
 
 export const Navbar = () => {
     return (
@@ -11,6 +12,7 @@ export const Navbar = () => {
                 </div>
                 <div className="flex items-center gap-3">
                     <SearchBox />
+                    <ThemeModeToggle />
                     <UserMenuDropdown />
                 </div>
             </div>

@@ -1,13 +1,19 @@
 import type { Metadata } from "next";
-import { Outfit } from "next/font/google";
+import { Outfit, Newsreader } from "next/font/google";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 import ThemeProvider from "@/providers/ThemeProvider";
 import "./globals.css";
 
 const outfit = Outfit({
     subsets: ["latin"],
-    weight: ["300", "400", "500", "700"],
+    weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
     variable: "--font-outfit",
+});
+
+const newsreader = Newsreader({
+    subsets: ["latin"],
+    weight: ["200", "300", "400", "500", "600", "700", "800"],
+    variable: "--font-newsreader",
 });
 
 export const metadata: Metadata = {
@@ -22,7 +28,9 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en" suppressHydrationWarning className="scrollbar-hide">
-            <body className={`${outfit.className} antialiased`}>
+            <body
+                className={`${outfit.variable} ${newsreader.variable} ${outfit.className} antialiased`}
+            >
                 <NextThemesProvider
                     attribute="class"
                     defaultTheme="dark"

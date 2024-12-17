@@ -62,7 +62,7 @@ export const SearchBox = () => {
                 </div>
             </button>
 
-            <CommandDialog open={open} onOpenChange={setOpen} showCloseButton={false}>
+            <CommandDialog open={open} onOpenChange={setOpen}>
                 <DialogTitle className="sr-only">Quick Search</DialogTitle>
                 <CommandInput placeholder="Type to search..." />
                 <CommandList>

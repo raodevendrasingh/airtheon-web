@@ -14,12 +14,14 @@ export default function page() {
                 <div className="relative -top-5 h-[1px] w-full bg-gradient-to-r from-transparent via-border to-transparent" />
                 <div className="flex items-center justify-between">
                     <span>
-                        <h1 className="text-4xl font-medium">{greeting}, {user}</h1>
+                        <h1 className="text-4xl font-medium font-serif ">
+                            {greeting}, {user}
+                        </h1>
                     </span>
                     <span className="flex items-center">
                         <Button variant="outline">
                             <GoPlus />
-                            <span>Add Note</span>
+                            <span>Add Node</span>
                         </Button>
                     </span>
                 </div>
