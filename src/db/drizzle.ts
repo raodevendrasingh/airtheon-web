@@ -5,6 +5,8 @@ interface Env {
     DB: DrizzleD1Database;
 }
 
+export const db = (env: Env) => drizzle(env.DB, { schema });
+
 export function createD1Client(env: Env) {
-    return drizzle(env.DB, { schema });
+    return db(env);
 }
