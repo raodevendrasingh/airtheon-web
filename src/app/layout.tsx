@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Outfit, Newsreader } from "next/font/google";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 import ThemeProvider from "@/providers/ThemeProvider";
+import { Toaster } from "@/components/ui/sonner";
 import "./globals.css";
 
 const outfit = Outfit({
@@ -37,7 +38,10 @@ export default function RootLayout({
                     enableSystem
                     disableTransitionOnChange
                 >
-                    <ThemeProvider>{children}</ThemeProvider>
+                    <ThemeProvider>
+                        {children}
+                        <Toaster />
+                    </ThemeProvider>
                 </NextThemesProvider>
             </body>
         </html>
