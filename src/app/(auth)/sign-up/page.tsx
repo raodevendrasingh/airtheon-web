@@ -21,7 +21,7 @@ import { signUpSchema } from "@/lib/authSchema";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { signUp } from "@/lib/auth-client";
+import { emailOtp, signUp } from "@/lib/auth-client";
 import { useState } from "react";
 import { toast } from "sonner";
 import { GoogleAuthButton } from "../_components/GoogleAuthButton";
@@ -30,7 +30,7 @@ import Link from "next/link";
 import { HiOutlineArrowNarrowRight } from "react-icons/hi";
 import { useRouter } from "next/navigation";
 
-export default function LoginPage() {
+export default function SignUpPage() {
     const router = useRouter();
     const [pending, setPending] = useState<boolean>(false);
 
@@ -58,10 +58,14 @@ export default function LoginPage() {
                 onResponse: () => {
                     setPending(false);
                 },
-                onSuccess: () => {
+                onSuccess: async () => {
                     toast.success("Account created", {
                         description:
                             "Your account has been created. Check your email for a verification code.",
+                    });
+                    await emailOtp.sendVerificationOtp({
+                        email,
+                        type: "email-verification",
                     });
                     router.push("/verify");
                 },

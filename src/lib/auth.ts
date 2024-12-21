@@ -2,8 +2,9 @@ import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { db } from "@/db/drizzle";
 import { config } from "dotenv";
-import { openAPI } from "better-auth/plugins";
+import { emailOTP, openAPI } from "better-auth/plugins";
 import { account, session, user, verification } from "@/db/schema";
+import { sendVerificationEmail } from "@/actions/send-verification-email";
 
 config({ path: ".env.local" });
 
@@ -17,7 +18,26 @@ export const auth = betterAuth({
             verification: verification,
         },
     }),
-    plugins: [openAPI()],
+    plugins: [
+        openAPI(),
+        emailOTP({
+            otpLength: 6,
+            expiresIn: 10 * 60, // 10 minutes
+            sendVerificationOnSignUp: true,
+            async sendVerificationOTP({ email, otp, type }) {
+                try {
+                    if (type === "email-verification") {
+                        await sendVerificationEmail({ email, otp });
+                    } else {
+                        console.log("Password reset not implemented yet");
+                    }
+                } catch (error) {
+                    console.error("Failed to send email:", error);
+                    throw error;
+                }
+            },
+        }),
+    ],
     emailAndPassword: {
         enabled: true,
         requireEmailVerification: true,
