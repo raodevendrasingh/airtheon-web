@@ -54,6 +54,7 @@ export default function SignInPage() {
                 },
                 onSuccess: () => {
                     toast.success("Login Sucessfull");
+                    localStorage.removeItem("verificationEmail");
                 },
                 onError: (ctx) => {
                     console.log("Unexpected Error: ", ctx);

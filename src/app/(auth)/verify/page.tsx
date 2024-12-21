@@ -37,6 +37,7 @@ import { Button } from "@/components/ui/button";
 
 export default function Page() {
     const [pending, setPending] = useState<boolean>(false);
+    const [countdown, setCountdown] = useState<number>(0);
     const email = localStorage.getItem("verificationEmail") as string;
     const [emailError, setEmailError] = useState<string | null>(null);
     const router = useRouter();
@@ -53,6 +54,33 @@ export default function Page() {
             setEmailError("Email Not Found");
         }
     }, []);
+
+    useEffect(() => {
+        // If countdown is active, decrease it every second
+        if (countdown > 0) {
+            const timer = setInterval(() => {
+                setCountdown((prev) => prev - 1);
+            }, 1000);
+            return () => clearInterval(timer);
+        }
+    }, [countdown]);
+
+    const handleResendEmail = async () => {
+        try {
+            setPending(true);
+            await emailOtp.sendVerificationOtp({
+                email: email!,
+                type: "email-verification",
+            });
+            toast.success("Email sent again");
+            // Start 60 second countdown
+            setCountdown(60);
+        } catch (error) {
+            toast.error("Failed to resend email");
+        } finally {
+            setPending(false);
+        }
+    };
 
     const onSubmit = async (values: z.infer<typeof verifyEmailSchema>) => {
         await emailOtp.verifyEmail({
@@ -79,7 +107,6 @@ export default function Page() {
                 },
             },
         });
-        localStorage.removeItem("verificationEmail");
     };
 
     return (
@@ -122,15 +149,8 @@ export default function Page() {
                                 <CardDescription className="text-left">
                                     Enter the one-time password sent to{" "}
                                     <span className="text-accent-foreground">
-                                        {email ? email : "the registered email"}
-                                    </span>{" "}
-                                    <br />
-                                    <Link
-                                        href="/sign-up"
-                                        className="underline underline-offset-4"
-                                    >
-                                        Change email
-                                    </Link>
+                                        {email}
+                                    </span>
                                 </CardDescription>
                             </CardHeader>
                             <CardContent>
@@ -184,14 +204,19 @@ export default function Page() {
                                                 <HiOutlineArrowNarrowRight />
                                             </LoadingButton>
                                             <div className="text-center text-sm">
-                                                Didn't receive the code?{" "}
-                                                <Link
-                                                    href=""
-                                                    onClick={() => {}} // resend email
-                                                    className="underline underline-offset-4"
+                                                Didn't receive the code?
+                                                <Button
+                                                    variant="link"
+                                                    onClick={handleResendEmail}
+                                                    disabled={
+                                                        pending || countdown > 0
+                                                    }
+                                                    className="-ml-3 underline underline-offset-4 disabled:cursor-not-allowed"
                                                 >
                                                     Resend
-                                                </Link>
+                                                    {countdown > 0 &&
+                                                        ` (${countdown}s)`}
+                                                </Button>
                                             </div>
                                         </div>
                                     </form>
