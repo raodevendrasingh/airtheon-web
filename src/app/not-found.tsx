@@ -19,7 +19,8 @@ export default function NotFound(): React.JSX.Element {
                         Page not found
                     </h2>
                     <p className="text-muted-foreground text-lg">
-                    The page you're looking for doesn't exist or was removed.
+                        The page you're looking for doesn't exist or was
+                        removed.
                     </p>
                 </div>
 

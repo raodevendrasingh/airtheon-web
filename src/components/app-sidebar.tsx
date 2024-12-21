@@ -101,22 +101,22 @@ const data = {
     spaces: [
         {
             name: "Monaco",
-            url: "/monaco",
+            url: "/space/monaco",
             icon: History,
         },
         {
             name: "Gamma",
-            url: "/gamma",
+            url: "/space/gamma",
             icon: Map,
         },
         {
             name: "Zeta",
-            url: "/zeta",
+            url: "/space/zeta",
             icon: Plane,
         },
         {
             name: "Aperture",
-            url: "/aperture",
+            url: "/space/aperture",
             icon: Shapes,
         },
     ],
