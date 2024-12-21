@@ -1,5 +1,4 @@
 "use client";
-
 import * as React from "react";
 import {
     Archive,
@@ -142,7 +141,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 <NavMenu menu={data.bottomMenu} />
             </SidebarContent>
             <SidebarFooter>
-                <NavUser user={data.user} />
+                <NavUser />
             </SidebarFooter>
             <SidebarRail />
         </Sidebar>

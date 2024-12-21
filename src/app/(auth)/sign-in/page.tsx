@@ -29,7 +29,7 @@ import { LoadingButton } from "@/components/LoadingButton";
 import Link from "next/link";
 import { HiOutlineArrowNarrowRight } from "react-icons/hi";
 
-export default function LoginPage() {
+export default function SignInPage() {
     const [pending, setPending] = useState<boolean>(false);
 
     const form = useForm<z.infer<typeof signInSchema>>({
@@ -57,10 +57,11 @@ export default function LoginPage() {
                 },
                 onError: (ctx) => {
                     console.log("Unexpected Error: ", ctx);
-                    toast.error("Something went wrong", {
+                    toast.error("Error signing in", {
                         description:
                             ctx.error.message ?? "Something went wrong.",
                     });
+                    form.reset();
                 },
             },
         });
@@ -147,12 +148,9 @@ export default function LoginPage() {
                                                 ),
                                             )}
                                         </div>
-                                        <LoadingButton
-                                            pending={pending}
-                                        >
+                                        <LoadingButton pending={pending}>
                                             Continue
                                             <HiOutlineArrowNarrowRight />
-
                                         </LoadingButton>
                                         <div className="text-center text-sm">
                                             Don't have an account?{" "}
