@@ -9,7 +9,7 @@ config({ path: ".env.local" });
 
 export const auth = betterAuth({
     database: drizzleAdapter(db, {
-        provider: "sqlite",
+        provider: "pg",
         schema: {
             user: user,
             account: account,
@@ -20,7 +20,7 @@ export const auth = betterAuth({
     plugins: [openAPI()],
     emailAndPassword: {
         enabled: true,
-        requireEmailVerification: false,
+        requireEmailVerification: true,
     },
     socialProviders: {
         google: {

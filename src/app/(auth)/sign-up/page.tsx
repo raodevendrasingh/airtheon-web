@@ -28,8 +28,10 @@ import { GoogleAuthButton } from "../_components/GoogleAuthButton";
 import { LoadingButton } from "@/components/LoadingButton";
 import Link from "next/link";
 import { HiOutlineArrowNarrowRight } from "react-icons/hi";
+import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
+    const router = useRouter();
     const [pending, setPending] = useState<boolean>(false);
 
     const form = useForm<z.infer<typeof signUpSchema>>({
@@ -43,16 +45,15 @@ export default function LoginPage() {
 
     const onSubmit = async (values: z.infer<typeof signUpSchema>) => {
         const { name, email, password } = values;
-        const { data, error } = await signUp.email(
-            {
-                name,
-                email,
-                password,
-                callbackURL: "/verify-email",
-            },
-            {
+        await signUp.email({
+            name,
+            email,
+            password,
+            callbackURL: `${process.env.NEXT_PUBLIC_APP_URL}/verify`,
+            fetchOptions: {
                 onRequest: () => {
                     setPending(true);
+                    localStorage.setItem("verificationEmail", email);
                 },
                 onResponse: () => {
                     setPending(false);
@@ -60,18 +61,19 @@ export default function LoginPage() {
                 onSuccess: () => {
                     toast.success("Account created", {
                         description:
-                            "Your account has been created. Check your email for a verification link.",
+                            "Your account has been created. Check your email for a verification code.",
                     });
+                    router.push("/verify");
                 },
                 onError: (ctx) => {
-                    console.log("Unexpected Error: ", ctx);
-                    toast.error("Something went wrong", {
+                    console.log("Failed to Sign Up", ctx);
+                    toast.error("Error creating account", {
                         description:
                             ctx.error.message ?? "Something went wrong.",
                     });
                 },
             },
-        );
+        });
     };
 
     return (
@@ -153,9 +155,7 @@ export default function LoginPage() {
                                                 ),
                                             )}
                                         </div>
-                                        <LoadingButton
-                                            pending={pending}
-                                        >
+                                        <LoadingButton pending={pending}>
                                             Create Account
                                             <HiOutlineArrowNarrowRight />
                                         </LoadingButton>
