@@ -1,4 +1,5 @@
 "use client";
+
 import * as React from "react";
 import {
     Archive,
@@ -31,11 +32,6 @@ import { NavMenu } from "@/components/nav-menu";
 import { NavFavourite } from "@/components/nav-favourite";
 
 const data = {
-    user: {
-        name: "Dev",
-        email: "dev@mail.com",
-        avatar: "",
-    },
     teams: [
         {
             name: "Evil Corp.",
@@ -71,7 +67,7 @@ const data = {
         },
         {
             name: "Notifications",
-            url: "/notifications",
+            url: "#",
             icon: Bell,
         },
     ],
@@ -131,13 +127,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 <SidebarSeparator />
             </SidebarHeader>
             <SidebarContent>
-                {/* <NavMain items={data.navMain} /> */}
-                {/* <NavProjects projects={data.projects} /> */}
                 {data.favourites.length > 0 && (
                     <NavFavourite favourites={data.favourites} />
                 )}
                 <NavSpaces spaces={data.spaces} />
-                <SidebarSeparator />
+                <SidebarSeparator className="h-[0.5px]" />
                 <NavMenu menu={data.bottomMenu} />
             </SidebarContent>
             <SidebarFooter>

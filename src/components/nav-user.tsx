@@ -1,10 +1,8 @@
 "use client";
 
 import {
-    BadgeCheck,
-    Bell,
     ChevronsUpDown,
-    CreditCard,
+    Headset,
     LogOut,
     Sparkles,
 } from "lucide-react";
@@ -26,6 +24,7 @@ import {
 } from "@/components/ui/sidebar";
 import { signOut, useSession } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
+import { ThemeModeToggle } from "./ThemeModeToggle";
 
 export function NavUser() {
     const router = useRouter();
@@ -120,16 +119,14 @@ export function NavUser() {
                         <DropdownMenuSeparator />
                         <DropdownMenuGroup>
                             <DropdownMenuItem>
-                                <BadgeCheck />
-                                Account
+                                <ThemeModeToggle />
                             </DropdownMenuItem>
+                        </DropdownMenuGroup>
+                        <DropdownMenuSeparator className="h-[0.5px]" />
+                        <DropdownMenuGroup>
                             <DropdownMenuItem>
-                                <CreditCard />
-                                Billing
-                            </DropdownMenuItem>
-                            <DropdownMenuItem>
-                                <Bell />
-                                Notifications
+                                <Headset />
+                                Support
                             </DropdownMenuItem>
                         </DropdownMenuGroup>
                         <DropdownMenuSeparator />
