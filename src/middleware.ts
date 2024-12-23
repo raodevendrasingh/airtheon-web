@@ -16,7 +16,7 @@ const publicRoutes = [
 const privateRoutes = [
     "/search/*",
     "/dash",
-    "/settings",
+    "/settings/*",
     "/trash",
     "/plugins",
     "/archives",

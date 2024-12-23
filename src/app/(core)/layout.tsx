@@ -86,7 +86,7 @@ export default function CoreLayout({
                         </Breadcrumb>
                     </div>
                 </header>
-                <main className="flex flex-1 flex-col min-h-screen gap-4 p-5 mt-12">
+                <main className="flex flex-1 flex-col gap-2 mt-12">
                     {children}
                 </main>
             </SidebarInset>
