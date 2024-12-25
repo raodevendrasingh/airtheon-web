@@ -1,9 +1,20 @@
 import { Button } from "@/components/ui/button";
-import React from "react";
+import { signIn } from "@/lib/auth-client";
 
 export const GoogleAuthButton = () => {
+    const handleGoogleAuth = async () => {
+        await signIn.social({
+            provider: "google",
+        });
+    };
+
     return (
-        <Button variant="outline" className="w-full">
+        <Button
+            variant="outline"
+            className="w-full"
+            type="button"
+            onClick={handleGoogleAuth}
+        >
             <svg
                 width="24px"
                 height="24px"
