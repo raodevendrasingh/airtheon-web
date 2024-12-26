@@ -65,11 +65,6 @@ const data = {
             url: "/dash",
             icon: LayoutDashboard,
         },
-        {
-            name: "Notifications",
-            url: "#",
-            icon: Bell,
-        },
     ],
     bottomMenu: [
         {

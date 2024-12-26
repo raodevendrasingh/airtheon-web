@@ -39,7 +39,7 @@ export const MemoryDialog = () => {
                         variant="secondary"
                         size="sm"
                         className={cn(
-                            "fixed top-2 right-14",
+                            "fixed top-2 right-5 md:right-14",
                             "bg-primary text-primary-foreground",
                             "hover:bg-primary/90",
                             "transition-colors",

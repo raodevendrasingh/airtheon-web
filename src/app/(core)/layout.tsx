@@ -16,7 +16,8 @@ import {
     SidebarTrigger,
 } from "@/components/ui/sidebar";
 import { usePathname } from "next/navigation";
-import { MemoryDialog } from "../../components/dialogs/memory-dialog";
+import { MemoryDialog } from "@/components/dialogs/memory-dialog";
+import { NotificationMenu } from "@/app/(core)/_components/notification-menu";
 
 export default function CoreLayout({
     children,
@@ -75,7 +76,7 @@ export default function CoreLayout({
         <SidebarProvider>
             <AppSidebar />
             <SidebarInset>
-                <header className="fixed right-0 z-50 flex h-12 shrink-0 w-[calc(100%-256px)] border-b border-border items-center gap-2 bg-background/70 backdrop-blur-md transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12 group-has-[[data-collapsible=icon]]/sidebar-wrapper:w-[calc(100%-48px)]">
+                <header className="fixed right-0 z-50 flex h-12 shrink-0 w-full md:w-[calc(100%-256px)] border-b border-border items-center gap-2 bg-background/70 backdrop-blur-md transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12 group-has-[[data-collapsible=icon]]/sidebar-wrapper:w-[calc(100%-48px)]">
                     <div className="flex items-center gap-2 px-4">
                         <SidebarTrigger className="-ml-1" />
                         <Separator
@@ -86,6 +87,7 @@ export default function CoreLayout({
                             <BreadcrumbList>{breadcrumbs}</BreadcrumbList>
                         </Breadcrumb>
                     </div>
+                    <NotificationMenu />
                     <MemoryDialog />
                 </header>
                 <main className="flex flex-1 flex-col gap-2 mt-12">
