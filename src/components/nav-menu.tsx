@@ -9,6 +9,7 @@ import {
     SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import Link from "next/link";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 export function NavMenu({
     menu,
@@ -16,19 +17,28 @@ export function NavMenu({
     menu: {
         name: string;
         url: string;
+        urlSm?: string;
         icon: LucideIcon;
     }[];
 }) {
+    const isMobile = useIsMobile();
     return (
         <SidebarGroup>
             <SidebarMenu>
                 {menu.map((item) => (
                     <SidebarMenuItem key={item.name}>
                         <SidebarMenuButton asChild>
-                            <Link href={item.url}>
-                                <item.icon />
-                                <span>{item.name}</span>
-                            </Link>
+                            {isMobile && item.urlSm ? (
+                                <Link href={item.urlSm}>
+                                    <item.icon />
+                                    <span>{item.name}</span>
+                                </Link>
+                            ) : (
+                                <Link href={item.url}>
+                                    <item.icon />
+                                    <span>{item.name}</span>
+                                </Link>
+                            )}
                         </SidebarMenuButton>
                     </SidebarMenuItem>
                 ))}

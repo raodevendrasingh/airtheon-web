@@ -4,10 +4,11 @@ import {
     Archive,
     Forward,
     MoreHorizontal,
+    Shapes,
     SquarePen,
+    SquarePlus,
     Star,
     Trash2,
-    type LucideIcon,
 } from "lucide-react";
 
 import {
@@ -27,21 +28,44 @@ import {
     useSidebar,
 } from "@/components/ui/sidebar";
 import Link from "next/link";
+import { useState } from "react";
+import { DialogType } from "@/components/dialogs/memory-dialog";
+import { Dialog } from "@/components/ui/dialog";
+import { SpaceDialog } from "@/components/dialogs/space-dialog";
 
-export function NavSpaces({
-    spaces,
-}: {
-    spaces: {
-        name: string;
-        url: string;
-        icon: LucideIcon;
-    }[];
-}) {
+export function NavSpaces() {
     const { isMobile } = useSidebar();
+
+    const [openSpacesDialog, setOpenSpacesDialog] = useState<DialogType | null>(
+        null,
+    );
+    const openDialog = (dialogType: DialogType) => {
+        setOpenSpacesDialog(dialogType);
+    };
+
+    const closeDialog = () => {
+        setOpenSpacesDialog(null);
+    };
+
+    const spaces = [
+        {
+            name: "Default",
+            url: "/space/default",
+            icon: Shapes,
+        },
+    ];
 
     return (
         <SidebarGroup>
-            <SidebarGroupLabel>Spaces</SidebarGroupLabel>
+            <SidebarGroupLabel className="flex items-center justify-between hover:bg-muted">
+                <span>Spaces</span>
+                <span
+                    className="cursor-pointer"
+                    onClick={() => openDialog("space")}
+                >
+                    <SquarePlus size={18} className="text-muted-foreground" />
+                </span>
+            </SidebarGroupLabel>
             <SidebarMenu>
                 {spaces.map((item) => (
                     <SidebarMenuItem key={item.name}>
@@ -92,6 +116,15 @@ export function NavSpaces({
                     </SidebarMenuItem>
                 ))}
             </SidebarMenu>
+            <Dialog
+                open={openSpacesDialog === "space"}
+                onOpenChange={closeDialog}
+            >
+                <SpaceDialog
+                    isOpen={openSpacesDialog === "space"}
+                    onClose={closeDialog}
+                />
+            </Dialog>
         </SidebarGroup>
     );
 }

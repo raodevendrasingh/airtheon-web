@@ -18,7 +18,7 @@ import { WebpageDialog } from "./webpage-dialog";
 import { FilesDialog } from "./files-dialog";
 import { SpaceDialog } from "./space-dialog";
 
-type DialogType = "notes" | "webpage" | "files" | "space";
+export type DialogType = "notes" | "webpage" | "files" | "space";
 
 export const MemoryDialog = () => {
     const [openDialog, setOpenDialog] = useState<DialogType | null>(null);

@@ -3,17 +3,13 @@
 import * as React from "react";
 import {
     Archive,
-    Bell,
     Blocks,
     Command,
     History,
     Layers,
     LayoutDashboard,
-    Map,
-    Plane,
     Search,
     Settings,
-    Shapes,
     Trash2,
 } from "lucide-react";
 
@@ -30,6 +26,8 @@ import {
 import { NavSpaces } from "@/components/nav-spaces";
 import { NavMenu } from "@/components/nav-menu";
 import { NavFavourite } from "@/components/nav-favourite";
+import { UpgradeCard } from "@/components/UpgradeCard";
+import { cn } from "@/lib/utils";
 
 const data = {
     teams: [
@@ -79,7 +77,8 @@ const data = {
         },
         {
             name: "Settings",
-            url: "/settings",
+            url: "/settings/general",
+            urlSm: "/settings",
             icon: Settings,
         },
         {
@@ -89,28 +88,6 @@ const data = {
         },
     ],
     favourites: [],
-    spaces: [
-        {
-            name: "Monaco",
-            url: "/space/monaco",
-            icon: History,
-        },
-        {
-            name: "Gamma",
-            url: "/space/gamma",
-            icon: Map,
-        },
-        {
-            name: "Zeta",
-            url: "/space/zeta",
-            icon: Plane,
-        },
-        {
-            name: "Aperture",
-            url: "/space/aperture",
-            icon: Shapes,
-        },
-    ],
 };
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
@@ -125,11 +102,24 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 {data.favourites.length > 0 && (
                     <NavFavourite favourites={data.favourites} />
                 )}
-                <NavSpaces spaces={data.spaces} />
+                <NavSpaces />
                 <SidebarSeparator className="h-[0.5px]" />
                 <NavMenu menu={data.bottomMenu} />
             </SidebarContent>
             <SidebarFooter>
+                <div
+                    className={cn(
+                        "mx-auto",
+                        "transition-opacity duration-700 ease-in-out",
+                        "group-data-[collapsible=icon]:opacity-0",
+                        "group-data-[collapsible=icon]:scale-95",
+                        "group-data-[collapsible=icon]:translate-x-4",
+                        "group-data-[collapsible=icon]:invisible",
+                        "group-data-[collapsible=icon]:pointer-events-none",
+                    )}
+                >
+                    <UpgradeCard />
+                </div>
                 <NavUser />
             </SidebarFooter>
             <SidebarRail />

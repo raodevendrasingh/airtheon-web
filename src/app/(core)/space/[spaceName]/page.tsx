@@ -6,5 +6,5 @@ export default function Page() {
     const params = useParams();
     const { spaceName } = params;
 
-    return <div>{spaceName} Page</div>;
+    return <div className="p-5">{spaceName} Page</div>;
 }
