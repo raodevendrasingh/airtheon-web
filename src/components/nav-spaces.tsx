@@ -57,13 +57,13 @@ export function NavSpaces() {
 
     return (
         <SidebarGroup>
-            <SidebarGroupLabel className="flex items-center justify-between hover:bg-muted">
-                <span>Spaces</span>
+            <SidebarGroupLabel className="flex items-center justify-between">
+                <span className="select-none">Spaces</span>
                 <span
                     className="cursor-pointer"
                     onClick={() => openDialog("space")}
                 >
-                    <SquarePlus size={18} className="text-muted-foreground" />
+                    <SquarePlus size={18} className="text-muted-foreground hover:text-accent-foreground transition-colors" />
                 </span>
             </SidebarGroupLabel>
             <SidebarMenu>

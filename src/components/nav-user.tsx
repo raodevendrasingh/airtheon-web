@@ -37,7 +37,7 @@ export function NavUser() {
 
     const handleLogout = () => {
         signOut();
-        router.push("/");
+        router.replace("/");
     };
 
     return (
@@ -73,9 +73,9 @@ export function NavUser() {
                         </SidebarMenuButton>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent
-                        className="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg"
+                        className="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-xl"
+                        align="start"
                         side="bottom"
-                        align="end"
                         sideOffset={4}
                     >
                         <DropdownMenuLabel className="p-0 font-normal">

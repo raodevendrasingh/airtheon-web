@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/tooltip";
 
 import { cn } from "@/lib/utils";
-import { ArrowUpRight, Bell, BellOff, CheckCheck } from "lucide-react";
+import { ArrowUpRight, Bell, BellOff, CheckCheck, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { dummyNotifications } from "@/DATA/dummy-notifications";
 import { NotificationCard } from "@/components/notification-card";
@@ -58,9 +58,7 @@ export const NotificationMenu = () => {
                                             <TooltipTrigger>
                                                 <CheckCheck
                                                     size={19}
-                                                    className={cn(
-                                                        "text-muted-foreground",
-                                                    )}
+                                                    className="text-muted-foreground hover:text-accent-foreground transition-colors"
                                                 />
                                             </TooltipTrigger>
                                             <TooltipContent side="bottom">
@@ -77,9 +75,7 @@ export const NotificationMenu = () => {
                                             <TooltipTrigger>
                                                 <ArrowUpRight
                                                     size={19}
-                                                    className={cn(
-                                                        "text-muted-foreground",
-                                                    )}
+                                                    className="text-muted-foreground hover:text-accent-foreground transition-colors"
                                                 />
                                             </TooltipTrigger>
                                             <TooltipContent side="bottom">
@@ -88,6 +84,12 @@ export const NotificationMenu = () => {
                                         </Tooltip>
                                     </TooltipProvider>
                                 </Link>
+                            </SheetClose>
+                            <SheetClose asChild>
+                                <X
+                                    size={19}
+                                    className="text-muted-foreground hover:text-accent-foreground transition-colors cursor-pointer"
+                                />
                             </SheetClose>
                         </span>
                     </Label>

@@ -14,7 +14,7 @@ export const MenuButton = ({ icon: Icon, text, onClick }: MenuButtonProps) => (
         variant="ghost"
         className={cn(
             "flex flex-col items-center justify-center p-4 h-auto gap-2",
-            "transition-colors duration-200",
+            "transition-colors",
             "hover:bg-muted",
             "rounded-xl border border-border",
         )}

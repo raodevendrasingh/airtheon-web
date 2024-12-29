@@ -41,7 +41,7 @@ export function NavFavourite({
 
     return (
         <SidebarGroup>
-            <SidebarGroupLabel>Favourites</SidebarGroupLabel>
+            <SidebarGroupLabel className="select-none">Favourites</SidebarGroupLabel>
             <SidebarMenu>
                 {favourites.map((item) => (
                     <SidebarMenuItem key={item.name}>
