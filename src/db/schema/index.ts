@@ -7,3 +7,4 @@ export * from "./billing";
 export * from "./security";
 export * from "./enums";
 export * from "./plugins";
+export * from "./waitlist";
