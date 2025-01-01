@@ -20,6 +20,21 @@ const adminRoutes = ["/admin"];
 
 export async function middleware(request: NextRequest) {
     const pathName = request.nextUrl.pathname;
+    const hostname = request.headers.get("host");
+
+    const baseDomain = process.env.NEXT_PUBLIC_BASE_DOMAIN;
+    const helpDomain = process.env.NEXT_PUBLIC_HELP_DOMAIN;
+
+    if (pathName.startsWith("/legal") && hostname === baseDomain) {
+        return NextResponse.rewrite(new URL("/not-found", request.url));
+    }
+
+    if (hostname?.startsWith("help.")) {
+        if (!pathName.startsWith("/legal")) {
+            return NextResponse.redirect(new URL("/legal", request.url));
+        }
+        return NextResponse.next();
+    }
 
     const isPrivateRoute = privateRoutes.some((route) => {
         return route.endsWith("/*")
