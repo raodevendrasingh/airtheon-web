@@ -11,9 +11,9 @@ export async function sendVerificationEmail({
 }) {
     try {
         const { data, error } = await resend.emails.send({
-            from: "Nostra <no-reply@gradhunt.tech>",
+            from: "Airtheon <no-reply@airtheon.com>",
             to: email,
-            subject: "Nostra | Verify Your Email",
+            subject: "Airtheon | Verify Your Email",
             react: EmailTemplate({ email, otp }),
         });
         if (error) {

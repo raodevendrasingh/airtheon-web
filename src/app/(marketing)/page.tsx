@@ -1,11 +1,44 @@
+"use client";
+
 import { Navbar } from "@/app/(marketing)/_components/navbar";
 import { Footer } from "@/app/(marketing)/_components/footer";
 import { AnimatedCircles } from "@/components/ui/animated-circles";
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { waitlistSchema } from "@/lib/authSchema";
+import { z } from "zod";
+import {
+    Form,
+    FormControl,
+    FormField,
+    FormItem,
+    FormMessage,
+} from "@/components/ui/form";
+import { LoadingButton } from "@/components/LoadingButton";
 
 export default function HomePage() {
+    const [pending, setPending] = useState<boolean>(false);
+
+    const form = useForm<z.infer<typeof waitlistSchema>>({
+        resolver: zodResolver(waitlistSchema),
+        defaultValues: {
+            email: "",
+        },
+    });
+
+    const onSubmit = async (values: z.infer<typeof waitlistSchema>) => {
+        try {
+            setPending(true);
+        } catch (error) {
+            console.error("Unexpected Error: ", error);
+        } finally {
+            setPending(false);
+        }
+    };
+
     return (
         <div className="relative min-h-screen flex flex-col">
             <Navbar />
@@ -24,19 +57,35 @@ export default function HomePage() {
                             </p>
                         </div>
                         <div className="mx-auto w-full max-w-sm space-y-2">
-                            <form className="flex flex-col space-y-2 sm:flex-row sm:space-y-0 sm:space-x-2">
-                                <Input
-                                    type="email"
-                                    placeholder="Enter your email"
-                                    className="w-full py-3 md:py-[19px] sm:max-w-lg flex-1 bg-accent"
-                                />
-                                <Button
-                                    type="submit"
-                                    className="w-full sm:w-auto"
-                                >
-                                    Join Waitlist
-                                </Button>
-                            </form>
+                            <Form {...form}>
+                                <form onSubmit={form.handleSubmit(onSubmit)}>
+                                    <div className="flex flex-col space-y-2 sm:flex-row sm:space-y-0 sm:space-x-2">
+                                        <FormField
+                                            control={form.control}
+                                            name="email"
+                                            render={({ field }) => (
+                                                <FormItem>
+                                                    <FormControl>
+                                                        <Input
+                                                            placeholder="Enter your email"
+                                                            className="w-full py-3 md:py-[19px] sm:max-w-lg flex-1 bg-accent"
+                                                            {...field}
+                                                        />
+                                                    </FormControl>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )}
+                                        />
+
+                                        <LoadingButton
+                                            pending={pending}
+                                            className="w-full sm:w-auto"
+                                        >
+                                            Join Waitlist
+                                        </LoadingButton>
+                                    </div>
+                                </form>
+                            </Form>
                             <p className="text-xs text-muted-foreground">
                                 Join the waitlist to get early access.{" "}
                                 <Link

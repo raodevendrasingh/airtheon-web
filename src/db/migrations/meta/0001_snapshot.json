@@ -1,2510 +1,2340 @@
 {
-  "id": "541cef6f-7905-4d83-91a2-988a3ee8d0d0",
-  "prevId": "9a72d45c-202b-4175-ac5c-26fbb79c6dcd",
-  "version": "7",
-  "dialect": "postgresql",
-  "tables": {
-    "public.account": {
-      "name": "account",
-      "schema": "",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "text",
-          "primaryKey": true,
-          "notNull": true
-        },
-        "accountId": {
-          "name": "accountId",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "providerId": {
-          "name": "providerId",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "userId": {
-          "name": "userId",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "accessToken": {
-          "name": "accessToken",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "refreshToken": {
-          "name": "refreshToken",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "idToken": {
-          "name": "idToken",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "accessTokenExpiresAt": {
-          "name": "accessTokenExpiresAt",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "refreshTokenExpiresAt": {
-          "name": "refreshTokenExpiresAt",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "scope": {
-          "name": "scope",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "password": {
-          "name": "password",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "createdAt": {
-          "name": "createdAt",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "now()"
-        },
-        "updatedAt": {
-          "name": "updatedAt",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "now()"
-        }
-      },
-      "indexes": {
-        "account_userIdIdx": {
-          "name": "account_userIdIdx",
-          "columns": [
-            {
-              "expression": "userId",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        }
-      },
-      "foreignKeys": {
-        "account_userId_user_id_fk": {
-          "name": "account_userId_user_id_fk",
-          "tableFrom": "account",
-          "tableTo": "user",
-          "columnsFrom": [
-            "userId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "policies": {},
-      "checkConstraints": {},
-      "isRLSEnabled": false
-    },
-    "public.session": {
-      "name": "session",
-      "schema": "",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "text",
-          "primaryKey": true,
-          "notNull": true
-        },
-        "expiresAt": {
-          "name": "expiresAt",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "token": {
-          "name": "token",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "activeOrganizationId": {
-          "name": "activeOrganizationId",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "createdAt": {
-          "name": "createdAt",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "now()"
-        },
-        "updatedAt": {
-          "name": "updatedAt",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "now()"
-        },
-        "ipAddress": {
-          "name": "ipAddress",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "userAgent": {
-          "name": "userAgent",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "userId": {
-          "name": "userId",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        }
-      },
-      "indexes": {
-        "session_userIdIdx": {
-          "name": "session_userIdIdx",
-          "columns": [
-            {
-              "expression": "userId",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        }
-      },
-      "foreignKeys": {
-        "session_userId_user_id_fk": {
-          "name": "session_userId_user_id_fk",
-          "tableFrom": "session",
-          "tableTo": "user",
-          "columnsFrom": [
-            "userId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {
-        "session_token_unique": {
-          "name": "session_token_unique",
-          "nullsNotDistinct": false,
-          "columns": [
-            "token"
-          ]
-        }
-      },
-      "policies": {},
-      "checkConstraints": {},
-      "isRLSEnabled": false
-    },
-    "public.user": {
-      "name": "user",
-      "schema": "",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "text",
-          "primaryKey": true,
-          "notNull": true
-        },
-        "name": {
-          "name": "name",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "email": {
-          "name": "email",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "emailVerified": {
-          "name": "emailVerified",
-          "type": "boolean",
-          "primaryKey": false,
-          "notNull": true,
-          "default": false
-        },
-        "image": {
-          "name": "image",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "role": {
-          "name": "role",
-          "type": "roleEnum",
-          "typeSchema": "public",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "'member'"
-        },
-        "isOnboarded": {
-          "name": "isOnboarded",
-          "type": "boolean",
-          "primaryKey": false,
-          "notNull": true,
-          "default": false
-        },
-        "createdAt": {
-          "name": "createdAt",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "now()"
-        },
-        "updatedAt": {
-          "name": "updatedAt",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "now()"
-        },
-        "deletedAt": {
-          "name": "deletedAt",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": false
-        }
-      },
-      "indexes": {
-        "user_emailIdx": {
-          "name": "user_emailIdx",
-          "columns": [
-            {
-              "expression": "email",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        }
-      },
-      "foreignKeys": {},
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {
-        "user_email_unique": {
-          "name": "user_email_unique",
-          "nullsNotDistinct": false,
-          "columns": [
-            "email"
-          ]
-        }
-      },
-      "policies": {},
-      "checkConstraints": {},
-      "isRLSEnabled": false
-    },
-    "public.verification": {
-      "name": "verification",
-      "schema": "",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "text",
-          "primaryKey": true,
-          "notNull": true
-        },
-        "identifier": {
-          "name": "identifier",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "value": {
-          "name": "value",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "expiresAt": {
-          "name": "expiresAt",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "createdAt": {
-          "name": "createdAt",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": false,
-          "default": "now()"
-        },
-        "updatedAt": {
-          "name": "updatedAt",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": false,
-          "default": "now()"
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {},
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "policies": {},
-      "checkConstraints": {},
-      "isRLSEnabled": false
-    },
-    "public.invitation": {
-      "name": "invitation",
-      "schema": "",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "text",
-          "primaryKey": true,
-          "notNull": true
-        },
-        "organizationId": {
-          "name": "organizationId",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "email": {
-          "name": "email",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "role": {
-          "name": "role",
-          "type": "roleEnum",
-          "typeSchema": "public",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "status": {
-          "name": "status",
-          "type": "statusEnum",
-          "typeSchema": "public",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "'pending'"
-        },
-        "expiresAt": {
-          "name": "expiresAt",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "inviterId": {
-          "name": "inviterId",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        }
-      },
-      "indexes": {
-        "orgEmailIdx": {
-          "name": "orgEmailIdx",
-          "columns": [
-            {
-              "expression": "organizationId",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
+    "id": "541cef6f-7905-4d83-91a2-988a3ee8d0d0",
+    "prevId": "9a72d45c-202b-4175-ac5c-26fbb79c6dcd",
+    "version": "7",
+    "dialect": "postgresql",
+    "tables": {
+        "public.account": {
+            "name": "account",
+            "schema": "",
+            "columns": {
+                "id": {
+                    "name": "id",
+                    "type": "text",
+                    "primaryKey": true,
+                    "notNull": true
+                },
+                "accountId": {
+                    "name": "accountId",
+                    "type": "text",
+                    "primaryKey": false,
+                    "notNull": true
+                },
+                "providerId": {
+                    "name": "providerId",
+                    "type": "text",
+                    "primaryKey": false,
+                    "notNull": true
+                },
+                "userId": {
+                    "name": "userId",
+                    "type": "text",
+                    "primaryKey": false,
+                    "notNull": true
+                },
+                "accessToken": {
+                    "name": "accessToken",
+                    "type": "text",
+                    "primaryKey": false,
+                    "notNull": false
+                },
+                "refreshToken": {
+                    "name": "refreshToken",
+                    "type": "text",
+                    "primaryKey": false,
+                    "notNull": false
+                },
+                "idToken": {
+                    "name": "idToken",
+                    "type": "text",
+                    "primaryKey": false,
+                    "notNull": false
+                },
+                "accessTokenExpiresAt": {
+                    "name": "accessTokenExpiresAt",
+                    "type": "timestamp",
+                    "primaryKey": false,
+                    "notNull": false
+                },
+                "refreshTokenExpiresAt": {
+                    "name": "refreshTokenExpiresAt",
+                    "type": "timestamp",
+                    "primaryKey": false,
+                    "notNull": false
+                },
+                "scope": {
+                    "name": "scope",
+                    "type": "text",
+                    "primaryKey": false,
+                    "notNull": false
+                },
+                "password": {
+                    "name": "password",
+                    "type": "text",
+                    "primaryKey": false,
+                    "notNull": false
+                },
+                "createdAt": {
+                    "name": "createdAt",
+                    "type": "timestamp",
+                    "primaryKey": false,
+                    "notNull": true,
+                    "default": "now()"
+                },
+                "updatedAt": {
+                    "name": "updatedAt",
+                    "type": "timestamp",
+                    "primaryKey": false,
+                    "notNull": true,
+                    "default": "now()"
+                }
             },
-            {
-              "expression": "email",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        }
-      },
-      "foreignKeys": {
-        "invitation_organizationId_organization_id_fk": {
-          "name": "invitation_organizationId_organization_id_fk",
-          "tableFrom": "invitation",
-          "tableTo": "organization",
-          "columnsFrom": [
-            "organizationId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
-        },
-        "invitation_inviterId_user_id_fk": {
-          "name": "invitation_inviterId_user_id_fk",
-          "tableFrom": "invitation",
-          "tableTo": "user",
-          "columnsFrom": [
-            "inviterId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "policies": {},
-      "checkConstraints": {},
-      "isRLSEnabled": false
-    },
-    "public.member": {
-      "name": "member",
-      "schema": "",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "text",
-          "primaryKey": true,
-          "notNull": true
-        },
-        "organizationId": {
-          "name": "organizationId",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "userId": {
-          "name": "userId",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "role": {
-          "name": "role",
-          "type": "roleEnum",
-          "typeSchema": "public",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "createdAt": {
-          "name": "createdAt",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "now()"
-        }
-      },
-      "indexes": {
-        "orgUserIdx": {
-          "name": "orgUserIdx",
-          "columns": [
-            {
-              "expression": "organizationId",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
+            "indexes": {
+                "account_userIdIdx": {
+                    "name": "account_userIdIdx",
+                    "columns": [
+                        {
+                            "expression": "userId",
+                            "isExpression": false,
+                            "asc": true,
+                            "nulls": "last"
+                        }
+                    ],
+                    "isUnique": false,
+                    "concurrently": false,
+                    "method": "btree",
+                    "with": {}
+                }
             },
-            {
-              "expression": "userId",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        }
-      },
-      "foreignKeys": {
-        "member_organizationId_organization_id_fk": {
-          "name": "member_organizationId_organization_id_fk",
-          "tableFrom": "member",
-          "tableTo": "organization",
-          "columnsFrom": [
-            "organizationId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
-        },
-        "member_userId_user_id_fk": {
-          "name": "member_userId_user_id_fk",
-          "tableFrom": "member",
-          "tableTo": "user",
-          "columnsFrom": [
-            "userId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "policies": {},
-      "checkConstraints": {},
-      "isRLSEnabled": false
-    },
-    "public.organization": {
-      "name": "organization",
-      "schema": "",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "text",
-          "primaryKey": true,
-          "notNull": true
-        },
-        "name": {
-          "name": "name",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "slug": {
-          "name": "slug",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "logo": {
-          "name": "logo",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "createdAt": {
-          "name": "createdAt",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "now()"
-        },
-        "createdBy": {
-          "name": "createdBy",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "metadata": {
-          "name": "metadata",
-          "type": "json",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "deletedAt": {
-          "name": "deletedAt",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": false
-        }
-      },
-      "indexes": {
-        "slugIdx": {
-          "name": "slugIdx",
-          "columns": [
-            {
-              "expression": "slug",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        }
-      },
-      "foreignKeys": {
-        "organization_createdBy_user_id_fk": {
-          "name": "organization_createdBy_user_id_fk",
-          "tableFrom": "organization",
-          "tableTo": "user",
-          "columnsFrom": [
-            "createdBy"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {
-        "organization_slug_unique": {
-          "name": "organization_slug_unique",
-          "nullsNotDistinct": false,
-          "columns": [
-            "slug"
-          ]
-        }
-      },
-      "policies": {},
-      "checkConstraints": {},
-      "isRLSEnabled": false
-    },
-    "public.space": {
-      "name": "space",
-      "schema": "",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "text",
-          "primaryKey": true,
-          "notNull": true
-        },
-        "workspaceId": {
-          "name": "workspaceId",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "name": {
-          "name": "name",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "logo": {
-          "name": "logo",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "description": {
-          "name": "description",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "createdBy": {
-          "name": "createdBy",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "createdAt": {
-          "name": "createdAt",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "now()"
-        },
-        "updatedAt": {
-          "name": "updatedAt",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "now()"
-        },
-        "deletedAt": {
-          "name": "deletedAt",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": false
-        }
-      },
-      "indexes": {
-        "workspaceIdIdx": {
-          "name": "workspaceIdIdx",
-          "columns": [
-            {
-              "expression": "workspaceId",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        }
-      },
-      "foreignKeys": {
-        "space_workspaceId_organization_id_fk": {
-          "name": "space_workspaceId_organization_id_fk",
-          "tableFrom": "space",
-          "tableTo": "organization",
-          "columnsFrom": [
-            "workspaceId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
-        },
-        "space_createdBy_user_id_fk": {
-          "name": "space_createdBy_user_id_fk",
-          "tableFrom": "space",
-          "tableTo": "user",
-          "columnsFrom": [
-            "createdBy"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "policies": {},
-      "checkConstraints": {},
-      "isRLSEnabled": false
-    },
-    "public.workspaceSettings": {
-      "name": "workspaceSettings",
-      "schema": "",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "text",
-          "primaryKey": true,
-          "notNull": true
-        },
-        "workspaceId": {
-          "name": "workspaceId",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "defaultSpaceId": {
-          "name": "defaultSpaceId",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "allowMemberInvitations": {
-          "name": "allowMemberInvitations",
-          "type": "boolean",
-          "primaryKey": false,
-          "notNull": false,
-          "default": true
-        },
-        "activityLogsEnabled": {
-          "name": "activityLogsEnabled",
-          "type": "boolean",
-          "primaryKey": false,
-          "notNull": false,
-          "default": true
-        },
-        "createdAt": {
-          "name": "createdAt",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "now()"
-        },
-        "updatedAt": {
-          "name": "updatedAt",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "now()"
-        }
-      },
-      "indexes": {
-        "settings_workspaceId_idx": {
-          "name": "settings_workspaceId_idx",
-          "columns": [
-            {
-              "expression": "workspaceId",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        }
-      },
-      "foreignKeys": {
-        "workspaceSettings_workspaceId_organization_id_fk": {
-          "name": "workspaceSettings_workspaceId_organization_id_fk",
-          "tableFrom": "workspaceSettings",
-          "tableTo": "organization",
-          "columnsFrom": [
-            "workspaceId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
-        },
-        "workspaceSettings_defaultSpaceId_space_id_fk": {
-          "name": "workspaceSettings_defaultSpaceId_space_id_fk",
-          "tableFrom": "workspaceSettings",
-          "tableTo": "space",
-          "columnsFrom": [
-            "defaultSpaceId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "policies": {},
-      "checkConstraints": {},
-      "isRLSEnabled": false
-    },
-    "public.discardedMemory": {
-      "name": "discardedMemory",
-      "schema": "",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "text",
-          "primaryKey": true,
-          "notNull": true
-        },
-        "originalMemoryId": {
-          "name": "originalMemoryId",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "spaceId": {
-          "name": "spaceId",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "type": {
-          "name": "type",
-          "type": "memoryTypeEnum",
-          "typeSchema": "public",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "content": {
-          "name": "content",
-          "type": "json",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "metadata": {
-          "name": "metadata",
-          "type": "json",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "discardedBy": {
-          "name": "discardedBy",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "discardedAt": {
-          "name": "discardedAt",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "now()"
-        },
-        "expirationAt": {
-          "name": "expirationAt",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": true
-        }
-      },
-      "indexes": {
-        "discardedMemory_spaceIdIdx": {
-          "name": "discardedMemory_spaceIdIdx",
-          "columns": [
-            {
-              "expression": "spaceId",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        }
-      },
-      "foreignKeys": {
-        "discardedMemory_originalMemoryId_memory_id_fk": {
-          "name": "discardedMemory_originalMemoryId_memory_id_fk",
-          "tableFrom": "discardedMemory",
-          "tableTo": "memory",
-          "columnsFrom": [
-            "originalMemoryId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
-        },
-        "discardedMemory_spaceId_space_id_fk": {
-          "name": "discardedMemory_spaceId_space_id_fk",
-          "tableFrom": "discardedMemory",
-          "tableTo": "space",
-          "columnsFrom": [
-            "spaceId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
-        },
-        "discardedMemory_discardedBy_user_id_fk": {
-          "name": "discardedMemory_discardedBy_user_id_fk",
-          "tableFrom": "discardedMemory",
-          "tableTo": "user",
-          "columnsFrom": [
-            "discardedBy"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "policies": {},
-      "checkConstraints": {},
-      "isRLSEnabled": false
-    },
-    "public.media": {
-      "name": "media",
-      "schema": "",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "text",
-          "primaryKey": true,
-          "notNull": true
-        },
-        "memoryId": {
-          "name": "memoryId",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "filePath": {
-          "name": "filePath",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "fileType": {
-          "name": "fileType",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "fileSize": {
-          "name": "fileSize",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "extractedText": {
-          "name": "extractedText",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "createdAt": {
-          "name": "createdAt",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "now()"
-        },
-        "updatedAt": {
-          "name": "updatedAt",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "now()"
-        }
-      },
-      "indexes": {
-        "memoryIdIdx": {
-          "name": "memoryIdIdx",
-          "columns": [
-            {
-              "expression": "memoryId",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        }
-      },
-      "foreignKeys": {
-        "media_memoryId_memory_id_fk": {
-          "name": "media_memoryId_memory_id_fk",
-          "tableFrom": "media",
-          "tableTo": "memory",
-          "columnsFrom": [
-            "memoryId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "policies": {},
-      "checkConstraints": {},
-      "isRLSEnabled": false
-    },
-    "public.memory": {
-      "name": "memory",
-      "schema": "",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "text",
-          "primaryKey": true,
-          "notNull": true
-        },
-        "spaceId": {
-          "name": "spaceId",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "type": {
-          "name": "type",
-          "type": "memoryTypeEnum",
-          "typeSchema": "public",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "content": {
-          "name": "content",
-          "type": "json",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "metadata": {
-          "name": "metadata",
-          "type": "json",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "extractedText": {
-          "name": "extractedText",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "vectorId": {
-          "name": "vectorId",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "createdBy": {
-          "name": "createdBy",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "createdAt": {
-          "name": "createdAt",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "now()"
-        },
-        "updatedAt": {
-          "name": "updatedAt",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "now()"
-        },
-        "deletedAt": {
-          "name": "deletedAt",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": false
-        }
-      },
-      "indexes": {
-        "spaceIdIdx": {
-          "name": "spaceIdIdx",
-          "columns": [
-            {
-              "expression": "spaceId",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        }
-      },
-      "foreignKeys": {
-        "memory_spaceId_space_id_fk": {
-          "name": "memory_spaceId_space_id_fk",
-          "tableFrom": "memory",
-          "tableTo": "space",
-          "columnsFrom": [
-            "spaceId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
-        },
-        "memory_createdBy_user_id_fk": {
-          "name": "memory_createdBy_user_id_fk",
-          "tableFrom": "memory",
-          "tableTo": "user",
-          "columnsFrom": [
-            "createdBy"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "policies": {},
-      "checkConstraints": {},
-      "isRLSEnabled": false
-    },
-    "public.tags": {
-      "name": "tags",
-      "schema": "",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "text",
-          "primaryKey": true,
-          "notNull": true
-        },
-        "name": {
-          "name": "name",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "workspaceId": {
-          "name": "workspaceId",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "createdAt": {
-          "name": "createdAt",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "now()"
-        },
-        "updatedAt": {
-          "name": "updatedAt",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "now()"
-        }
-      },
-      "indexes": {
-        "workspaceTagIdx": {
-          "name": "workspaceTagIdx",
-          "columns": [
-            {
-              "expression": "workspaceId",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
+            "foreignKeys": {
+                "account_userId_user_id_fk": {
+                    "name": "account_userId_user_id_fk",
+                    "tableFrom": "account",
+                    "tableTo": "user",
+                    "columnsFrom": ["userId"],
+                    "columnsTo": ["id"],
+                    "onDelete": "cascade",
+                    "onUpdate": "no action"
+                }
             },
-            {
-              "expression": "name",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
+            "compositePrimaryKeys": {},
+            "uniqueConstraints": {},
+            "policies": {},
+            "checkConstraints": {},
+            "isRLSEnabled": false
+        },
+        "public.session": {
+            "name": "session",
+            "schema": "",
+            "columns": {
+                "id": {
+                    "name": "id",
+                    "type": "text",
+                    "primaryKey": true,
+                    "notNull": true
+                },
+                "expiresAt": {
+                    "name": "expiresAt",
+                    "type": "timestamp",
+                    "primaryKey": false,
+                    "notNull": true
+                },
+                "token": {
+                    "name": "token",
+                    "type": "text",
+                    "primaryKey": false,
+                    "notNull": true
+                },
+                "activeOrganizationId": {
+                    "name": "activeOrganizationId",
+                    "type": "text",
+                    "primaryKey": false,
+                    "notNull": false
+                },
+                "createdAt": {
+                    "name": "createdAt",
+                    "type": "timestamp",
+                    "primaryKey": false,
+                    "notNull": true,
+                    "default": "now()"
+                },
+                "updatedAt": {
+                    "name": "updatedAt",
+                    "type": "timestamp",
+                    "primaryKey": false,
+                    "notNull": true,
+                    "default": "now()"
+                },
+                "ipAddress": {
+                    "name": "ipAddress",
+                    "type": "text",
+                    "primaryKey": false,
+                    "notNull": false
+                },
+                "userAgent": {
+                    "name": "userAgent",
+                    "type": "text",
+                    "primaryKey": false,
+                    "notNull": false
+                },
+                "userId": {
+                    "name": "userId",
+                    "type": "text",
+                    "primaryKey": false,
+                    "notNull": true
+                }
+            },
+            "indexes": {
+                "session_userIdIdx": {
+                    "name": "session_userIdIdx",
+                    "columns": [
+                        {
+                            "expression": "userId",
+                            "isExpression": false,
+                            "asc": true,
+                            "nulls": "last"
+                        }
+                    ],
+                    "isUnique": false,
+                    "concurrently": false,
+                    "method": "btree",
+                    "with": {}
+                }
+            },
+            "foreignKeys": {
+                "session_userId_user_id_fk": {
+                    "name": "session_userId_user_id_fk",
+                    "tableFrom": "session",
+                    "tableTo": "user",
+                    "columnsFrom": ["userId"],
+                    "columnsTo": ["id"],
+                    "onDelete": "cascade",
+                    "onUpdate": "no action"
+                }
+            },
+            "compositePrimaryKeys": {},
+            "uniqueConstraints": {
+                "session_token_unique": {
+                    "name": "session_token_unique",
+                    "nullsNotDistinct": false,
+                    "columns": ["token"]
+                }
+            },
+            "policies": {},
+            "checkConstraints": {},
+            "isRLSEnabled": false
+        },
+        "public.user": {
+            "name": "user",
+            "schema": "",
+            "columns": {
+                "id": {
+                    "name": "id",
+                    "type": "text",
+                    "primaryKey": true,
+                    "notNull": true
+                },
+                "name": {
+                    "name": "name",
+                    "type": "text",
+                    "primaryKey": false,
+                    "notNull": true
+                },
+                "email": {
+                    "name": "email",
+                    "type": "text",
+                    "primaryKey": false,
+                    "notNull": true
+                },
+                "emailVerified": {
+                    "name": "emailVerified",
+                    "type": "boolean",
+                    "primaryKey": false,
+                    "notNull": true,
+                    "default": false
+                },
+                "image": {
+                    "name": "image",
+                    "type": "text",
+                    "primaryKey": false,
+                    "notNull": false
+                },
+                "role": {
+                    "name": "role",
+                    "type": "roleEnum",
+                    "typeSchema": "public",
+                    "primaryKey": false,
+                    "notNull": true,
+                    "default": "'member'"
+                },
+                "isOnboarded": {
+                    "name": "isOnboarded",
+                    "type": "boolean",
+                    "primaryKey": false,
+                    "notNull": true,
+                    "default": false
+                },
+                "createdAt": {
+                    "name": "createdAt",
+                    "type": "timestamp",
+                    "primaryKey": false,
+                    "notNull": true,
+                    "default": "now()"
+                },
+                "updatedAt": {
+                    "name": "updatedAt",
+                    "type": "timestamp",
+                    "primaryKey": false,
+                    "notNull": true,
+                    "default": "now()"
+                },
+                "deletedAt": {
+                    "name": "deletedAt",
+                    "type": "timestamp",
+                    "primaryKey": false,
+                    "notNull": false
+                }
+            },
+            "indexes": {
+                "user_emailIdx": {
+                    "name": "user_emailIdx",
+                    "columns": [
+                        {
+                            "expression": "email",
+                            "isExpression": false,
+                            "asc": true,
+                            "nulls": "last"
+                        }
+                    ],
+                    "isUnique": false,
+                    "concurrently": false,
+                    "method": "btree",
+                    "with": {}
+                }
+            },
+            "foreignKeys": {},
+            "compositePrimaryKeys": {},
+            "uniqueConstraints": {
+                "user_email_unique": {
+                    "name": "user_email_unique",
+                    "nullsNotDistinct": false,
+                    "columns": ["email"]
+                }
+            },
+            "policies": {},
+            "checkConstraints": {},
+            "isRLSEnabled": false
+        },
+        "public.verification": {
+            "name": "verification",
+            "schema": "",
+            "columns": {
+                "id": {
+                    "name": "id",
+                    "type": "text",
+                    "primaryKey": true,
+                    "notNull": true
+                },
+                "identifier": {
+                    "name": "identifier",
+                    "type": "text",
+                    "primaryKey": false,
+                    "notNull": true
+                },
+                "value": {
+                    "name": "value",
+                    "type": "text",
+                    "primaryKey": false,
+                    "notNull": true
+                },
+                "expiresAt": {
+                    "name": "expiresAt",
+                    "type": "timestamp",
+                    "primaryKey": false,
+                    "notNull": true
+                },
+                "createdAt": {
+                    "name": "createdAt",
+                    "type": "timestamp",
+                    "primaryKey": false,
+                    "notNull": false,
+                    "default": "now()"
+                },
+                "updatedAt": {
+                    "name": "updatedAt",
+                    "type": "timestamp",
+                    "primaryKey": false,
+                    "notNull": false,
+                    "default": "now()"
+                }
+            },
+            "indexes": {},
+            "foreignKeys": {},
+            "compositePrimaryKeys": {},
+            "uniqueConstraints": {},
+            "policies": {},
+            "checkConstraints": {},
+            "isRLSEnabled": false
+        },
+        "public.invitation": {
+            "name": "invitation",
+            "schema": "",
+            "columns": {
+                "id": {
+                    "name": "id",
+                    "type": "text",
+                    "primaryKey": true,
+                    "notNull": true
+                },
+                "organizationId": {
+                    "name": "organizationId",
+                    "type": "text",
+                    "primaryKey": false,
+                    "notNull": true
+                },
+                "email": {
+                    "name": "email",
+                    "type": "text",
+                    "primaryKey": false,
+                    "notNull": true
+                },
+                "role": {
+                    "name": "role",
+                    "type": "roleEnum",
+                    "typeSchema": "public",
+                    "primaryKey": false,
+                    "notNull": false
+                },
+                "status": {
+                    "name": "status",
+                    "type": "statusEnum",
+                    "typeSchema": "public",
+                    "primaryKey": false,
+                    "notNull": true,
+                    "default": "'pending'"
+                },
+                "expiresAt": {
+                    "name": "expiresAt",
+                    "type": "timestamp",
+                    "primaryKey": false,
+                    "notNull": true
+                },
+                "inviterId": {
+                    "name": "inviterId",
+                    "type": "text",
+                    "primaryKey": false,
+                    "notNull": true
+                }
+            },
+            "indexes": {
+                "orgEmailIdx": {
+                    "name": "orgEmailIdx",
+                    "columns": [
+                        {
+                            "expression": "organizationId",
+                            "isExpression": false,
+                            "asc": true,
+                            "nulls": "last"
+                        },
+                        {
+                            "expression": "email",
+                            "isExpression": false,
+                            "asc": true,
+                            "nulls": "last"
+                        }
+                    ],
+                    "isUnique": false,
+                    "concurrently": false,
+                    "method": "btree",
+                    "with": {}
+                }
+            },
+            "foreignKeys": {
+                "invitation_organizationId_organization_id_fk": {
+                    "name": "invitation_organizationId_organization_id_fk",
+                    "tableFrom": "invitation",
+                    "tableTo": "organization",
+                    "columnsFrom": ["organizationId"],
+                    "columnsTo": ["id"],
+                    "onDelete": "cascade",
+                    "onUpdate": "no action"
+                },
+                "invitation_inviterId_user_id_fk": {
+                    "name": "invitation_inviterId_user_id_fk",
+                    "tableFrom": "invitation",
+                    "tableTo": "user",
+                    "columnsFrom": ["inviterId"],
+                    "columnsTo": ["id"],
+                    "onDelete": "no action",
+                    "onUpdate": "no action"
+                }
+            },
+            "compositePrimaryKeys": {},
+            "uniqueConstraints": {},
+            "policies": {},
+            "checkConstraints": {},
+            "isRLSEnabled": false
+        },
+        "public.member": {
+            "name": "member",
+            "schema": "",
+            "columns": {
+                "id": {
+                    "name": "id",
+                    "type": "text",
+                    "primaryKey": true,
+                    "notNull": true
+                },
+                "organizationId": {
+                    "name": "organizationId",
+                    "type": "text",
+                    "primaryKey": false,
+                    "notNull": true
+                },
+                "userId": {
+                    "name": "userId",
+                    "type": "text",
+                    "primaryKey": false,
+                    "notNull": true
+                },
+                "role": {
+                    "name": "role",
+                    "type": "roleEnum",
+                    "typeSchema": "public",
+                    "primaryKey": false,
+                    "notNull": true
+                },
+                "createdAt": {
+                    "name": "createdAt",
+                    "type": "timestamp",
+                    "primaryKey": false,
+                    "notNull": true,
+                    "default": "now()"
+                }
+            },
+            "indexes": {
+                "orgUserIdx": {
+                    "name": "orgUserIdx",
+                    "columns": [
+                        {
+                            "expression": "organizationId",
+                            "isExpression": false,
+                            "asc": true,
+                            "nulls": "last"
+                        },
+                        {
+                            "expression": "userId",
+                            "isExpression": false,
+                            "asc": true,
+                            "nulls": "last"
+                        }
+                    ],
+                    "isUnique": false,
+                    "concurrently": false,
+                    "method": "btree",
+                    "with": {}
+                }
+            },
+            "foreignKeys": {
+                "member_organizationId_organization_id_fk": {
+                    "name": "member_organizationId_organization_id_fk",
+                    "tableFrom": "member",
+                    "tableTo": "organization",
+                    "columnsFrom": ["organizationId"],
+                    "columnsTo": ["id"],
+                    "onDelete": "cascade",
+                    "onUpdate": "no action"
+                },
+                "member_userId_user_id_fk": {
+                    "name": "member_userId_user_id_fk",
+                    "tableFrom": "member",
+                    "tableTo": "user",
+                    "columnsFrom": ["userId"],
+                    "columnsTo": ["id"],
+                    "onDelete": "cascade",
+                    "onUpdate": "no action"
+                }
+            },
+            "compositePrimaryKeys": {},
+            "uniqueConstraints": {},
+            "policies": {},
+            "checkConstraints": {},
+            "isRLSEnabled": false
+        },
+        "public.organization": {
+            "name": "organization",
+            "schema": "",
+            "columns": {
+                "id": {
+                    "name": "id",
+                    "type": "text",
+                    "primaryKey": true,
+                    "notNull": true
+                },
+                "name": {
+                    "name": "name",
+                    "type": "text",
+                    "primaryKey": false,
+                    "notNull": true
+                },
+                "slug": {
+                    "name": "slug",
+                    "type": "text",
+                    "primaryKey": false,
+                    "notNull": false
+                },
+                "logo": {
+                    "name": "logo",
+                    "type": "text",
+                    "primaryKey": false,
+                    "notNull": false
+                },
+                "createdAt": {
+                    "name": "createdAt",
+                    "type": "timestamp",
+                    "primaryKey": false,
+                    "notNull": true,
+                    "default": "now()"
+                },
+                "createdBy": {
+                    "name": "createdBy",
+                    "type": "text",
+                    "primaryKey": false,
+                    "notNull": true
+                },
+                "metadata": {
+                    "name": "metadata",
+                    "type": "json",
+                    "primaryKey": false,
+                    "notNull": false
+                },
+                "deletedAt": {
+                    "name": "deletedAt",
+                    "type": "timestamp",
+                    "primaryKey": false,
+                    "notNull": false
+                }
+            },
+            "indexes": {
+                "slugIdx": {
+                    "name": "slugIdx",
+                    "columns": [
+                        {
+                            "expression": "slug",
+                            "isExpression": false,
+                            "asc": true,
+                            "nulls": "last"
+                        }
+                    ],
+                    "isUnique": false,
+                    "concurrently": false,
+                    "method": "btree",
+                    "with": {}
+                }
+            },
+            "foreignKeys": {
+                "organization_createdBy_user_id_fk": {
+                    "name": "organization_createdBy_user_id_fk",
+                    "tableFrom": "organization",
+                    "tableTo": "user",
+                    "columnsFrom": ["createdBy"],
+                    "columnsTo": ["id"],
+                    "onDelete": "no action",
+                    "onUpdate": "no action"
+                }
+            },
+            "compositePrimaryKeys": {},
+            "uniqueConstraints": {
+                "organization_slug_unique": {
+                    "name": "organization_slug_unique",
+                    "nullsNotDistinct": false,
+                    "columns": ["slug"]
+                }
+            },
+            "policies": {},
+            "checkConstraints": {},
+            "isRLSEnabled": false
+        },
+        "public.space": {
+            "name": "space",
+            "schema": "",
+            "columns": {
+                "id": {
+                    "name": "id",
+                    "type": "text",
+                    "primaryKey": true,
+                    "notNull": true
+                },
+                "workspaceId": {
+                    "name": "workspaceId",
+                    "type": "text",
+                    "primaryKey": false,
+                    "notNull": true
+                },
+                "name": {
+                    "name": "name",
+                    "type": "text",
+                    "primaryKey": false,
+                    "notNull": true
+                },
+                "logo": {
+                    "name": "logo",
+                    "type": "text",
+                    "primaryKey": false,
+                    "notNull": true
+                },
+                "description": {
+                    "name": "description",
+                    "type": "text",
+                    "primaryKey": false,
+                    "notNull": false
+                },
+                "createdBy": {
+                    "name": "createdBy",
+                    "type": "text",
+                    "primaryKey": false,
+                    "notNull": true
+                },
+                "createdAt": {
+                    "name": "createdAt",
+                    "type": "timestamp",
+                    "primaryKey": false,
+                    "notNull": true,
+                    "default": "now()"
+                },
+                "updatedAt": {
+                    "name": "updatedAt",
+                    "type": "timestamp",
+                    "primaryKey": false,
+                    "notNull": true,
+                    "default": "now()"
+                },
+                "deletedAt": {
+                    "name": "deletedAt",
+                    "type": "timestamp",
+                    "primaryKey": false,
+                    "notNull": false
+                }
+            },
+            "indexes": {
+                "workspaceIdIdx": {
+                    "name": "workspaceIdIdx",
+                    "columns": [
+                        {
+                            "expression": "workspaceId",
+                            "isExpression": false,
+                            "asc": true,
+                            "nulls": "last"
+                        }
+                    ],
+                    "isUnique": false,
+                    "concurrently": false,
+                    "method": "btree",
+                    "with": {}
+                }
+            },
+            "foreignKeys": {
+                "space_workspaceId_organization_id_fk": {
+                    "name": "space_workspaceId_organization_id_fk",
+                    "tableFrom": "space",
+                    "tableTo": "organization",
+                    "columnsFrom": ["workspaceId"],
+                    "columnsTo": ["id"],
+                    "onDelete": "cascade",
+                    "onUpdate": "no action"
+                },
+                "space_createdBy_user_id_fk": {
+                    "name": "space_createdBy_user_id_fk",
+                    "tableFrom": "space",
+                    "tableTo": "user",
+                    "columnsFrom": ["createdBy"],
+                    "columnsTo": ["id"],
+                    "onDelete": "no action",
+                    "onUpdate": "no action"
+                }
+            },
+            "compositePrimaryKeys": {},
+            "uniqueConstraints": {},
+            "policies": {},
+            "checkConstraints": {},
+            "isRLSEnabled": false
+        },
+        "public.workspaceSettings": {
+            "name": "workspaceSettings",
+            "schema": "",
+            "columns": {
+                "id": {
+                    "name": "id",
+                    "type": "text",
+                    "primaryKey": true,
+                    "notNull": true
+                },
+                "workspaceId": {
+                    "name": "workspaceId",
+                    "type": "text",
+                    "primaryKey": false,
+                    "notNull": true
+                },
+                "defaultSpaceId": {
+                    "name": "defaultSpaceId",
+                    "type": "text",
+                    "primaryKey": false,
+                    "notNull": false
+                },
+                "allowMemberInvitations": {
+                    "name": "allowMemberInvitations",
+                    "type": "boolean",
+                    "primaryKey": false,
+                    "notNull": false,
+                    "default": true
+                },
+                "activityLogsEnabled": {
+                    "name": "activityLogsEnabled",
+                    "type": "boolean",
+                    "primaryKey": false,
+                    "notNull": false,
+                    "default": true
+                },
+                "createdAt": {
+                    "name": "createdAt",
+                    "type": "timestamp",
+                    "primaryKey": false,
+                    "notNull": true,
+                    "default": "now()"
+                },
+                "updatedAt": {
+                    "name": "updatedAt",
+                    "type": "timestamp",
+                    "primaryKey": false,
+                    "notNull": true,
+                    "default": "now()"
+                }
+            },
+            "indexes": {
+                "settings_workspaceId_idx": {
+                    "name": "settings_workspaceId_idx",
+                    "columns": [
+                        {
+                            "expression": "workspaceId",
+                            "isExpression": false,
+                            "asc": true,
+                            "nulls": "last"
+                        }
+                    ],
+                    "isUnique": false,
+                    "concurrently": false,
+                    "method": "btree",
+                    "with": {}
+                }
+            },
+            "foreignKeys": {
+                "workspaceSettings_workspaceId_organization_id_fk": {
+                    "name": "workspaceSettings_workspaceId_organization_id_fk",
+                    "tableFrom": "workspaceSettings",
+                    "tableTo": "organization",
+                    "columnsFrom": ["workspaceId"],
+                    "columnsTo": ["id"],
+                    "onDelete": "cascade",
+                    "onUpdate": "no action"
+                },
+                "workspaceSettings_defaultSpaceId_space_id_fk": {
+                    "name": "workspaceSettings_defaultSpaceId_space_id_fk",
+                    "tableFrom": "workspaceSettings",
+                    "tableTo": "space",
+                    "columnsFrom": ["defaultSpaceId"],
+                    "columnsTo": ["id"],
+                    "onDelete": "no action",
+                    "onUpdate": "no action"
+                }
+            },
+            "compositePrimaryKeys": {},
+            "uniqueConstraints": {},
+            "policies": {},
+            "checkConstraints": {},
+            "isRLSEnabled": false
+        },
+        "public.discardedMemory": {
+            "name": "discardedMemory",
+            "schema": "",
+            "columns": {
+                "id": {
+                    "name": "id",
+                    "type": "text",
+                    "primaryKey": true,
+                    "notNull": true
+                },
+                "originalMemoryId": {
+                    "name": "originalMemoryId",
+                    "type": "text",
+                    "primaryKey": false,
+                    "notNull": true
+                },
+                "spaceId": {
+                    "name": "spaceId",
+                    "type": "text",
+                    "primaryKey": false,
+                    "notNull": true
+                },
+                "type": {
+                    "name": "type",
+                    "type": "memoryTypeEnum",
+                    "typeSchema": "public",
+                    "primaryKey": false,
+                    "notNull": true
+                },
+                "content": {
+                    "name": "content",
+                    "type": "json",
+                    "primaryKey": false,
+                    "notNull": true
+                },
+                "metadata": {
+                    "name": "metadata",
+                    "type": "json",
+                    "primaryKey": false,
+                    "notNull": false
+                },
+                "discardedBy": {
+                    "name": "discardedBy",
+                    "type": "text",
+                    "primaryKey": false,
+                    "notNull": true
+                },
+                "discardedAt": {
+                    "name": "discardedAt",
+                    "type": "timestamp",
+                    "primaryKey": false,
+                    "notNull": true,
+                    "default": "now()"
+                },
+                "expirationAt": {
+                    "name": "expirationAt",
+                    "type": "timestamp",
+                    "primaryKey": false,
+                    "notNull": true
+                }
+            },
+            "indexes": {
+                "discardedMemory_spaceIdIdx": {
+                    "name": "discardedMemory_spaceIdIdx",
+                    "columns": [
+                        {
+                            "expression": "spaceId",
+                            "isExpression": false,
+                            "asc": true,
+                            "nulls": "last"
+                        }
+                    ],
+                    "isUnique": false,
+                    "concurrently": false,
+                    "method": "btree",
+                    "with": {}
+                }
+            },
+            "foreignKeys": {
+                "discardedMemory_originalMemoryId_memory_id_fk": {
+                    "name": "discardedMemory_originalMemoryId_memory_id_fk",
+                    "tableFrom": "discardedMemory",
+                    "tableTo": "memory",
+                    "columnsFrom": ["originalMemoryId"],
+                    "columnsTo": ["id"],
+                    "onDelete": "no action",
+                    "onUpdate": "no action"
+                },
+                "discardedMemory_spaceId_space_id_fk": {
+                    "name": "discardedMemory_spaceId_space_id_fk",
+                    "tableFrom": "discardedMemory",
+                    "tableTo": "space",
+                    "columnsFrom": ["spaceId"],
+                    "columnsTo": ["id"],
+                    "onDelete": "cascade",
+                    "onUpdate": "no action"
+                },
+                "discardedMemory_discardedBy_user_id_fk": {
+                    "name": "discardedMemory_discardedBy_user_id_fk",
+                    "tableFrom": "discardedMemory",
+                    "tableTo": "user",
+                    "columnsFrom": ["discardedBy"],
+                    "columnsTo": ["id"],
+                    "onDelete": "no action",
+                    "onUpdate": "no action"
+                }
+            },
+            "compositePrimaryKeys": {},
+            "uniqueConstraints": {},
+            "policies": {},
+            "checkConstraints": {},
+            "isRLSEnabled": false
+        },
+        "public.media": {
+            "name": "media",
+            "schema": "",
+            "columns": {
+                "id": {
+                    "name": "id",
+                    "type": "text",
+                    "primaryKey": true,
+                    "notNull": true
+                },
+                "memoryId": {
+                    "name": "memoryId",
+                    "type": "text",
+                    "primaryKey": false,
+                    "notNull": true
+                },
+                "filePath": {
+                    "name": "filePath",
+                    "type": "text",
+                    "primaryKey": false,
+                    "notNull": true
+                },
+                "fileType": {
+                    "name": "fileType",
+                    "type": "text",
+                    "primaryKey": false,
+                    "notNull": true
+                },
+                "fileSize": {
+                    "name": "fileSize",
+                    "type": "integer",
+                    "primaryKey": false,
+                    "notNull": false
+                },
+                "extractedText": {
+                    "name": "extractedText",
+                    "type": "text",
+                    "primaryKey": false,
+                    "notNull": false
+                },
+                "createdAt": {
+                    "name": "createdAt",
+                    "type": "timestamp",
+                    "primaryKey": false,
+                    "notNull": true,
+                    "default": "now()"
+                },
+                "updatedAt": {
+                    "name": "updatedAt",
+                    "type": "timestamp",
+                    "primaryKey": false,
+                    "notNull": true,
+                    "default": "now()"
+                }
+            },
+            "indexes": {
+                "memoryIdIdx": {
+                    "name": "memoryIdIdx",
+                    "columns": [
+                        {
+                            "expression": "memoryId",
+                            "isExpression": false,
+                            "asc": true,
+                            "nulls": "last"
+                        }
+                    ],
+                    "isUnique": false,
+                    "concurrently": false,
+                    "method": "btree",
+                    "with": {}
+                }
+            },
+            "foreignKeys": {
+                "media_memoryId_memory_id_fk": {
+                    "name": "media_memoryId_memory_id_fk",
+                    "tableFrom": "media",
+                    "tableTo": "memory",
+                    "columnsFrom": ["memoryId"],
+                    "columnsTo": ["id"],
+                    "onDelete": "cascade",
+                    "onUpdate": "no action"
+                }
+            },
+            "compositePrimaryKeys": {},
+            "uniqueConstraints": {},
+            "policies": {},
+            "checkConstraints": {},
+            "isRLSEnabled": false
+        },
+        "public.memory": {
+            "name": "memory",
+            "schema": "",
+            "columns": {
+                "id": {
+                    "name": "id",
+                    "type": "text",
+                    "primaryKey": true,
+                    "notNull": true
+                },
+                "spaceId": {
+                    "name": "spaceId",
+                    "type": "text",
+                    "primaryKey": false,
+                    "notNull": true
+                },
+                "type": {
+                    "name": "type",
+                    "type": "memoryTypeEnum",
+                    "typeSchema": "public",
+                    "primaryKey": false,
+                    "notNull": true
+                },
+                "content": {
+                    "name": "content",
+                    "type": "json",
+                    "primaryKey": false,
+                    "notNull": true
+                },
+                "metadata": {
+                    "name": "metadata",
+                    "type": "json",
+                    "primaryKey": false,
+                    "notNull": false
+                },
+                "extractedText": {
+                    "name": "extractedText",
+                    "type": "text",
+                    "primaryKey": false,
+                    "notNull": false
+                },
+                "vectorId": {
+                    "name": "vectorId",
+                    "type": "text",
+                    "primaryKey": false,
+                    "notNull": false
+                },
+                "createdBy": {
+                    "name": "createdBy",
+                    "type": "text",
+                    "primaryKey": false,
+                    "notNull": true
+                },
+                "createdAt": {
+                    "name": "createdAt",
+                    "type": "timestamp",
+                    "primaryKey": false,
+                    "notNull": true,
+                    "default": "now()"
+                },
+                "updatedAt": {
+                    "name": "updatedAt",
+                    "type": "timestamp",
+                    "primaryKey": false,
+                    "notNull": true,
+                    "default": "now()"
+                },
+                "deletedAt": {
+                    "name": "deletedAt",
+                    "type": "timestamp",
+                    "primaryKey": false,
+                    "notNull": false
+                }
+            },
+            "indexes": {
+                "spaceIdIdx": {
+                    "name": "spaceIdIdx",
+                    "columns": [
+                        {
+                            "expression": "spaceId",
+                            "isExpression": false,
+                            "asc": true,
+                            "nulls": "last"
+                        }
+                    ],
+                    "isUnique": false,
+                    "concurrently": false,
+                    "method": "btree",
+                    "with": {}
+                }
+            },
+            "foreignKeys": {
+                "memory_spaceId_space_id_fk": {
+                    "name": "memory_spaceId_space_id_fk",
+                    "tableFrom": "memory",
+                    "tableTo": "space",
+                    "columnsFrom": ["spaceId"],
+                    "columnsTo": ["id"],
+                    "onDelete": "cascade",
+                    "onUpdate": "no action"
+                },
+                "memory_createdBy_user_id_fk": {
+                    "name": "memory_createdBy_user_id_fk",
+                    "tableFrom": "memory",
+                    "tableTo": "user",
+                    "columnsFrom": ["createdBy"],
+                    "columnsTo": ["id"],
+                    "onDelete": "no action",
+                    "onUpdate": "no action"
+                }
+            },
+            "compositePrimaryKeys": {},
+            "uniqueConstraints": {},
+            "policies": {},
+            "checkConstraints": {},
+            "isRLSEnabled": false
+        },
+        "public.tags": {
+            "name": "tags",
+            "schema": "",
+            "columns": {
+                "id": {
+                    "name": "id",
+                    "type": "text",
+                    "primaryKey": true,
+                    "notNull": true
+                },
+                "name": {
+                    "name": "name",
+                    "type": "text",
+                    "primaryKey": false,
+                    "notNull": true
+                },
+                "workspaceId": {
+                    "name": "workspaceId",
+                    "type": "text",
+                    "primaryKey": false,
+                    "notNull": true
+                },
+                "createdAt": {
+                    "name": "createdAt",
+                    "type": "timestamp",
+                    "primaryKey": false,
+                    "notNull": true,
+                    "default": "now()"
+                },
+                "updatedAt": {
+                    "name": "updatedAt",
+                    "type": "timestamp",
+                    "primaryKey": false,
+                    "notNull": true,
+                    "default": "now()"
+                }
+            },
+            "indexes": {
+                "workspaceTagIdx": {
+                    "name": "workspaceTagIdx",
+                    "columns": [
+                        {
+                            "expression": "workspaceId",
+                            "isExpression": false,
+                            "asc": true,
+                            "nulls": "last"
+                        },
+                        {
+                            "expression": "name",
+                            "isExpression": false,
+                            "asc": true,
+                            "nulls": "last"
+                        }
+                    ],
+                    "isUnique": false,
+                    "concurrently": false,
+                    "method": "btree",
+                    "with": {}
+                }
+            },
+            "foreignKeys": {
+                "tags_workspaceId_organization_id_fk": {
+                    "name": "tags_workspaceId_organization_id_fk",
+                    "tableFrom": "tags",
+                    "tableTo": "organization",
+                    "columnsFrom": ["workspaceId"],
+                    "columnsTo": ["id"],
+                    "onDelete": "cascade",
+                    "onUpdate": "no action"
+                }
+            },
+            "compositePrimaryKeys": {},
+            "uniqueConstraints": {},
+            "policies": {},
+            "checkConstraints": {},
+            "isRLSEnabled": false
+        },
+        "public.auditLog": {
+            "name": "auditLog",
+            "schema": "",
+            "columns": {
+                "id": {
+                    "name": "id",
+                    "type": "text",
+                    "primaryKey": true,
+                    "notNull": true
+                },
+                "workspaceId": {
+                    "name": "workspaceId",
+                    "type": "text",
+                    "primaryKey": false,
+                    "notNull": true
+                },
+                "userId": {
+                    "name": "userId",
+                    "type": "text",
+                    "primaryKey": false,
+                    "notNull": true
+                },
+                "action": {
+                    "name": "action",
+                    "type": "text",
+                    "primaryKey": false,
+                    "notNull": true
+                },
+                "targetType": {
+                    "name": "targetType",
+                    "type": "text",
+                    "primaryKey": false,
+                    "notNull": true
+                },
+                "targetId": {
+                    "name": "targetId",
+                    "type": "text",
+                    "primaryKey": false,
+                    "notNull": true
+                },
+                "details": {
+                    "name": "details",
+                    "type": "json",
+                    "primaryKey": false,
+                    "notNull": false
+                },
+                "timestamp": {
+                    "name": "timestamp",
+                    "type": "timestamp",
+                    "primaryKey": false,
+                    "notNull": true,
+                    "default": "now()"
+                }
+            },
+            "indexes": {
+                "auditLog_workspaceIdIdx": {
+                    "name": "auditLog_workspaceIdIdx",
+                    "columns": [
+                        {
+                            "expression": "workspaceId",
+                            "isExpression": false,
+                            "asc": true,
+                            "nulls": "last"
+                        }
+                    ],
+                    "isUnique": false,
+                    "concurrently": false,
+                    "method": "btree",
+                    "with": {}
+                },
+                "auditLog_userIdIdx": {
+                    "name": "auditLog_userIdIdx",
+                    "columns": [
+                        {
+                            "expression": "userId",
+                            "isExpression": false,
+                            "asc": true,
+                            "nulls": "last"
+                        }
+                    ],
+                    "isUnique": false,
+                    "concurrently": false,
+                    "method": "btree",
+                    "with": {}
+                }
+            },
+            "foreignKeys": {
+                "auditLog_workspaceId_organization_id_fk": {
+                    "name": "auditLog_workspaceId_organization_id_fk",
+                    "tableFrom": "auditLog",
+                    "tableTo": "organization",
+                    "columnsFrom": ["workspaceId"],
+                    "columnsTo": ["id"],
+                    "onDelete": "cascade",
+                    "onUpdate": "no action"
+                },
+                "auditLog_userId_user_id_fk": {
+                    "name": "auditLog_userId_user_id_fk",
+                    "tableFrom": "auditLog",
+                    "tableTo": "user",
+                    "columnsFrom": ["userId"],
+                    "columnsTo": ["id"],
+                    "onDelete": "no action",
+                    "onUpdate": "no action"
+                }
+            },
+            "compositePrimaryKeys": {},
+            "uniqueConstraints": {},
+            "policies": {},
+            "checkConstraints": {},
+            "isRLSEnabled": false
+        },
+        "public.errorLog": {
+            "name": "errorLog",
+            "schema": "",
+            "columns": {
+                "id": {
+                    "name": "id",
+                    "type": "text",
+                    "primaryKey": true,
+                    "notNull": true
+                },
+                "userId": {
+                    "name": "userId",
+                    "type": "text",
+                    "primaryKey": false,
+                    "notNull": false
+                },
+                "workspaceId": {
+                    "name": "workspaceId",
+                    "type": "text",
+                    "primaryKey": false,
+                    "notNull": false
+                },
+                "errorMessage": {
+                    "name": "errorMessage",
+                    "type": "text",
+                    "primaryKey": false,
+                    "notNull": true
+                },
+                "stackTrace": {
+                    "name": "stackTrace",
+                    "type": "text",
+                    "primaryKey": false,
+                    "notNull": false
+                },
+                "timestamp": {
+                    "name": "timestamp",
+                    "type": "timestamp",
+                    "primaryKey": false,
+                    "notNull": true,
+                    "default": "now()"
+                }
+            },
+            "indexes": {
+                "errorLog_userIdIdx": {
+                    "name": "errorLog_userIdIdx",
+                    "columns": [
+                        {
+                            "expression": "userId",
+                            "isExpression": false,
+                            "asc": true,
+                            "nulls": "last"
+                        }
+                    ],
+                    "isUnique": false,
+                    "concurrently": false,
+                    "method": "btree",
+                    "with": {}
+                }
+            },
+            "foreignKeys": {
+                "errorLog_userId_user_id_fk": {
+                    "name": "errorLog_userId_user_id_fk",
+                    "tableFrom": "errorLog",
+                    "tableTo": "user",
+                    "columnsFrom": ["userId"],
+                    "columnsTo": ["id"],
+                    "onDelete": "no action",
+                    "onUpdate": "no action"
+                },
+                "errorLog_workspaceId_organization_id_fk": {
+                    "name": "errorLog_workspaceId_organization_id_fk",
+                    "tableFrom": "errorLog",
+                    "tableTo": "organization",
+                    "columnsFrom": ["workspaceId"],
+                    "columnsTo": ["id"],
+                    "onDelete": "no action",
+                    "onUpdate": "no action"
+                }
+            },
+            "compositePrimaryKeys": {},
+            "uniqueConstraints": {},
+            "policies": {},
+            "checkConstraints": {},
+            "isRLSEnabled": false
+        },
+        "public.searchLog": {
+            "name": "searchLog",
+            "schema": "",
+            "columns": {
+                "id": {
+                    "name": "id",
+                    "type": "text",
+                    "primaryKey": true,
+                    "notNull": true
+                },
+                "userId": {
+                    "name": "userId",
+                    "type": "text",
+                    "primaryKey": false,
+                    "notNull": true
+                },
+                "workspaceId": {
+                    "name": "workspaceId",
+                    "type": "text",
+                    "primaryKey": false,
+                    "notNull": true
+                },
+                "searchQuery": {
+                    "name": "searchQuery",
+                    "type": "text",
+                    "primaryKey": false,
+                    "notNull": true
+                },
+                "searchResult": {
+                    "name": "searchResult",
+                    "type": "json",
+                    "primaryKey": false,
+                    "notNull": true
+                },
+                "resultCount": {
+                    "name": "resultCount",
+                    "type": "integer",
+                    "primaryKey": false,
+                    "notNull": true
+                },
+                "timestamp": {
+                    "name": "timestamp",
+                    "type": "timestamp",
+                    "primaryKey": false,
+                    "notNull": true,
+                    "default": "now()"
+                }
+            },
+            "indexes": {
+                "searchLog_userIdIdx": {
+                    "name": "searchLog_userIdIdx",
+                    "columns": [
+                        {
+                            "expression": "userId",
+                            "isExpression": false,
+                            "asc": true,
+                            "nulls": "last"
+                        }
+                    ],
+                    "isUnique": false,
+                    "concurrently": false,
+                    "method": "btree",
+                    "with": {}
+                }
+            },
+            "foreignKeys": {
+                "searchLog_userId_user_id_fk": {
+                    "name": "searchLog_userId_user_id_fk",
+                    "tableFrom": "searchLog",
+                    "tableTo": "user",
+                    "columnsFrom": ["userId"],
+                    "columnsTo": ["id"],
+                    "onDelete": "no action",
+                    "onUpdate": "no action"
+                },
+                "searchLog_workspaceId_organization_id_fk": {
+                    "name": "searchLog_workspaceId_organization_id_fk",
+                    "tableFrom": "searchLog",
+                    "tableTo": "organization",
+                    "columnsFrom": ["workspaceId"],
+                    "columnsTo": ["id"],
+                    "onDelete": "cascade",
+                    "onUpdate": "no action"
+                }
+            },
+            "compositePrimaryKeys": {},
+            "uniqueConstraints": {},
+            "policies": {},
+            "checkConstraints": {},
+            "isRLSEnabled": false
+        },
+        "public.notification": {
+            "name": "notification",
+            "schema": "",
+            "columns": {
+                "id": {
+                    "name": "id",
+                    "type": "text",
+                    "primaryKey": true,
+                    "notNull": true
+                },
+                "userId": {
+                    "name": "userId",
+                    "type": "text",
+                    "primaryKey": false,
+                    "notNull": true
+                },
+                "workspaceId": {
+                    "name": "workspaceId",
+                    "type": "text",
+                    "primaryKey": false,
+                    "notNull": true
+                },
+                "type": {
+                    "name": "type",
+                    "type": "notificationTypeEnum",
+                    "typeSchema": "public",
+                    "primaryKey": false,
+                    "notNull": true
+                },
+                "content": {
+                    "name": "content",
+                    "type": "text",
+                    "primaryKey": false,
+                    "notNull": true
+                },
+                "read": {
+                    "name": "read",
+                    "type": "boolean",
+                    "primaryKey": false,
+                    "notNull": true,
+                    "default": false
+                },
+                "createdAt": {
+                    "name": "createdAt",
+                    "type": "timestamp",
+                    "primaryKey": false,
+                    "notNull": true,
+                    "default": "now()"
+                },
+                "updatedAt": {
+                    "name": "updatedAt",
+                    "type": "timestamp",
+                    "primaryKey": false,
+                    "notNull": true,
+                    "default": "now()"
+                }
+            },
+            "indexes": {
+                "notification_userIdIdx": {
+                    "name": "notification_userIdIdx",
+                    "columns": [
+                        {
+                            "expression": "userId",
+                            "isExpression": false,
+                            "asc": true,
+                            "nulls": "last"
+                        }
+                    ],
+                    "isUnique": false,
+                    "concurrently": false,
+                    "method": "btree",
+                    "with": {}
+                },
+                "notification_workspaceIdIdx": {
+                    "name": "notification_workspaceIdIdx",
+                    "columns": [
+                        {
+                            "expression": "workspaceId",
+                            "isExpression": false,
+                            "asc": true,
+                            "nulls": "last"
+                        }
+                    ],
+                    "isUnique": false,
+                    "concurrently": false,
+                    "method": "btree",
+                    "with": {}
+                }
+            },
+            "foreignKeys": {
+                "notification_userId_user_id_fk": {
+                    "name": "notification_userId_user_id_fk",
+                    "tableFrom": "notification",
+                    "tableTo": "user",
+                    "columnsFrom": ["userId"],
+                    "columnsTo": ["id"],
+                    "onDelete": "cascade",
+                    "onUpdate": "no action"
+                },
+                "notification_workspaceId_organization_id_fk": {
+                    "name": "notification_workspaceId_organization_id_fk",
+                    "tableFrom": "notification",
+                    "tableTo": "organization",
+                    "columnsFrom": ["workspaceId"],
+                    "columnsTo": ["id"],
+                    "onDelete": "cascade",
+                    "onUpdate": "no action"
+                }
+            },
+            "compositePrimaryKeys": {},
+            "uniqueConstraints": {},
+            "policies": {},
+            "checkConstraints": {},
+            "isRLSEnabled": false
+        },
+        "public.notificationSettings": {
+            "name": "notificationSettings",
+            "schema": "",
+            "columns": {
+                "id": {
+                    "name": "id",
+                    "type": "text",
+                    "primaryKey": true,
+                    "notNull": true
+                },
+                "userId": {
+                    "name": "userId",
+                    "type": "text",
+                    "primaryKey": false,
+                    "notNull": true
+                },
+                "marketingEmails": {
+                    "name": "marketingEmails",
+                    "type": "boolean",
+                    "primaryKey": false,
+                    "notNull": false,
+                    "default": false
+                },
+                "securityEmails": {
+                    "name": "securityEmails",
+                    "type": "boolean",
+                    "primaryKey": false,
+                    "notNull": false,
+                    "default": true
+                },
+                "inAppReminders": {
+                    "name": "inAppReminders",
+                    "type": "boolean",
+                    "primaryKey": false,
+                    "notNull": false,
+                    "default": true
+                },
+                "browserNotifications": {
+                    "name": "browserNotifications",
+                    "type": "boolean",
+                    "primaryKey": false,
+                    "notNull": false,
+                    "default": true
+                },
+                "appNotifications": {
+                    "name": "appNotifications",
+                    "type": "boolean",
+                    "primaryKey": false,
+                    "notNull": false,
+                    "default": true
+                },
+                "desktopNotifications": {
+                    "name": "desktopNotifications",
+                    "type": "boolean",
+                    "primaryKey": false,
+                    "notNull": false,
+                    "default": true
+                },
+                "createdAt": {
+                    "name": "createdAt",
+                    "type": "timestamp",
+                    "primaryKey": false,
+                    "notNull": true,
+                    "default": "now()"
+                },
+                "updatedAt": {
+                    "name": "updatedAt",
+                    "type": "timestamp",
+                    "primaryKey": false,
+                    "notNull": true,
+                    "default": "now()"
+                }
+            },
+            "indexes": {
+                "notificationSettings_userIdIdx": {
+                    "name": "notificationSettings_userIdIdx",
+                    "columns": [
+                        {
+                            "expression": "userId",
+                            "isExpression": false,
+                            "asc": true,
+                            "nulls": "last"
+                        }
+                    ],
+                    "isUnique": false,
+                    "concurrently": false,
+                    "method": "btree",
+                    "with": {}
+                }
+            },
+            "foreignKeys": {
+                "notificationSettings_userId_user_id_fk": {
+                    "name": "notificationSettings_userId_user_id_fk",
+                    "tableFrom": "notificationSettings",
+                    "tableTo": "user",
+                    "columnsFrom": ["userId"],
+                    "columnsTo": ["id"],
+                    "onDelete": "cascade",
+                    "onUpdate": "no action"
+                }
+            },
+            "compositePrimaryKeys": {},
+            "uniqueConstraints": {},
+            "policies": {},
+            "checkConstraints": {},
+            "isRLSEnabled": false
+        },
+        "public.billing": {
+            "name": "billing",
+            "schema": "",
+            "columns": {
+                "id": {
+                    "name": "id",
+                    "type": "text",
+                    "primaryKey": true,
+                    "notNull": true
+                },
+                "workspaceId": {
+                    "name": "workspaceId",
+                    "type": "text",
+                    "primaryKey": false,
+                    "notNull": true
+                },
+                "userId": {
+                    "name": "userId",
+                    "type": "text",
+                    "primaryKey": false,
+                    "notNull": true
+                },
+                "planId": {
+                    "name": "planId",
+                    "type": "text",
+                    "primaryKey": false,
+                    "notNull": true
+                },
+                "currentPlanType": {
+                    "name": "currentPlanType",
+                    "type": "planTypeEnum",
+                    "typeSchema": "public",
+                    "primaryKey": false,
+                    "notNull": true,
+                    "default": "'free'"
+                },
+                "spacesLimit": {
+                    "name": "spacesLimit",
+                    "type": "integer",
+                    "primaryKey": false,
+                    "notNull": true
+                },
+                "storageLimit": {
+                    "name": "storageLimit",
+                    "type": "integer",
+                    "primaryKey": false,
+                    "notNull": false
+                },
+                "startDate": {
+                    "name": "startDate",
+                    "type": "timestamp",
+                    "primaryKey": false,
+                    "notNull": true
+                },
+                "endDate": {
+                    "name": "endDate",
+                    "type": "timestamp",
+                    "primaryKey": false,
+                    "notNull": false
+                },
+                "status": {
+                    "name": "status",
+                    "type": "billingStatusEnum",
+                    "typeSchema": "public",
+                    "primaryKey": false,
+                    "notNull": true
+                },
+                "autoRenew": {
+                    "name": "autoRenew",
+                    "type": "boolean",
+                    "primaryKey": false,
+                    "notNull": true
+                },
+                "paymentMethod": {
+                    "name": "paymentMethod",
+                    "type": "text",
+                    "primaryKey": false,
+                    "notNull": false
+                },
+                "payerInfo": {
+                    "name": "payerInfo",
+                    "type": "json",
+                    "primaryKey": false,
+                    "notNull": false
+                },
+                "billingHistory": {
+                    "name": "billingHistory",
+                    "type": "json",
+                    "primaryKey": false,
+                    "notNull": false
+                },
+                "createdAt": {
+                    "name": "createdAt",
+                    "type": "timestamp",
+                    "primaryKey": false,
+                    "notNull": true,
+                    "default": "now()"
+                },
+                "updatedAt": {
+                    "name": "updatedAt",
+                    "type": "timestamp",
+                    "primaryKey": false,
+                    "notNull": true,
+                    "default": "now()"
+                }
+            },
+            "indexes": {
+                "billing_workspaceIdIdx": {
+                    "name": "billing_workspaceIdIdx",
+                    "columns": [
+                        {
+                            "expression": "workspaceId",
+                            "isExpression": false,
+                            "asc": true,
+                            "nulls": "last"
+                        }
+                    ],
+                    "isUnique": false,
+                    "concurrently": false,
+                    "method": "btree",
+                    "with": {}
+                },
+                "billing_userIdIdx": {
+                    "name": "billing_userIdIdx",
+                    "columns": [
+                        {
+                            "expression": "userId",
+                            "isExpression": false,
+                            "asc": true,
+                            "nulls": "last"
+                        }
+                    ],
+                    "isUnique": false,
+                    "concurrently": false,
+                    "method": "btree",
+                    "with": {}
+                }
+            },
+            "foreignKeys": {
+                "billing_workspaceId_organization_id_fk": {
+                    "name": "billing_workspaceId_organization_id_fk",
+                    "tableFrom": "billing",
+                    "tableTo": "organization",
+                    "columnsFrom": ["workspaceId"],
+                    "columnsTo": ["id"],
+                    "onDelete": "cascade",
+                    "onUpdate": "no action"
+                },
+                "billing_userId_user_id_fk": {
+                    "name": "billing_userId_user_id_fk",
+                    "tableFrom": "billing",
+                    "tableTo": "user",
+                    "columnsFrom": ["userId"],
+                    "columnsTo": ["id"],
+                    "onDelete": "no action",
+                    "onUpdate": "no action"
+                }
+            },
+            "compositePrimaryKeys": {},
+            "uniqueConstraints": {},
+            "policies": {},
+            "checkConstraints": {},
+            "isRLSEnabled": false
+        },
+        "public.plan": {
+            "name": "plan",
+            "schema": "",
+            "columns": {
+                "id": {
+                    "name": "id",
+                    "type": "text",
+                    "primaryKey": true,
+                    "notNull": true
+                },
+                "name": {
+                    "name": "name",
+                    "type": "text",
+                    "primaryKey": false,
+                    "notNull": true
+                },
+                "type": {
+                    "name": "type",
+                    "type": "planTypeEnum",
+                    "typeSchema": "public",
+                    "primaryKey": false,
+                    "notNull": true
+                },
+                "description": {
+                    "name": "description",
+                    "type": "text",
+                    "primaryKey": false,
+                    "notNull": false
+                },
+                "maxSpaces": {
+                    "name": "maxSpaces",
+                    "type": "integer",
+                    "primaryKey": false,
+                    "notNull": true
+                },
+                "storageLimit": {
+                    "name": "storageLimit",
+                    "type": "integer",
+                    "primaryKey": false,
+                    "notNull": false
+                },
+                "price": {
+                    "name": "price",
+                    "type": "integer",
+                    "primaryKey": false,
+                    "notNull": false
+                },
+                "billingCycle": {
+                    "name": "billingCycle",
+                    "type": "durationCycleEnum",
+                    "typeSchema": "public",
+                    "primaryKey": false,
+                    "notNull": true
+                },
+                "createdAt": {
+                    "name": "createdAt",
+                    "type": "timestamp",
+                    "primaryKey": false,
+                    "notNull": true,
+                    "default": "now()"
+                },
+                "updatedAt": {
+                    "name": "updatedAt",
+                    "type": "timestamp",
+                    "primaryKey": false,
+                    "notNull": true,
+                    "default": "now()"
+                }
+            },
+            "indexes": {},
+            "foreignKeys": {},
+            "compositePrimaryKeys": {},
+            "uniqueConstraints": {},
+            "policies": {},
+            "checkConstraints": {},
+            "isRLSEnabled": false
+        },
+        "public.subscription": {
+            "name": "subscription",
+            "schema": "",
+            "columns": {
+                "id": {
+                    "name": "id",
+                    "type": "text",
+                    "primaryKey": true,
+                    "notNull": true
+                },
+                "workspaceId": {
+                    "name": "workspaceId",
+                    "type": "text",
+                    "primaryKey": false,
+                    "notNull": true
+                },
+                "planId": {
+                    "name": "planId",
+                    "type": "text",
+                    "primaryKey": false,
+                    "notNull": true
+                },
+                "status": {
+                    "name": "status",
+                    "type": "billingStatusEnum",
+                    "typeSchema": "public",
+                    "primaryKey": false,
+                    "notNull": true
+                },
+                "startDate": {
+                    "name": "startDate",
+                    "type": "timestamp",
+                    "primaryKey": false,
+                    "notNull": true
+                },
+                "endDate": {
+                    "name": "endDate",
+                    "type": "timestamp",
+                    "primaryKey": false,
+                    "notNull": false
+                },
+                "createdAt": {
+                    "name": "createdAt",
+                    "type": "timestamp",
+                    "primaryKey": false,
+                    "notNull": true,
+                    "default": "now()"
+                },
+                "updatedAt": {
+                    "name": "updatedAt",
+                    "type": "timestamp",
+                    "primaryKey": false,
+                    "notNull": true,
+                    "default": "now()"
+                }
+            },
+            "indexes": {
+                "subscription_workspaceIdIdx": {
+                    "name": "subscription_workspaceIdIdx",
+                    "columns": [
+                        {
+                            "expression": "workspaceId",
+                            "isExpression": false,
+                            "asc": true,
+                            "nulls": "last"
+                        }
+                    ],
+                    "isUnique": false,
+                    "concurrently": false,
+                    "method": "btree",
+                    "with": {}
+                }
+            },
+            "foreignKeys": {
+                "subscription_workspaceId_organization_id_fk": {
+                    "name": "subscription_workspaceId_organization_id_fk",
+                    "tableFrom": "subscription",
+                    "tableTo": "organization",
+                    "columnsFrom": ["workspaceId"],
+                    "columnsTo": ["id"],
+                    "onDelete": "cascade",
+                    "onUpdate": "no action"
+                }
+            },
+            "compositePrimaryKeys": {},
+            "uniqueConstraints": {},
+            "policies": {},
+            "checkConstraints": {},
+            "isRLSEnabled": false
+        },
+        "public.dataAndSecuritySettings": {
+            "name": "dataAndSecuritySettings",
+            "schema": "",
+            "columns": {
+                "id": {
+                    "name": "id",
+                    "type": "text",
+                    "primaryKey": true,
+                    "notNull": true
+                },
+                "userId": {
+                    "name": "userId",
+                    "type": "text",
+                    "primaryKey": false,
+                    "notNull": true
+                },
+                "twoFactorEnabled": {
+                    "name": "twoFactorEnabled",
+                    "type": "boolean",
+                    "primaryKey": false,
+                    "notNull": false,
+                    "default": false
+                },
+                "googleConnection": {
+                    "name": "googleConnection",
+                    "type": "boolean",
+                    "primaryKey": false,
+                    "notNull": false
+                },
+                "exportDataRequestedAt": {
+                    "name": "exportDataRequestedAt",
+                    "type": "timestamp",
+                    "primaryKey": false,
+                    "notNull": false
+                },
+                "dataRetentionPolicy": {
+                    "name": "dataRetentionPolicy",
+                    "type": "integer",
+                    "primaryKey": false,
+                    "notNull": false,
+                    "default": 30
+                },
+                "accountDeactivatedAt": {
+                    "name": "accountDeactivatedAt",
+                    "type": "timestamp",
+                    "primaryKey": false,
+                    "notNull": false
+                },
+                "createdAt": {
+                    "name": "createdAt",
+                    "type": "timestamp",
+                    "primaryKey": false,
+                    "notNull": true,
+                    "default": "now()"
+                },
+                "updatedAt": {
+                    "name": "updatedAt",
+                    "type": "timestamp",
+                    "primaryKey": false,
+                    "notNull": true,
+                    "default": "now()"
+                }
+            },
+            "indexes": {},
+            "foreignKeys": {
+                "dataAndSecuritySettings_userId_user_id_fk": {
+                    "name": "dataAndSecuritySettings_userId_user_id_fk",
+                    "tableFrom": "dataAndSecuritySettings",
+                    "tableTo": "user",
+                    "columnsFrom": ["userId"],
+                    "columnsTo": ["id"],
+                    "onDelete": "cascade",
+                    "onUpdate": "no action"
+                }
+            },
+            "compositePrimaryKeys": {},
+            "uniqueConstraints": {},
+            "policies": {},
+            "checkConstraints": {},
+            "isRLSEnabled": false
+        },
+        "public.plugin": {
+            "name": "plugin",
+            "schema": "",
+            "columns": {
+                "id": {
+                    "name": "id",
+                    "type": "text",
+                    "primaryKey": true,
+                    "notNull": true
+                },
+                "name": {
+                    "name": "name",
+                    "type": "text",
+                    "primaryKey": false,
+                    "notNull": true
+                },
+                "type": {
+                    "name": "type",
+                    "type": "pluginTypeEnum",
+                    "typeSchema": "public",
+                    "primaryKey": false,
+                    "notNull": true
+                },
+                "status": {
+                    "name": "status",
+                    "type": "pluginStatusEnum",
+                    "typeSchema": "public",
+                    "primaryKey": false,
+                    "notNull": true
+                },
+                "description": {
+                    "name": "description",
+                    "type": "text",
+                    "primaryKey": false,
+                    "notNull": false
+                },
+                "version": {
+                    "name": "version",
+                    "type": "text",
+                    "primaryKey": false,
+                    "notNull": false
+                },
+                "downloadUrl": {
+                    "name": "downloadUrl",
+                    "type": "text",
+                    "primaryKey": false,
+                    "notNull": false
+                },
+                "createdAt": {
+                    "name": "createdAt",
+                    "type": "timestamp",
+                    "primaryKey": false,
+                    "notNull": true,
+                    "default": "now()"
+                },
+                "updatedAt": {
+                    "name": "updatedAt",
+                    "type": "timestamp",
+                    "primaryKey": false,
+                    "notNull": true,
+                    "default": "now()"
+                }
+            },
+            "indexes": {},
+            "foreignKeys": {},
+            "compositePrimaryKeys": {},
+            "uniqueConstraints": {},
+            "policies": {},
+            "checkConstraints": {},
+            "isRLSEnabled": false
+        },
+        "public.waitlist": {
+            "name": "waitlist",
+            "schema": "",
+            "columns": {
+                "id": {
+                    "name": "id",
+                    "type": "serial",
+                    "primaryKey": true,
+                    "notNull": true
+                },
+                "email": {
+                    "name": "email",
+                    "type": "text",
+                    "primaryKey": false,
+                    "notNull": true
+                },
+                "createdAt": {
+                    "name": "createdAt",
+                    "type": "timestamp",
+                    "primaryKey": false,
+                    "notNull": true,
+                    "default": "now()"
+                }
+            },
+            "indexes": {},
+            "foreignKeys": {},
+            "compositePrimaryKeys": {},
+            "uniqueConstraints": {},
+            "policies": {},
+            "checkConstraints": {},
+            "isRLSEnabled": false
         }
-      },
-      "foreignKeys": {
-        "tags_workspaceId_organization_id_fk": {
-          "name": "tags_workspaceId_organization_id_fk",
-          "tableFrom": "tags",
-          "tableTo": "organization",
-          "columnsFrom": [
-            "workspaceId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "policies": {},
-      "checkConstraints": {},
-      "isRLSEnabled": false
     },
-    "public.auditLog": {
-      "name": "auditLog",
-      "schema": "",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "text",
-          "primaryKey": true,
-          "notNull": true
+    "enums": {
+        "public.actionEnum": {
+            "name": "actionEnum",
+            "schema": "public",
+            "values": ["create", "update", "delete"]
         },
-        "workspaceId": {
-          "name": "workspaceId",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
+        "public.billingStatusEnum": {
+            "name": "billingStatusEnum",
+            "schema": "public",
+            "values": ["active", "cancelled", "expired", "pending"]
         },
-        "userId": {
-          "name": "userId",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
+        "public.durationCycleEnum": {
+            "name": "durationCycleEnum",
+            "schema": "public",
+            "values": ["monthly", "yearly", "lifetime"]
         },
-        "action": {
-          "name": "action",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
+        "public.memoryTypeEnum": {
+            "name": "memoryTypeEnum",
+            "schema": "public",
+            "values": ["note", "url", "file", "message"]
         },
-        "targetType": {
-          "name": "targetType",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
+        "public.notificationTypeEnum": {
+            "name": "notificationTypeEnum",
+            "schema": "public",
+            "values": ["reminder", "update", "alert"]
         },
-        "targetId": {
-          "name": "targetId",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
+        "public.planTypeEnum": {
+            "name": "planTypeEnum",
+            "schema": "public",
+            "values": ["free", "pro", "premium"]
         },
-        "details": {
-          "name": "details",
-          "type": "json",
-          "primaryKey": false,
-          "notNull": false
+        "public.pluginStatusEnum": {
+            "name": "pluginStatusEnum",
+            "schema": "public",
+            "values": ["available", "coming_soon"]
         },
-        "timestamp": {
-          "name": "timestamp",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "now()"
+        "public.pluginTypeEnum": {
+            "name": "pluginTypeEnum",
+            "schema": "public",
+            "values": ["browser_extension", "mobile_app"]
+        },
+        "public.roleEnum": {
+            "name": "roleEnum",
+            "schema": "public",
+            "values": ["admin", "member", "guest"]
+        },
+        "public.statusEnum": {
+            "name": "statusEnum",
+            "schema": "public",
+            "values": ["pending", "accepted", "rejected"]
         }
-      },
-      "indexes": {
-        "auditLog_workspaceIdIdx": {
-          "name": "auditLog_workspaceIdIdx",
-          "columns": [
-            {
-              "expression": "workspaceId",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        },
-        "auditLog_userIdIdx": {
-          "name": "auditLog_userIdIdx",
-          "columns": [
-            {
-              "expression": "userId",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        }
-      },
-      "foreignKeys": {
-        "auditLog_workspaceId_organization_id_fk": {
-          "name": "auditLog_workspaceId_organization_id_fk",
-          "tableFrom": "auditLog",
-          "tableTo": "organization",
-          "columnsFrom": [
-            "workspaceId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
-        },
-        "auditLog_userId_user_id_fk": {
-          "name": "auditLog_userId_user_id_fk",
-          "tableFrom": "auditLog",
-          "tableTo": "user",
-          "columnsFrom": [
-            "userId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "policies": {},
-      "checkConstraints": {},
-      "isRLSEnabled": false
     },
-    "public.errorLog": {
-      "name": "errorLog",
-      "schema": "",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "text",
-          "primaryKey": true,
-          "notNull": true
-        },
-        "userId": {
-          "name": "userId",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "workspaceId": {
-          "name": "workspaceId",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "errorMessage": {
-          "name": "errorMessage",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "stackTrace": {
-          "name": "stackTrace",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "timestamp": {
-          "name": "timestamp",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "now()"
-        }
-      },
-      "indexes": {
-        "errorLog_userIdIdx": {
-          "name": "errorLog_userIdIdx",
-          "columns": [
-            {
-              "expression": "userId",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        }
-      },
-      "foreignKeys": {
-        "errorLog_userId_user_id_fk": {
-          "name": "errorLog_userId_user_id_fk",
-          "tableFrom": "errorLog",
-          "tableTo": "user",
-          "columnsFrom": [
-            "userId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
-        },
-        "errorLog_workspaceId_organization_id_fk": {
-          "name": "errorLog_workspaceId_organization_id_fk",
-          "tableFrom": "errorLog",
-          "tableTo": "organization",
-          "columnsFrom": [
-            "workspaceId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "policies": {},
-      "checkConstraints": {},
-      "isRLSEnabled": false
-    },
-    "public.searchLog": {
-      "name": "searchLog",
-      "schema": "",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "text",
-          "primaryKey": true,
-          "notNull": true
-        },
-        "userId": {
-          "name": "userId",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "workspaceId": {
-          "name": "workspaceId",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "searchQuery": {
-          "name": "searchQuery",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "searchResult": {
-          "name": "searchResult",
-          "type": "json",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "resultCount": {
-          "name": "resultCount",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "timestamp": {
-          "name": "timestamp",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "now()"
-        }
-      },
-      "indexes": {
-        "searchLog_userIdIdx": {
-          "name": "searchLog_userIdIdx",
-          "columns": [
-            {
-              "expression": "userId",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        }
-      },
-      "foreignKeys": {
-        "searchLog_userId_user_id_fk": {
-          "name": "searchLog_userId_user_id_fk",
-          "tableFrom": "searchLog",
-          "tableTo": "user",
-          "columnsFrom": [
-            "userId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
-        },
-        "searchLog_workspaceId_organization_id_fk": {
-          "name": "searchLog_workspaceId_organization_id_fk",
-          "tableFrom": "searchLog",
-          "tableTo": "organization",
-          "columnsFrom": [
-            "workspaceId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "policies": {},
-      "checkConstraints": {},
-      "isRLSEnabled": false
-    },
-    "public.notification": {
-      "name": "notification",
-      "schema": "",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "text",
-          "primaryKey": true,
-          "notNull": true
-        },
-        "userId": {
-          "name": "userId",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "workspaceId": {
-          "name": "workspaceId",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "type": {
-          "name": "type",
-          "type": "notificationTypeEnum",
-          "typeSchema": "public",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "content": {
-          "name": "content",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "read": {
-          "name": "read",
-          "type": "boolean",
-          "primaryKey": false,
-          "notNull": true,
-          "default": false
-        },
-        "createdAt": {
-          "name": "createdAt",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "now()"
-        },
-        "updatedAt": {
-          "name": "updatedAt",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "now()"
-        }
-      },
-      "indexes": {
-        "notification_userIdIdx": {
-          "name": "notification_userIdIdx",
-          "columns": [
-            {
-              "expression": "userId",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        },
-        "notification_workspaceIdIdx": {
-          "name": "notification_workspaceIdIdx",
-          "columns": [
-            {
-              "expression": "workspaceId",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        }
-      },
-      "foreignKeys": {
-        "notification_userId_user_id_fk": {
-          "name": "notification_userId_user_id_fk",
-          "tableFrom": "notification",
-          "tableTo": "user",
-          "columnsFrom": [
-            "userId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
-        },
-        "notification_workspaceId_organization_id_fk": {
-          "name": "notification_workspaceId_organization_id_fk",
-          "tableFrom": "notification",
-          "tableTo": "organization",
-          "columnsFrom": [
-            "workspaceId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "policies": {},
-      "checkConstraints": {},
-      "isRLSEnabled": false
-    },
-    "public.notificationSettings": {
-      "name": "notificationSettings",
-      "schema": "",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "text",
-          "primaryKey": true,
-          "notNull": true
-        },
-        "userId": {
-          "name": "userId",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "marketingEmails": {
-          "name": "marketingEmails",
-          "type": "boolean",
-          "primaryKey": false,
-          "notNull": false,
-          "default": false
-        },
-        "securityEmails": {
-          "name": "securityEmails",
-          "type": "boolean",
-          "primaryKey": false,
-          "notNull": false,
-          "default": true
-        },
-        "inAppReminders": {
-          "name": "inAppReminders",
-          "type": "boolean",
-          "primaryKey": false,
-          "notNull": false,
-          "default": true
-        },
-        "browserNotifications": {
-          "name": "browserNotifications",
-          "type": "boolean",
-          "primaryKey": false,
-          "notNull": false,
-          "default": true
-        },
-        "appNotifications": {
-          "name": "appNotifications",
-          "type": "boolean",
-          "primaryKey": false,
-          "notNull": false,
-          "default": true
-        },
-        "desktopNotifications": {
-          "name": "desktopNotifications",
-          "type": "boolean",
-          "primaryKey": false,
-          "notNull": false,
-          "default": true
-        },
-        "createdAt": {
-          "name": "createdAt",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "now()"
-        },
-        "updatedAt": {
-          "name": "updatedAt",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "now()"
-        }
-      },
-      "indexes": {
-        "notificationSettings_userIdIdx": {
-          "name": "notificationSettings_userIdIdx",
-          "columns": [
-            {
-              "expression": "userId",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        }
-      },
-      "foreignKeys": {
-        "notificationSettings_userId_user_id_fk": {
-          "name": "notificationSettings_userId_user_id_fk",
-          "tableFrom": "notificationSettings",
-          "tableTo": "user",
-          "columnsFrom": [
-            "userId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "policies": {},
-      "checkConstraints": {},
-      "isRLSEnabled": false
-    },
-    "public.billing": {
-      "name": "billing",
-      "schema": "",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "text",
-          "primaryKey": true,
-          "notNull": true
-        },
-        "workspaceId": {
-          "name": "workspaceId",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "userId": {
-          "name": "userId",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "planId": {
-          "name": "planId",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "currentPlanType": {
-          "name": "currentPlanType",
-          "type": "planTypeEnum",
-          "typeSchema": "public",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "'free'"
-        },
-        "spacesLimit": {
-          "name": "spacesLimit",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "storageLimit": {
-          "name": "storageLimit",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "startDate": {
-          "name": "startDate",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "endDate": {
-          "name": "endDate",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "status": {
-          "name": "status",
-          "type": "billingStatusEnum",
-          "typeSchema": "public",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "autoRenew": {
-          "name": "autoRenew",
-          "type": "boolean",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "paymentMethod": {
-          "name": "paymentMethod",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "payerInfo": {
-          "name": "payerInfo",
-          "type": "json",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "billingHistory": {
-          "name": "billingHistory",
-          "type": "json",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "createdAt": {
-          "name": "createdAt",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "now()"
-        },
-        "updatedAt": {
-          "name": "updatedAt",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "now()"
-        }
-      },
-      "indexes": {
-        "billing_workspaceIdIdx": {
-          "name": "billing_workspaceIdIdx",
-          "columns": [
-            {
-              "expression": "workspaceId",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        },
-        "billing_userIdIdx": {
-          "name": "billing_userIdIdx",
-          "columns": [
-            {
-              "expression": "userId",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        }
-      },
-      "foreignKeys": {
-        "billing_workspaceId_organization_id_fk": {
-          "name": "billing_workspaceId_organization_id_fk",
-          "tableFrom": "billing",
-          "tableTo": "organization",
-          "columnsFrom": [
-            "workspaceId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
-        },
-        "billing_userId_user_id_fk": {
-          "name": "billing_userId_user_id_fk",
-          "tableFrom": "billing",
-          "tableTo": "user",
-          "columnsFrom": [
-            "userId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "policies": {},
-      "checkConstraints": {},
-      "isRLSEnabled": false
-    },
-    "public.plan": {
-      "name": "plan",
-      "schema": "",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "text",
-          "primaryKey": true,
-          "notNull": true
-        },
-        "name": {
-          "name": "name",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "type": {
-          "name": "type",
-          "type": "planTypeEnum",
-          "typeSchema": "public",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "description": {
-          "name": "description",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "maxSpaces": {
-          "name": "maxSpaces",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "storageLimit": {
-          "name": "storageLimit",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "price": {
-          "name": "price",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "billingCycle": {
-          "name": "billingCycle",
-          "type": "durationCycleEnum",
-          "typeSchema": "public",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "createdAt": {
-          "name": "createdAt",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "now()"
-        },
-        "updatedAt": {
-          "name": "updatedAt",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "now()"
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {},
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "policies": {},
-      "checkConstraints": {},
-      "isRLSEnabled": false
-    },
-    "public.subscription": {
-      "name": "subscription",
-      "schema": "",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "text",
-          "primaryKey": true,
-          "notNull": true
-        },
-        "workspaceId": {
-          "name": "workspaceId",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "planId": {
-          "name": "planId",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "status": {
-          "name": "status",
-          "type": "billingStatusEnum",
-          "typeSchema": "public",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "startDate": {
-          "name": "startDate",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "endDate": {
-          "name": "endDate",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "createdAt": {
-          "name": "createdAt",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "now()"
-        },
-        "updatedAt": {
-          "name": "updatedAt",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "now()"
-        }
-      },
-      "indexes": {
-        "subscription_workspaceIdIdx": {
-          "name": "subscription_workspaceIdIdx",
-          "columns": [
-            {
-              "expression": "workspaceId",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        }
-      },
-      "foreignKeys": {
-        "subscription_workspaceId_organization_id_fk": {
-          "name": "subscription_workspaceId_organization_id_fk",
-          "tableFrom": "subscription",
-          "tableTo": "organization",
-          "columnsFrom": [
-            "workspaceId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "policies": {},
-      "checkConstraints": {},
-      "isRLSEnabled": false
-    },
-    "public.dataAndSecuritySettings": {
-      "name": "dataAndSecuritySettings",
-      "schema": "",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "text",
-          "primaryKey": true,
-          "notNull": true
-        },
-        "userId": {
-          "name": "userId",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "twoFactorEnabled": {
-          "name": "twoFactorEnabled",
-          "type": "boolean",
-          "primaryKey": false,
-          "notNull": false,
-          "default": false
-        },
-        "googleConnection": {
-          "name": "googleConnection",
-          "type": "boolean",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "exportDataRequestedAt": {
-          "name": "exportDataRequestedAt",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "dataRetentionPolicy": {
-          "name": "dataRetentionPolicy",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": false,
-          "default": 30
-        },
-        "accountDeactivatedAt": {
-          "name": "accountDeactivatedAt",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "createdAt": {
-          "name": "createdAt",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "now()"
-        },
-        "updatedAt": {
-          "name": "updatedAt",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "now()"
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {
-        "dataAndSecuritySettings_userId_user_id_fk": {
-          "name": "dataAndSecuritySettings_userId_user_id_fk",
-          "tableFrom": "dataAndSecuritySettings",
-          "tableTo": "user",
-          "columnsFrom": [
-            "userId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "policies": {},
-      "checkConstraints": {},
-      "isRLSEnabled": false
-    },
-    "public.plugin": {
-      "name": "plugin",
-      "schema": "",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "text",
-          "primaryKey": true,
-          "notNull": true
-        },
-        "name": {
-          "name": "name",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "type": {
-          "name": "type",
-          "type": "pluginTypeEnum",
-          "typeSchema": "public",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "status": {
-          "name": "status",
-          "type": "pluginStatusEnum",
-          "typeSchema": "public",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "description": {
-          "name": "description",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "version": {
-          "name": "version",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "downloadUrl": {
-          "name": "downloadUrl",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "createdAt": {
-          "name": "createdAt",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "now()"
-        },
-        "updatedAt": {
-          "name": "updatedAt",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "now()"
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {},
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "policies": {},
-      "checkConstraints": {},
-      "isRLSEnabled": false
-    },
-    "public.waitlist": {
-      "name": "waitlist",
-      "schema": "",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "serial",
-          "primaryKey": true,
-          "notNull": true
-        },
-        "email": {
-          "name": "email",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "createdAt": {
-          "name": "createdAt",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "now()"
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {},
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "policies": {},
-      "checkConstraints": {},
-      "isRLSEnabled": false
-    }
-  },
-  "enums": {
-    "public.actionEnum": {
-      "name": "actionEnum",
-      "schema": "public",
-      "values": [
-        "create",
-        "update",
-        "delete"
-      ]
-    },
-    "public.billingStatusEnum": {
-      "name": "billingStatusEnum",
-      "schema": "public",
-      "values": [
-        "active",
-        "cancelled",
-        "expired",
-        "pending"
-      ]
-    },
-    "public.durationCycleEnum": {
-      "name": "durationCycleEnum",
-      "schema": "public",
-      "values": [
-        "monthly",
-        "yearly",
-        "lifetime"
-      ]
-    },
-    "public.memoryTypeEnum": {
-      "name": "memoryTypeEnum",
-      "schema": "public",
-      "values": [
-        "note",
-        "url",
-        "file",
-        "message"
-      ]
-    },
-    "public.notificationTypeEnum": {
-      "name": "notificationTypeEnum",
-      "schema": "public",
-      "values": [
-        "reminder",
-        "update",
-        "alert"
-      ]
-    },
-    "public.planTypeEnum": {
-      "name": "planTypeEnum",
-      "schema": "public",
-      "values": [
-        "free",
-        "pro",
-        "premium"
-      ]
-    },
-    "public.pluginStatusEnum": {
-      "name": "pluginStatusEnum",
-      "schema": "public",
-      "values": [
-        "available",
-        "coming_soon"
-      ]
-    },
-    "public.pluginTypeEnum": {
-      "name": "pluginTypeEnum",
-      "schema": "public",
-      "values": [
-        "browser_extension",
-        "mobile_app"
-      ]
-    },
-    "public.roleEnum": {
-      "name": "roleEnum",
-      "schema": "public",
-      "values": [
-        "admin",
-        "member",
-        "guest"
-      ]
-    },
-    "public.statusEnum": {
-      "name": "statusEnum",
-      "schema": "public",
-      "values": [
-        "pending",
-        "accepted",
-        "rejected"
-      ]
-    }
-  },
-  "schemas": {},
-  "sequences": {},
-  "roles": {},
-  "policies": {},
-  "views": {},
-  "_meta": {
-    "columns": {},
     "schemas": {},
-    "tables": {}
-  }
+    "sequences": {},
+    "roles": {},
+    "policies": {},
+    "views": {},
+    "_meta": {
+        "columns": {},
+        "schemas": {},
+        "tables": {}
+    }
 }
