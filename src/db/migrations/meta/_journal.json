@@ -15,6 +15,13 @@
             "when": 1735665131015,
             "tag": "0001_broken_marvel_boy",
             "breakpoints": true
+        },
+        {
+            "idx": 2,
+            "version": "7",
+            "when": 1736168725965,
+            "tag": "0002_strange_deathstrike",
+            "breakpoints": true
         }
     ]
 }

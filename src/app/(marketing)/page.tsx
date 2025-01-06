@@ -18,6 +18,9 @@ import {
     FormMessage,
 } from "@/components/ui/form";
 import { LoadingButton } from "@/components/LoadingButton";
+import axios from "axios";
+import { toast } from "sonner";
+import { sendWaitlistConfirmationEmail } from "@/actions/send-waitlist-confirmation-email";
 
 export default function HomePage() {
     const [pending, setPending] = useState<boolean>(false);
@@ -32,8 +35,22 @@ export default function HomePage() {
     const onSubmit = async (values: z.infer<typeof waitlistSchema>) => {
         try {
             setPending(true);
-        } catch (error) {
+            const email = { email: values.email };
+            const url = "/api/waitlist";
+            const response = await axios.post(url, email, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
+            if (response.status === 201) {
+                form.reset();
+                toast.success("Added to waitlist successfully");
+                sendWaitlistConfirmationEmail({ email: values.email });
+            }
+        } catch (error: any) {
             console.error("Unexpected Error: ", error);
+            toast.error(error.response.data.message);
         } finally {
             setPending(false);
         }

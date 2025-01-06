@@ -1,22 +1,21 @@
 "use server";
 
-import { EmailTemplate } from "@/utils/email-otp";
+import WaitlistTemplate from "@/utils/emails/waitlist";
 import { Resend } from "resend";
+
 const resend = new Resend(process.env.RESEND_API_KEY!);
 
-export async function sendVerificationEmail({
+export async function sendWaitlistConfirmationEmail({
     email,
-    otp,
 }: {
     email: string;
-    otp: string;
 }) {
     try {
         const { data, error } = await resend.emails.send({
-            from: "Airtheon <no-reply@airtheon.com>",
+            from: "Airtheon <hello@airtheon.com>",
             to: email,
-            subject: "Airtheon | Verify Your Email",
-            react: EmailTemplate({ email, otp }),
+            subject: "Your spot has been reserved",
+            react: WaitlistTemplate(),
         });
         if (error) {
             console.error("Resend error:", error);
