@@ -15,6 +15,7 @@
         "studio": "drizzle-kit studio --config ./drizzle.config.ts"
     },
     "dependencies": {
+        "@arcjet/next": "^1.0.0-alpha.34",
         "@cloudflare/workers-types": "^4.20241218.0",
         "@hono/zod-validator": "^0.4.2",
         "@hookform/resolvers": "^3.9.1",
