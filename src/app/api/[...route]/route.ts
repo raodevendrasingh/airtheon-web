@@ -1,12 +1,12 @@
 import { Hono } from "hono";
 import { handle } from "hono/vercel";
-import users from "./users";
+import waitlist from "./waitlist";
 
-export const runtime = "edge"; // or "nodejs"
+export const runtime = "nodejs"; // or "edge"
 
 const app = new Hono().basePath("/api");
 
-const routes = app.route("/users", users);
+const routes = app.route("/waitlist", waitlist);
 
 export const GET = handle(app);
 export const POST = handle(app);
