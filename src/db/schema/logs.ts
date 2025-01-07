@@ -7,13 +7,13 @@ import {
     index,
 } from "drizzle-orm/pg-core";
 import { user } from "./auth";
-import { organization } from "./workspace";
+import { organization } from "./workplace";
 
 export const auditLog = pgTable(
     "auditLog",
     {
         id: text("id").primaryKey(),
-        workspaceId: text("workspaceId")
+        workplaceId: text("workplaceId")
             .notNull()
             .references(() => organization.id, { onDelete: "cascade" }),
         userId: text("userId")
@@ -26,7 +26,7 @@ export const auditLog = pgTable(
         timestamp: timestamp("timestamp").defaultNow().notNull(),
     },
     (t) => [
-        index("auditLog_workspaceIdIdx").on(t.workspaceId),
+        index("auditLog_workplaceIdIdx").on(t.workplaceId),
         index("auditLog_userIdIdx").on(t.userId),
     ],
 );
@@ -38,7 +38,7 @@ export const searchLog = pgTable(
         userId: text("userId")
             .notNull()
             .references(() => user.id),
-        workspaceId: text("workspaceId")
+        workplaceId: text("workplaceId")
             .notNull()
             .references(() => organization.id, { onDelete: "cascade" }),
         searchQuery: text("searchQuery").notNull(),
@@ -54,7 +54,7 @@ export const errorLog = pgTable(
     {
         id: text("id").primaryKey(),
         userId: text("userId").references(() => user.id),
-        workspaceId: text("workspaceId").references(() => organization.id),
+        workplaceId: text("workplaceId").references(() => organization.id),
         errorMessage: text("errorMessage").notNull(),
         stackTrace: text("stackTrace"),
         timestamp: timestamp("timestamp").defaultNow().notNull(),

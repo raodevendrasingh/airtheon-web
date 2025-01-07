@@ -7,7 +7,7 @@ import {
     index,
 } from "drizzle-orm/pg-core";
 import { user } from "./auth";
-import { organization, space } from "./workspace";
+import { organization, space } from "./workplace";
 import { memoryTypeEnum } from "./enums";
 
 export const memory = pgTable(
@@ -54,13 +54,13 @@ export const tags = pgTable(
     {
         id: text("id").primaryKey(),
         name: text("name").notNull(),
-        workspaceId: text("workspaceId")
+        workplaceId: text("workplaceId")
             .notNull()
             .references(() => organization.id, { onDelete: "cascade" }),
         createdAt: timestamp("createdAt").defaultNow().notNull(),
         updatedAt: timestamp("updatedAt").defaultNow().notNull(),
     },
-    (t) => [index("workspaceTagIdx").on(t.workspaceId, t.name)],
+    (t) => [index("workplaceTagIdx").on(t.workplaceId, t.name)],
 );
 
 export const discardedMemory = pgTable(

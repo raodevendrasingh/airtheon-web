@@ -1,5 +1,5 @@
 export * from "./auth";
-export * from "./workspace";
+export * from "./workplace";
 export * from "./memory";
 export * from "./logs";
 export * from "./notifications";
