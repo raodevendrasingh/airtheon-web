@@ -8,3 +8,4 @@ export * from "./security";
 export * from "./enums";
 export * from "./plugins";
 export * from "./waitlist";
+export * from "./personalization";
