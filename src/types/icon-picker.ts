@@ -1,11 +1,13 @@
 export interface IconData {
     id?: string;
     type: "icon" | "emoji" | "image";
-    value: string;
+    preview: string;
+    buffer?: ArrayBuffer;
+    fileName?: string;
     metadata?: {
-        iconName?: string; // For FA icons
-        unicode?: string; // For emojis
-        base64?: string; // For images
-        mimeType?: string; // For images
+        iconName?: string;
+        unicode?: string;
+        base64?: string;
+        mimeType?: string;
     };
 }

@@ -6,10 +6,7 @@ import EmojiPicker, { Theme } from "emoji-picker-react";
 import { useTheme } from "next-themes";
 
 interface EmojiListProps {
-    onSelect: (value: {
-        type: "icon" | "emoji" | "image";
-        value: string;
-    }) => void;
+    onSelect: (value: { type: "emoji"; preview: string }) => void;
 }
 
 export function EmojiList({ onSelect }: EmojiListProps) {
@@ -21,7 +18,7 @@ export function EmojiList({ onSelect }: EmojiListProps) {
                 theme={theme === "dark" ? Theme.DARK : Theme.LIGHT}
                 skinTonesDisabled
                 onEmojiClick={(emojiData) =>
-                    onSelect({ type: "emoji", value: emojiData.emoji })
+                    onSelect({ type: "emoji", preview: emojiData.emoji })
                 }
                 lazyLoadEmojis={true}
                 style={

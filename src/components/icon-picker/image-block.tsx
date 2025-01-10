@@ -5,11 +5,14 @@ import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Upload, AlertCircle } from "lucide-react";
 import { MAX_WORKPLACE_ICON_SIZE } from "@/DATA/constants";
+import { Input } from "@/components/ui/input";
 
 interface ImageUploadProps {
     onSelect: (value: {
-        type: "icon" | "emoji" | "image";
-        value: string;
+        fileName?: string;
+        type: "image";
+        preview: string;
+        buffer?: ArrayBuffer;
     }) => void;
 }
 
@@ -17,6 +20,7 @@ interface FileInfo {
     name: string;
     size: number;
     preview: string;
+    buffer: ArrayBuffer;
 }
 
 export function ImageUpload({ onSelect }: ImageUploadProps) {
@@ -51,15 +55,10 @@ export function ImageUpload({ onSelect }: ImageUploadProps) {
             }
         };
 
-        reader.onload = (e) => {
-            const preview = e.target?.result as string;
-            setFileInfo({
-                name: file.name,
-                size: file.size,
-                preview,
-            });
+        reader.onload = async (e) => {
+            if (!e.target?.result) return;
 
-            // Validation checks...
+            // Validate file type and size
             if (!["image/jpeg", "image/png"].includes(file.type)) {
                 setUploadError("Only JPEG and PNG files are allowed");
                 setUploadStatus("error");
@@ -74,8 +73,28 @@ export function ImageUpload({ onSelect }: ImageUploadProps) {
                 return;
             }
 
+            // First get the buffer
+            const buffer = e.target.result as ArrayBuffer;
+
+            // Create preview URL
+            const previewUrl = URL.createObjectURL(file);
+
+            setFileInfo({
+                name: file.name,
+                size: file.size,
+                preview: previewUrl,
+                buffer: buffer,
+            });
+
             setUploadStatus("success");
-            onSelect({ type: "image", value: preview });
+
+            // Call onSelect with all data
+            onSelect({
+                type: "image",
+                fileName: file.name,
+                preview: previewUrl,
+                buffer: buffer,
+            });
         };
 
         reader.onerror = () => {
@@ -99,7 +118,7 @@ export function ImageUpload({ onSelect }: ImageUploadProps) {
         case "success":
             return (
                 <div className="h-52 md:h-[290px] flex flex-col items-center justify-between rounded-xl gap-4">
-                    <div className="flex flex-col items-center gap-2 w-full mt-10">
+                    <div className="flex flex-col items-center gap-2 w-full mt-5 md:mt-10">
                         <span className="flex items-center">
                             {fileInfo?.preview ? (
                                 <img
@@ -131,7 +150,7 @@ export function ImageUpload({ onSelect }: ImageUploadProps) {
         case "error":
             return (
                 <div className="h-52 md:h-[290px] flex flex-col items-center justify-between rounded-xl gap-4">
-                    <div className="flex flex-col items-center text-center mt-20">
+                    <div className="flex flex-col items-center text-center mt-10 md:mt-20">
                         <AlertCircle className="h-8 w-8 text-destructive mb-2" />
                         <p className="font-medium text-destructive">
                             {uploadError}
@@ -192,7 +211,7 @@ export function ImageUpload({ onSelect }: ImageUploadProps) {
                             {formatFileSize(MAX_WORKPLACE_ICON_SIZE)})
                         </p>
                     </div>
-                    <input
+                    <Input
                         type="file"
                         className="hidden"
                         accept="image/png,image/jpeg"

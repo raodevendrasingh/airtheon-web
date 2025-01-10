@@ -3,15 +3,12 @@
 import React, { useState, useMemo } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { Search } from "lucide-react";
 import * as Fa6Icons from "react-icons/fa6";
 
 interface IconListProps {
-    onSelect: (value: {
-        type: "icon" | "emoji" | "image";
-        value: string;
-    }) => void;
+    onSelect: (value: { type: "icon"; preview: string }) => void;
 }
 
 export function IconList({ onSelect }: IconListProps) {
@@ -47,7 +44,7 @@ export function IconList({ onSelect }: IconListProps) {
             </div>
 
             <ScrollArea className="h-[152px] md:h-[232px] w-full rounded-xl border">
-                <div className="grid grid-cols-7 gap-2 p-4">
+                <div className="grid grid-cols-6 md:grid-cols-7 gap-2 p-2">
                     {filteredIcons.map((iconName) => {
                         const Icon =
                             Fa6Icons[iconName as keyof typeof Fa6Icons];
@@ -57,7 +54,10 @@ export function IconList({ onSelect }: IconListProps) {
                                 variant="ghost"
                                 className="h-10 w-10 p-0 hover:bg-muted flex items-center justify-center"
                                 onClick={() =>
-                                    onSelect({ type: "icon", value: iconName })
+                                    onSelect({
+                                        type: "icon",
+                                        preview: iconName,
+                                    })
                                 }
                             >
                                 {React.createElement(
