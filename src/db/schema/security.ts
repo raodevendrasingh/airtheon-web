@@ -5,7 +5,7 @@ import {
     boolean,
     integer,
 } from "drizzle-orm/pg-core";
-import { user } from "./auth";
+import { user } from "./user";
 
 export const dataAndSecuritySettings = pgTable("dataAndSecuritySettings", {
     id: text("id").primaryKey(),

@@ -1,5 +1,4 @@
 import { pgTable, text, timestamp, boolean, index } from "drizzle-orm/pg-core";
-import { roleEnum } from "./enums";
 
 export const user = pgTable(
     "user",
@@ -9,11 +8,9 @@ export const user = pgTable(
         email: text("email").notNull().unique(),
         emailVerified: boolean("emailVerified").notNull().default(false),
         image: text("image"),
-        role: roleEnum("role").notNull().default("member"),
         isOnboarded: boolean("isOnboarded").notNull().default(false),
         createdAt: timestamp("createdAt").defaultNow().notNull(),
         updatedAt: timestamp("updatedAt").defaultNow().notNull(),
-        deletedAt: timestamp("deletedAt"),
     },
     (t) => [index("user_emailIdx").on(t.email)],
 );
@@ -24,7 +21,6 @@ export const session = pgTable(
         id: text("id").primaryKey(),
         expiresAt: timestamp("expiresAt").notNull(),
         token: text("token").notNull().unique(),
-        activeOrganizationId: text("activeOrganizationId"),
         createdAt: timestamp("createdAt").defaultNow().notNull(),
         updatedAt: timestamp("updatedAt").defaultNow().notNull(),
         ipAddress: text("ipAddress"),
@@ -32,6 +28,7 @@ export const session = pgTable(
         userId: text("userId")
             .notNull()
             .references(() => user.id, { onDelete: "cascade" }),
+        activeOrganizationId: text("activeOrganizationId"),
     },
     (t) => [index("session_userIdIdx").on(t.userId)],
 );

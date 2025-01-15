@@ -8,7 +8,7 @@ import {
     index,
 } from "drizzle-orm/pg-core";
 import { organization } from "./workplace";
-import { user } from "./auth";
+import { user } from "./user";
 import { durationCycleEnum, planTypeEnum, billingStatusEnum } from "./enums";
 
 export const plan = pgTable("plan", {

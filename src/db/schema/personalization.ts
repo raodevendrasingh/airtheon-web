@@ -1,5 +1,5 @@
 import { pgTable, text, timestamp, jsonb, index } from "drizzle-orm/pg-core";
-import { user } from "./auth";
+import { user } from "./user";
 
 export const personalization = pgTable(
     "personalization",

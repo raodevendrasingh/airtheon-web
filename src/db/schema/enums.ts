@@ -1,6 +1,6 @@
 import { pgEnum } from "drizzle-orm/pg-core";
 
-export const roleEnum = pgEnum("roleEnum", ["admin", "member", "guest"]);
+export const roleEnum = pgEnum("roleEnum", ["owner", "admin", "member"]);
 export const memoryTypeEnum = pgEnum("memoryTypeEnum", [
     "note",
     "url",

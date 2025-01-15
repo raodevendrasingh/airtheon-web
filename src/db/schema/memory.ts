@@ -6,7 +6,7 @@ import {
     integer,
     index,
 } from "drizzle-orm/pg-core";
-import { user } from "./auth";
+import { user } from "./user";
 import { organization, space } from "./workplace";
 import { memoryTypeEnum } from "./enums";
 

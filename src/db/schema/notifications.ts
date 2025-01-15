@@ -1,5 +1,5 @@
 import { pgTable, text, timestamp, boolean, index } from "drizzle-orm/pg-core";
-import { user } from "./auth";
+import { user } from "./user";
 import { organization } from "./workplace";
 import { notificationTypeEnum } from "./enums";
 
