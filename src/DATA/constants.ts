@@ -1,0 +1,1 @@
+export const MAX_WORKPLACE_ICON_SIZE = 1 * 1024 * 1024;

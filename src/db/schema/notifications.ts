@@ -1,6 +1,6 @@
 import { pgTable, text, timestamp, boolean, index } from "drizzle-orm/pg-core";
-import { user } from "./auth";
-import { organization } from "./workspace";
+import { user } from "./user";
+import { organization } from "./workplace";
 import { notificationTypeEnum } from "./enums";
 
 export const notification = pgTable(
@@ -10,7 +10,7 @@ export const notification = pgTable(
         userId: text("userId")
             .notNull()
             .references(() => user.id, { onDelete: "cascade" }),
-        workspaceId: text("workspaceId")
+        workplaceId: text("workplaceId")
             .notNull()
             .references(() => organization.id, { onDelete: "cascade" }),
         type: notificationTypeEnum("type").notNull(),
@@ -21,7 +21,7 @@ export const notification = pgTable(
     },
     (t) => [
         index("notification_userIdIdx").on(t.userId),
-        index("notification_workspaceIdIdx").on(t.workspaceId),
+        index("notification_workplaceIdIdx").on(t.workplaceId),
     ],
 );
 

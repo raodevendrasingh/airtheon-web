@@ -1,5 +1,5 @@
-export * from "./auth";
-export * from "./workspace";
+export * from "./user";
+export * from "./workplace";
 export * from "./memory";
 export * from "./logs";
 export * from "./notifications";
@@ -7,3 +7,5 @@ export * from "./billing";
 export * from "./security";
 export * from "./enums";
 export * from "./plugins";
+export * from "./waitlist";
+export * from "./personalization";

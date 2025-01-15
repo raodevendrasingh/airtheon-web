@@ -4,24 +4,32 @@ import { cn } from "@/lib/utils";
 interface LoaderProps {
     size?: number;
     className?: string;
+    disabled?: boolean;
     pending: boolean;
     children: React.ReactNode;
     onClick?: () => void;
+    form?: string;
 }
 
 export const LoadingButton = ({
     size = 64,
     pending,
     children,
+    disabled,
     className,
     onClick,
+    form,
 }: LoaderProps) => {
     return (
         <Button
             onClick={onClick}
-            className={cn("w-full", className)}
+            className={cn(
+                "w-full disabled:opacity-50 disabled:cursor-not-allowed",
+                className,
+            )}
             type="submit"
-            disabled={pending}
+            disabled={disabled}
+            form={form}
         >
             {pending ? (
                 <div className="flex items-center justify-center">

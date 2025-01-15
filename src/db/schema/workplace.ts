@@ -6,8 +6,7 @@ import {
     json,
     index,
 } from "drizzle-orm/pg-core";
-import { user } from "./auth";
-import { roleEnum, statusEnum } from "./enums";
+import { user } from "./user";
 
 export const organization = pgTable(
     "organization",
@@ -17,11 +16,7 @@ export const organization = pgTable(
         slug: text("slug").unique(),
         logo: text("logo"),
         createdAt: timestamp("createdAt").defaultNow().notNull(),
-        createdBy: text("createdBy")
-            .notNull()
-            .references(() => user.id),
         metadata: json("metadata"),
-        deletedAt: timestamp("deletedAt"),
     },
     (t) => [index("slugIdx").on(t.slug)],
 );
@@ -36,7 +31,7 @@ export const member = pgTable(
         userId: text("userId")
             .notNull()
             .references(() => user.id, { onDelete: "cascade" }),
-        role: roleEnum("role").notNull(),
+        role: text("role").notNull(),
         createdAt: timestamp("createdAt").defaultNow().notNull(),
     },
     (t) => [
@@ -48,14 +43,15 @@ export const invitation = pgTable(
     "invitation",
     {
         id: text("id").primaryKey(),
+        email: text("email").notNull(),
         organizationId: text("organizationId")
             .notNull()
             .references(() => organization.id, { onDelete: "cascade" }),
-        email: text("email").notNull(),
-        role: roleEnum("role"),
-        status: statusEnum("status").notNull().default("pending"),
+        role: text("role"),
+        status: text("status").notNull(),
         expiresAt: timestamp("expiresAt").notNull(),
-        inviterId: text("inviterId")
+        createdAt: timestamp("createdAt").defaultNow().notNull(),
+        inviterId: text("inviter_id")
             .notNull()
             .references(() => user.id),
     },
@@ -68,7 +64,7 @@ export const space = pgTable(
     "space",
     {
         id: text("id").primaryKey(),
-        workspaceId: text("workspaceId")
+        workplaceId: text("workplaceId")
             .notNull()
             .references(() => organization.id, { onDelete: "cascade" }),
         name: text("name").notNull(),
@@ -81,14 +77,14 @@ export const space = pgTable(
         updatedAt: timestamp("updatedAt").defaultNow().notNull(),
         deletedAt: timestamp("deletedAt"),
     },
-    (t) => [index("workspaceIdIdx").on(t.workspaceId)],
+    (t) => [index("workplaceIdIdx").on(t.workplaceId)],
 );
 
 export const workspaceSettings = pgTable(
     "workspaceSettings",
     {
         id: text("id").primaryKey(),
-        workspaceId: text("workspaceId")
+        workplaceId: text("workplaceId")
             .notNull()
             .references(() => organization.id, { onDelete: "cascade" }),
         defaultSpaceId: text("defaultSpaceId").references(() => space.id),
@@ -97,5 +93,5 @@ export const workspaceSettings = pgTable(
         createdAt: timestamp("createdAt").defaultNow().notNull(),
         updatedAt: timestamp("updatedAt").defaultNow().notNull(),
     },
-    (t) => [index("settings_workspaceId_idx").on(t.workspaceId)],
+    (t) => [index("settings_workplaceId_idx").on(t.workplaceId)],
 );

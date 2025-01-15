@@ -3,7 +3,15 @@ import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { db } from "@/db/drizzle";
 import { config } from "dotenv";
 import { emailOTP, openAPI, organization } from "better-auth/plugins";
-import { account, session, user, verification } from "@/db/schema";
+import {
+    account,
+    invitation,
+    member,
+    session,
+    user,
+    verification,
+    organization as workplace,
+} from "@/db/schema";
 import { sendVerificationEmail } from "@/actions/send-verification-email";
 
 config({ path: ".env.local" });
@@ -16,18 +24,13 @@ export const auth = betterAuth({
             account: account,
             session: session,
             verification: verification,
+            organization: workplace,
+            invitation: invitation,
+            member: member,
         },
     }),
     user: {
         additionalFields: {
-            role: {
-                type: "string[]",
-                required: true,
-                defaultValue: "member",
-                enum: ["admin", "member", "guest"],
-                description: "User role",
-                input: false,
-            },
             isOnboarded: {
                 type: "boolean",
                 required: true,

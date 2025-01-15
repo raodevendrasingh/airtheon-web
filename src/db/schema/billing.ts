@@ -7,8 +7,8 @@ import {
     integer,
     index,
 } from "drizzle-orm/pg-core";
-import { organization } from "./workspace";
-import { user } from "./auth";
+import { organization } from "./workplace";
+import { user } from "./user";
 import { durationCycleEnum, planTypeEnum, billingStatusEnum } from "./enums";
 
 export const plan = pgTable("plan", {
@@ -28,7 +28,7 @@ export const subscription = pgTable(
     "subscription",
     {
         id: text("id").primaryKey(),
-        workspaceId: text("workspaceId")
+        workplaceId: text("workplaceId")
             .notNull()
             .references(() => organization.id, { onDelete: "cascade" }),
         planId: text("planId").notNull(),
@@ -38,14 +38,14 @@ export const subscription = pgTable(
         createdAt: timestamp("createdAt").defaultNow().notNull(),
         updatedAt: timestamp("updatedAt").defaultNow().notNull(),
     },
-    (t) => [index("subscription_workspaceIdIdx").on(t.workspaceId)],
+    (t) => [index("subscription_workplaceIdIdx").on(t.workplaceId)],
 );
 
 export const billing = pgTable(
     "billing",
     {
         id: text("id").primaryKey(),
-        workspaceId: text("workspaceId")
+        workplaceId: text("workplaceId")
             .notNull()
             .references(() => organization.id, { onDelete: "cascade" }),
         userId: text("userId")
@@ -68,7 +68,7 @@ export const billing = pgTable(
         updatedAt: timestamp("updatedAt").defaultNow().notNull(),
     },
     (t) => [
-        index("billing_workspaceIdIdx").on(t.workspaceId),
+        index("billing_workplaceIdIdx").on(t.workplaceId),
         index("billing_userIdIdx").on(t.userId),
     ],
 );

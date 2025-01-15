@@ -63,7 +63,10 @@ export function NavSpaces() {
                     className="cursor-pointer"
                     onClick={() => openDialog("space")}
                 >
-                    <SquarePlus size={18} className="text-muted-foreground hover:text-accent-foreground transition-colors" />
+                    <SquarePlus
+                        size={18}
+                        className="text-muted-foreground hover:text-accent-foreground transition-colors"
+                    />
                 </span>
             </SidebarGroupLabel>
             <SidebarMenu>

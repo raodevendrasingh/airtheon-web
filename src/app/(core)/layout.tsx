@@ -18,6 +18,7 @@ import {
 import { usePathname } from "next/navigation";
 import { MemoryDialog } from "@/components/dialogs/memory-dialog";
 import { NotificationMenu } from "@/app/(core)/_components/notification-menu";
+import { OnboardingDialog } from "@/components/onboarding-dialog";
 
 export default function CoreLayout({
     children,
@@ -91,6 +92,7 @@ export default function CoreLayout({
                     <MemoryDialog />
                 </header>
                 <main className="flex flex-1 flex-col gap-2 mt-12">
+                    <OnboardingDialog />
                     {children}
                 </main>
             </SidebarInset>
