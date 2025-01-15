@@ -35,13 +35,25 @@ import {
 
 type IconType = LucideIcon | React.FC<React.SVGProps<SVGSVGElement>>;
 
-type optionProps = {
+export type optionType = {
     id: string;
     label: string;
     icon?: IconType;
 };
 
-export const goalOptions: optionProps[] = [
+export type QuestionType = "radio" | "checkbox";
+export type LayoutType = "stacked" | "wrapped";
+
+export type Question = {
+    question: string;
+    quesId: string;
+    options: optionType[];
+    type: QuestionType;
+    display: LayoutType;
+    allowOther?: boolean;
+};
+
+export const goalOptions: optionType[] = [
     {
         id: "personal_memories",
         label: "Store and organize personal memories (notes, images, links, etc.)",
@@ -60,7 +72,7 @@ export const goalOptions: optionProps[] = [
     },
 ];
 
-export const contentTypeOptions: optionProps[] = [
+export const contentTypeOptions: optionType[] = [
     { id: "text_notes", label: "Text notes and documents", icon: FileText },
     {
         id: "images",
@@ -72,7 +84,7 @@ export const contentTypeOptions: optionProps[] = [
     { id: "audio", label: "Audio or voice recordings", icon: Headphones },
 ];
 
-export const retrievalMethodOptions: optionProps[] = [
+export const retrievalMethodOptions: optionType[] = [
     { id: "ai_summaries", label: "AI-generated summaries for quick insights" },
     {
         id: "advanced_search",
@@ -80,10 +92,9 @@ export const retrievalMethodOptions: optionProps[] = [
     },
     { id: "tags", label: "Tags and categories for organized browsing" },
     { id: "visual_timelines", label: "Visual timelines or memory maps" },
-    { id: "other", label: "Other (please specify)" },
 ];
 
-export const captureMethodOptions: optionProps[] = [
+export const captureMethodOptions: optionType[] = [
     {
         id: "typing",
         label: "Typing notes on a computer or mobile device",
@@ -94,7 +105,7 @@ export const captureMethodOptions: optionProps[] = [
     { id: "voice", label: "Recording voice memos or audio", icon: Mic },
 ];
 
-export const currentToolsOptions: optionProps[] = [
+export const currentToolsOptions: optionType[] = [
     { id: "notion", label: "Notion", icon: NotionIcon },
     { id: "evernote", label: "Evernote", icon: EvernoteIcon },
     { id: "onenote", label: "OneNote", icon: OneNoteIcon },
@@ -109,7 +120,7 @@ export const currentToolsOptions: optionProps[] = [
     { id: "none", label: "I don’t use any tools currently", icon: Ban },
 ];
 
-export const aiImportanceOptions: optionProps[] = [
+export const aiImportanceOptions: optionType[] = [
     {
         id: "critical",
         label: "Critical – I rely on AI for summaries and organization",
@@ -125,7 +136,7 @@ export const aiImportanceOptions: optionProps[] = [
     { id: "explore", label: "I’m curious to explore AI features" },
 ];
 
-export const devicePreferenceOptions: optionProps[] = [
+export const devicePreferenceOptions: optionType[] = [
     { id: "mobile", label: "Mobile (smartphone or tablet)", icon: Smartphone },
     { id: "desktop", label: "Desktop or laptop", icon: Laptop },
     {
@@ -135,7 +146,7 @@ export const devicePreferenceOptions: optionProps[] = [
     },
 ];
 
-export const workBackgroundOptions: optionProps[] = [
+export const workBackgroundOptions: optionType[] = [
     { id: "software_engineer", label: "Software Engineer", icon: Code },
     { id: "product_manager", label: "Product Manager", icon: LayoutDashboard },
     { id: "designer", label: "Designer", icon: Palette },
@@ -147,34 +158,31 @@ export const workBackgroundOptions: optionProps[] = [
     { id: "other", label: "Other (please specify)", icon: User },
 ];
 
-export const usagePurposeOptions: optionProps[] = [
+export const usagePurposeOptions: optionType[] = [
     { id: "personal_life", label: "For personal life", icon: Home },
     { id: "work_purposes", label: "For work purposes", icon: Briefcase },
     { id: "both", label: "Both", icon: User },
 ];
 
-type onboardingProps = {
-    question: string;
-    options: optionProps[];
-    type: "checkbox" | "radio";
-    display: "wrapped" | "stacked";
-};
-
-export const onboardingQuestions: onboardingProps[] = [
+export const personalisationQuestions: Question[] = [
     {
         question: "What is your primary work background?",
+        quesId: "work_background",
         options: workBackgroundOptions,
         type: "radio",
         display: "wrapped",
+        allowOther: true,
     },
     {
         question: "How do you plan to use Airtheon?",
+        quesId: "usage_purpose",
         options: usagePurposeOptions,
         type: "radio",
         display: "stacked",
     },
     {
         question: "What is your primary goal for using Airtheon?",
+        quesId: "goal",
         options: goalOptions,
         type: "checkbox",
         display: "stacked",
@@ -182,6 +190,7 @@ export const onboardingQuestions: onboardingProps[] = [
     {
         question:
             "What type of content do you plan to store most often in Airtheon?",
+        quesId: "content_type",
         options: contentTypeOptions,
         type: "checkbox",
         display: "stacked",
@@ -189,12 +198,14 @@ export const onboardingQuestions: onboardingProps[] = [
     {
         question:
             "How do you prefer to retrieve or interact with your stored information?",
+        quesId: "retrieval_method",
         options: retrievalMethodOptions,
         type: "checkbox",
         display: "stacked",
     },
     {
         question: "How do you usually capture or save information?",
+        quesId: "capture_method",
         options: captureMethodOptions,
         type: "checkbox",
         display: "stacked",
@@ -202,6 +213,7 @@ export const onboardingQuestions: onboardingProps[] = [
     {
         question:
             "Which platforms or tools do you currently use to store or organize information?",
+        quesId: "current_tools",
         options: currentToolsOptions,
         type: "radio",
         display: "wrapped",
@@ -209,12 +221,14 @@ export const onboardingQuestions: onboardingProps[] = [
     {
         question:
             "How important is AI assistance in managing your digital memories?",
+        quesId: "ai_importance",
         options: aiImportanceOptions,
         type: "radio",
         display: "stacked",
     },
     {
         question: "What is your preferred device for accessing Airtheon?",
+        quesId: "device_preference",
         options: devicePreferenceOptions,
         type: "radio",
         display: "stacked",

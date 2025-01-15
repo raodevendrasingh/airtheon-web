@@ -12,9 +12,22 @@ import { EmojiList } from "@/components/icon-picker/emoji-block";
 import { ImageUpload } from "@/components/icon-picker/image-block";
 import { useState } from "react";
 import * as Icons from "react-icons/fa6";
-import type { IconData } from "@/types/icon-picker";
 import { ImagePlus } from "lucide-react";
 import Image from "next/image";
+
+export interface IconData {
+    id?: string;
+    type: "icon" | "emoji" | "image";
+    preview: string;
+    buffer?: ArrayBuffer;
+    fileName?: string;
+    metadata?: {
+        iconName?: string;
+        unicode?: string;
+        base64?: string;
+        mimeType?: string;
+    };
+}
 
 interface IconPickerProps {
     onIconSelect?: (iconData: IconData | null) => void;
@@ -68,7 +81,6 @@ export function IconPicker({ onIconSelect }: IconPickerProps) {
                 return;
         }
 
-        console.log(iconData);
         setIconData(normalizedData);
         onIconSelect?.(normalizedData);
     };

@@ -52,6 +52,7 @@
         "emoji-picker-react": "^4.12.0",
         "hono": "^4.6.16",
         "input-otp": "^1.4.1",
+        "lodash": "^4.17.21",
         "lucide-react": "^0.468.0",
         "motion": "^11.16.1",
         "next": "15.1.0",
@@ -71,6 +72,7 @@
         "zod": "^3.24.1"
     },
     "devDependencies": {
+        "@types/lodash": "^4.17.14",
         "@types/node": "^20.17.10",
         "@types/react": "19.0.1",
         "@types/react-dom": "19.0.2",
