@@ -42,10 +42,9 @@ import { z } from "zod";
 export const OnboardingDialog = () => {
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(-1);
     const [iconData, setIconData] = useState<IconData | null>(null);
-    const [isOnboarded, setIsOnboarded] = useState<boolean>(false);
+    const [isOnboarded, setIsOnboarded] = useState<boolean | null>(null);
     const [pending, setPending] = useState<boolean>(false);
-
-    const { data: session } = useSession();
+    const { data: session, isPending } = useSession();
 
     const form = useForm<z.infer<typeof onboardingFormSchema>>({
         resolver: zodResolver(onboardingFormSchema),
@@ -65,11 +64,14 @@ export const OnboardingDialog = () => {
 
     useEffect(() => {
         if (!session) return;
+        if (isPending) return;
+
         const checkOnboarding = async () => {
             const onboarded = await checkUserOnboarding(session.user.id);
             setIsOnboarded(onboarded);
         };
         checkOnboarding();
+        console.log("isOnboarding called");
     }, [session]);
 
     if (!session) {
@@ -107,11 +109,10 @@ export const OnboardingDialog = () => {
                 ...omit(iconData, "buffer"),
             };
 
-            console.log("FormData: ", formData);
-
             const randomDigits = Math.floor(Math.random() * 1000000);
             const newSlug = `${formData.workplaceName.toLowerCase().replace(/\s/g, "-")}-${randomDigits}`;
 
+            // create organization
             await authClient.organization.create({
                 name: formData.workplaceName,
                 slug: newSlug,
@@ -128,7 +129,6 @@ export const OnboardingDialog = () => {
 
             // send formdata to backend
             const response = await axios.post("/api/onboard", formData);
-            console.log(response.data);
 
             if (response.status === 200) {
                 setIsOnboarded(true);
@@ -341,7 +341,7 @@ export const OnboardingDialog = () => {
     };
 
     return (
-        <Dialog open={!isOnboarded}>
+        <Dialog open={isOnboarded === false && !isPending && session !== null}>
             <Form {...form}>
                 <form
                     id="onboarding-form"
