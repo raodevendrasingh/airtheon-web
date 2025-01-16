@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowRight, ArrowRightSquareIcon } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 
 export default function LegalPage() {
@@ -8,6 +8,7 @@ export default function LegalPage() {
         { name: "Terms of Service", href: "/legal/terms-of-service" },
         { name: "Privacy Policy", href: "/legal/privacy-policy" },
         { name: "Refund Policy", href: "/legal/refund-policy" },
+        { name: "Acceptable Use Policy", href: "/legal/acceptable-use-policy" },
     ];
 
     return (
@@ -19,9 +20,8 @@ export default function LegalPage() {
                     </h1>
                     <p className="text-muted-foreground">
                         Welcome to our legal section. Here you will find
-                        important information about our privacy policy, terms of
-                        service, and refund policy. Please review these
-                        documents carefully to understand your rights and
+                        important information about our policies. Please review
+                        these documents carefully to understand your rights and
                         obligations when using our services.
                     </p>
                 </div>
@@ -30,14 +30,17 @@ export default function LegalPage() {
                         <Link
                             key={page.href}
                             href={page.href}
-                            className="text-sm text-muted-foreground"
+                            className="group text-sm text-muted-foreground"
                         >
                             <div className="w-full border border-border rounded-md px-3 py-3 flex items-center justify-between hover:bg-accent/30 hover:text-lime-400 transition-colors">
                                 <span className="text-sm font-medium">
                                     {page.name}
                                 </span>
 
-                                <ArrowRight size={18} />
+                                <ArrowRight
+                                    size={18}
+                                    className="group-hover:-rotate-45 transition duration-200"
+                                />
                             </div>
                         </Link>
                     ))}

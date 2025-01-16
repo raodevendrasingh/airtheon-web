@@ -20,7 +20,7 @@ const socialLinks: SocialLink[] = [
     {
         icon: <FaGithub size={20} />,
         label: "GitHub",
-        href: "https://github.com/airtheon-labs",
+        href: "",
     },
 ];
 
