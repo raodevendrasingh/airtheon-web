@@ -1,5 +1,6 @@
 "use client";
 
+import { BrandLogoWordmark } from "@/components/brand-logo";
 import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
 
@@ -46,9 +47,7 @@ export function Footer() {
                 <div className="xl:grid xl:grid-cols-3 xl:gap-8">
                     {/* Brand Section */}
                     <div className="space-y-4">
-                        <Link href="/" className="flex items-center space-x-2">
-                            <span className="font-bold text-3xl">Airtheon</span>
-                        </Link>
+                        <BrandLogoWordmark />
                         <p className="text-sm text-muted-foreground max-w-xs">
                             Your AI-powered second brain for seamless knowledge
                             management and enhanced productivity.
@@ -57,7 +56,7 @@ export function Footer() {
 
                     {/* Links Section */}
                     <div className="mt-16 grid grid-cols-2 md:grid-cols-3 gap-8 xl:col-span-2 xl:mt-0">
-                        {footerSections.map((section, index) => (
+                        {footerSections.map((section) => (
                             <div
                                 key={section.title}
                                 className="md:grid md:grid-cols-2 md:gap-8"

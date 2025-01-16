@@ -4,7 +4,7 @@ import { emailOtp } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
-import { GalleryVerticalEnd, CircleAlert } from "lucide-react";
+import { CircleAlert } from "lucide-react";
 import {
     Card,
     CardContent,
@@ -26,7 +26,6 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { LoadingButton } from "@/components/LoadingButton";
-import Link from "next/link";
 import { HiOutlineArrowNarrowRight } from "react-icons/hi";
 import {
     InputOTP,
@@ -34,6 +33,7 @@ import {
     InputOTPSlot,
 } from "@/components/ui/input-otp";
 import { Button } from "@/components/ui/button";
+import { BrandLogoWordmark } from "@/components/brand-logo";
 
 export default function Page() {
     const [pending, setPending] = useState<boolean>(false);
@@ -112,15 +112,7 @@ export default function Page() {
     return (
         <div className="flex min-h-svh flex-col items-center justify-center gap-6 bg-muted p-6 md:p-10">
             <div className="flex w-full max-w-sm flex-col gap-6">
-                <Link
-                    href="#"
-                    className="flex items-center gap-2 self-center font-medium"
-                >
-                    <div className="flex h-6 w-6 items-center justify-center rounded-md bg-primary text-primary-foreground">
-                        <GalleryVerticalEnd className="size-4" />
-                    </div>
-                    Acme Inc.
-                </Link>
+                <BrandLogoWordmark />
                 <div className="flex flex-col gap-5">
                     {emailError ? (
                         <Card className="flex flex-col gap-4 items-center">
