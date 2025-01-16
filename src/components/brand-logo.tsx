@@ -5,10 +5,7 @@ import Link from "next/link";
 
 export const BrandLogoWordmark = () => {
     return (
-        <Link
-            href="/"
-            className="flex items-center gap-2 self-center font-medium"
-        >
+        <Link href="/">
             <Image
                 src={brandWordmarkDark}
                 alt="Airtheon Logo"

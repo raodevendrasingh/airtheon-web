@@ -49,8 +49,12 @@ export const Navbar = () => {
                         <BrandLogoWordmark />
                     </div>
                     <div className="flex items-center space-x-6">
-                        <Button variant="outline" onClick={handleShare}>
-                            Share Word
+                        <Button
+                            variant="outline"
+                            className="h-10"
+                            onClick={handleShare}
+                        >
+                            Spread Word
                             <Share2 />
                         </Button>
                     </div>
