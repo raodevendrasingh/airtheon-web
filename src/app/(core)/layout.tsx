@@ -19,6 +19,7 @@ import { usePathname } from "next/navigation";
 import { MemoryDialog } from "@/components/dialogs/memory-dialog";
 import { NotificationMenu } from "@/app/(core)/_components/notification-menu";
 import { OnboardingDialog } from "@/components/onboarding-dialog";
+import { useEffect } from "react";
 
 export default function CoreLayout({
     children,
@@ -72,6 +73,18 @@ export default function CoreLayout({
             );
         })
         .filter(Boolean);
+
+    useEffect(() => {
+        if (pathSegments.length > 1 && pathSegments[0] === "space") {
+            const lastSegment = pathSegments[pathSegments.length - 1];
+            document.title =
+                lastSegment.charAt(0).toUpperCase() + lastSegment.slice(1);
+        } else {
+            document.title =
+                pathSegments[0].charAt(0).toUpperCase() +
+                pathSegments[0].slice(1);
+        }
+    }, [pathSegments]);
 
     return (
         <SidebarProvider>

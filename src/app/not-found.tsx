@@ -3,17 +3,19 @@
 import { ChevronLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { useEffect } from "react";
 
 export default function NotFound(): React.JSX.Element {
+    useEffect(() => {
+        document.title = "Not Found | Airtheon";
+    }, []);
     return (
         <div className="min-h-screen w-full flex flex-col items-center justify-center px-4 bg-background/50">
             <div className="max-w-md w-full space-y-8 text-center">
-                {/* Animated 404 number with subtle hover effect */}
                 <h1 className="text-9xl font-bold text-foreground/20 transition-all duration-300 hover:text-foreground/40">
                     404
                 </h1>
 
-                {/* Enhanced error message section */}
                 <div className="space-y-3">
                     <h2 className="text-3xl font-bold text-foreground/80 tracking-tight">
                         Page not found
@@ -24,7 +26,6 @@ export default function NotFound(): React.JSX.Element {
                     </p>
                 </div>
 
-                {/* Improved action buttons */}
                 <div className="pt-8 flex flex-col sm:flex-row justify-center space-y-3 sm:space-y-0 sm:space-x-4">
                     <Button
                         variant="outline"

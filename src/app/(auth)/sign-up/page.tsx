@@ -21,7 +21,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { emailOtp, signUp } from "@/lib/auth-client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { GoogleAuthButton } from "../_components/GoogleAuthButton";
 import { LoadingButton } from "@/components/LoadingButton";
@@ -33,6 +33,10 @@ import { BrandLogoWordmark } from "@/components/brand-logo";
 export default function SignUpPage() {
     const router = useRouter();
     const [pending, setPending] = useState<boolean>(false);
+
+    useEffect(() => {
+        document.title = "Sign Up | Airtheon";
+    }, []);
 
     const form = useForm<z.infer<typeof signUpSchema>>({
         resolver: zodResolver(signUpSchema),
@@ -81,7 +85,7 @@ export default function SignUpPage() {
     };
 
     return (
-        <div className="flex min-h-svh flex-col items-center justify-center gap-6 bg-muted p-6 md:p-10">
+        <div className="flex min-h-svh flex-col items-center justify-center gap-6 bg-accent/50 p-6 md:p-10">
             <div className="flex w-full max-w-sm flex-col gap-6">
                 <BrandLogoWordmark />
                 <div className="flex flex-col gap-5">

@@ -1,5 +1,8 @@
-"use client";
+import { Metadata } from "next";
 
+export const metadata: Metadata = {
+    title: "Refund Policy",
+};
 export default function RefundPolicy() {
     return (
         <div className="container mx-auto max-w-3xl min-h-screen py-10">
