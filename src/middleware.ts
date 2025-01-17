@@ -16,6 +16,8 @@ const privateRoutes = [
     "/space/*",
 ];
 
+const authRoutes = ["/sign-in", "/sign-up", "/verify"];
+
 const adminRoutes = ["/admin"];
 
 export async function middleware(request: NextRequest) {
@@ -24,6 +26,24 @@ export async function middleware(request: NextRequest) {
 
     const baseDomain = process.env.NEXT_PUBLIC_BASE_DOMAIN;
     const helpDomain = process.env.NEXT_PUBLIC_HELP_DOMAIN;
+
+    const isPrivateRoute = privateRoutes.some((route) => {
+        return route.endsWith("/*")
+            ? pathName.startsWith(route.slice(0, -2))
+            : pathName === route;
+    });
+    const isAdminRoute = adminRoutes.includes(pathName);
+    const isAuthRoute = authRoutes.includes(pathName);
+
+    // Check if the host is not localhost
+    // const isLocalhost = hostname === "localhost" || hostname === "127.0.0.1";
+
+    // If not localhost, restrict access to private and auth routes
+    // if (!isLocalhost) {
+    //     if (isPrivateRoute || isAuthRoute) {
+    //         return NextResponse.rewrite(new URL("/not-found", request.url));
+    //     }
+    // }
 
     if (pathName.startsWith("/legal") && hostname === baseDomain) {
         return NextResponse.rewrite(new URL("/not-found", request.url));
@@ -36,24 +56,17 @@ export async function middleware(request: NextRequest) {
         return NextResponse.next();
     }
 
-    const isPrivateRoute = privateRoutes.some((route) => {
-        return route.endsWith("/*")
-            ? pathName.startsWith(route.slice(0, -2))
-            : pathName === route;
-    });
-    const isAdminRoute = adminRoutes.includes(pathName);
+    const { data: session } = await betterFetch<Session>(
+        "/api/auth/get-session",
+        {
+            baseURL: process.env.BETTER_AUTH_URL!,
+            headers: {
+                cookie: request.headers.get("cookie") || "",
+            },
+        },
+    );
 
     if (isPrivateRoute || isAdminRoute) {
-        const { data: session } = await betterFetch<Session>(
-            "/api/auth/get-session",
-            {
-                baseURL: process.env.BETTER_AUTH_URL!,
-                headers: {
-                    cookie: request.headers.get("cookie") || "",
-                },
-            },
-        );
-
         if (!session) {
             return NextResponse.redirect(new URL("/sign-in", request.url));
         }
@@ -61,6 +74,12 @@ export async function middleware(request: NextRequest) {
         // if (isAdminRoute && !session.user.role.includes("admin")) {
         //     return NextResponse.redirect(new URL("/dash", request.url));
         // }
+    }
+
+    if (isAuthRoute) {
+        if (session) {
+            return NextResponse.redirect(new URL("/dash", request.url));
+        }
     }
 
     return NextResponse.next();
