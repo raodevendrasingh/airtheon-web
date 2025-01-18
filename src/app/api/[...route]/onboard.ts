@@ -5,6 +5,7 @@ import { onboardingFormSchema } from "@/lib/app-schema";
 import { personalization, user } from "@/db/schema";
 import { auth } from "@/lib/auth";
 import { eq } from "drizzle-orm";
+import { randomUUID } from "@/utils/random-uuid";
 
 const app = new Hono();
 
@@ -28,8 +29,10 @@ app.post("/", zValidator("json", onboardingFormSchema), async (c) => {
 
         const body = c.req.valid("json");
 
+        const randomId = randomUUID();
+
         await db.insert(personalization).values({
-            id: crypto.randomUUID(),
+            id: randomId,
             userId: userId,
             responses: body.responses,
         });

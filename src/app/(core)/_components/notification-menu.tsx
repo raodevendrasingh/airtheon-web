@@ -7,7 +7,6 @@ import {
     TooltipTrigger,
 } from "@/components/ui/tooltip";
 
-import { cn } from "@/lib/utils";
 import { ArrowUpRight, Bell, BellOff, CheckCheck, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { dummyNotifications } from "@/DATA/dummy-notifications";
@@ -21,8 +20,8 @@ import {
 import { Label } from "@/components/ui/label";
 import { DialogTitle } from "@/components/ui/dialog";
 import Link from "next/link";
-import { handleMarkAllAsRead } from "@/app/(core)/notifications/page";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
+import { handleMarkAllAsRead } from "@/utils/notification-action";
 
 export const NotificationMenu = () => {
     const isDesktop = useMediaQuery("768px");

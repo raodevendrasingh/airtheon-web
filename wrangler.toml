@@ -1,5 +1,4 @@
-[[d1_databases]]
-binding = "DB"
-database_name = "second-brain-db"
-database_id = "7da7dc1b-53b0-41c1-a348-29cb424fe73b"
-migrations_dir = "./src/db/migrations"
+name = "airtheon"
+compatibility_date = "2024-12-30"
+compatibility_flags = ["nodejs_compat"]
+pages_build_output_dir = ".vercel/output/static"

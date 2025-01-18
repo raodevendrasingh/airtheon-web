@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import {
     handleReadNotification,
     handleRemoveNotification,
-} from "@/app/(core)/notifications/page";
+} from "@/utils/notification-action";
 
 interface NotificationCardProps {
     notification: {

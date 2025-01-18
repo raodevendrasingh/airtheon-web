@@ -3,6 +3,7 @@
 import { betterFetch } from "@better-fetch/fetch";
 import { NextResponse, type NextRequest } from "next/server";
 import type { Session } from "@/lib/auth";
+import { env } from "@/env";
 
 const privateRoutes = [
     "/search/*",
@@ -21,19 +22,37 @@ const authRoutes = ["/sign-in", "/sign-up", "/verify"];
 const adminRoutes = ["/admin"];
 
 export async function middleware(request: NextRequest) {
+    const { data: session } = await betterFetch<Session>(
+        "/api/auth/get-session",
+        {
+            baseURL: env.NEXT_PUBLIC_BASE_URL!,
+            headers: {
+                cookie: request.headers.get("cookie") || "",
+            },
+        },
+    );
+
+    // const session = await fetch(
+    //     `${env.NEXT_PUBLIC_BASE_URL}/api/auth/get-session`,
+    //     {
+    //         headers: {
+    //             cookie: request.headers.get("cookie") || "",
+    //         },
+    //     },
+    // ).then((res) => res.json() as Promise<Session>);
+
     const pathName = request.nextUrl.pathname;
     const hostname = request.headers.get("host");
 
-    const baseDomain = process.env.NEXT_PUBLIC_BASE_DOMAIN;
-    const helpDomain = process.env.NEXT_PUBLIC_HELP_DOMAIN;
+    const baseDomain = env.NEXT_PUBLIC_BASE_DOMAIN;
 
+    const isAdminRoute = adminRoutes.includes(pathName);
+    const isAuthRoute = authRoutes.includes(pathName);
     const isPrivateRoute = privateRoutes.some((route) => {
         return route.endsWith("/*")
             ? pathName.startsWith(route.slice(0, -2))
             : pathName === route;
     });
-    const isAdminRoute = adminRoutes.includes(pathName);
-    const isAuthRoute = authRoutes.includes(pathName);
 
     // Check if the host is not localhost
     // const isLocalhost = hostname === "localhost" || hostname === "127.0.0.1";
@@ -55,16 +74,6 @@ export async function middleware(request: NextRequest) {
         }
         return NextResponse.next();
     }
-
-    const { data: session } = await betterFetch<Session>(
-        "/api/auth/get-session",
-        {
-            baseURL: process.env.BETTER_AUTH_URL!,
-            headers: {
-                cookie: request.headers.get("cookie") || "",
-            },
-        },
-    );
 
     if (isPrivateRoute || isAdminRoute) {
         if (!session) {

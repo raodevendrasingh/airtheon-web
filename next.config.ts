@@ -1,4 +1,11 @@
 import type { NextConfig } from "next";
+import { setupDevPlatform } from "@cloudflare/next-on-pages/next-dev";
+import { fileURLToPath } from "node:url";
+import createJiti from "jiti";
+import { env } from "@/env";
+const jiti = createJiti(fileURLToPath(import.meta.url));
+
+jiti("./src/env");
 
 const nextConfig: NextConfig = {
     async rewrites() {
@@ -20,5 +27,9 @@ const nextConfig: NextConfig = {
         };
     },
 };
+
+if (env.NODE_ENV === "development") {
+    await setupDevPlatform();
+}
 
 export default nextConfig;

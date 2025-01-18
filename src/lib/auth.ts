@@ -1,7 +1,6 @@
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { db } from "@/db/drizzle";
-import { config } from "dotenv";
 import { emailOTP, openAPI, organization } from "better-auth/plugins";
 import {
     account,
@@ -13,8 +12,7 @@ import {
     organization as workplace,
 } from "@/db/schema";
 import { sendVerificationEmail } from "@/actions/send-verification-email";
-
-config({ path: ".env.local" });
+import { env } from "@/env";
 
 export const auth = betterAuth({
     database: drizzleAdapter(db, {
@@ -84,8 +82,8 @@ export const auth = betterAuth({
     },
     socialProviders: {
         google: {
-            clientId: process.env.GOOGLE_CLIENT_ID!,
-            clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+            clientId: env.GOOGLE_CLIENT_ID,
+            clientSecret: env.GOOGLE_CLIENT_SECRET,
         },
     },
 });

@@ -1,5 +1,5 @@
 {
-    "name": "second-brain",
+    "name": "airtheon",
     "version": "0.1.0",
     "private": true,
     "scripts": {
@@ -12,12 +12,16 @@
         "generate": "drizzle-kit generate --config ./drizzle.config.ts",
         "migrate": "drizzle-kit migrate --config ./drizzle.config.ts",
         "push": "drizzle-kit push --config ./drizzle.config.ts",
-        "studio": "drizzle-kit studio --config ./drizzle.config.ts"
+        "studio": "drizzle-kit studio --config ./drizzle.config.ts",
+        "pages:build": "npx @cloudflare/next-on-pages",
+        "preview": "npm run pages:build && wrangler pages dev",
+        "deploy": "npm run pages:build && wrangler pages deploy"
     },
     "dependencies": {
         "@arcjet/next": "^1.0.0-alpha.34",
         "@aws-sdk/client-s3": "^3.726.0",
-        "@cloudflare/workers-types": "^4.20241218.0",
+        "@cloudflare/next-on-pages": "^1.13.7",
+        "@cloudflare/workers-types": "^4.20250109.0",
         "@hono/zod-validator": "^0.4.2",
         "@hookform/resolvers": "^3.9.1",
         "@neondatabase/serverless": "^0.10.4",
@@ -39,6 +43,7 @@
         "@radix-ui/react-tabs": "^1.1.2",
         "@radix-ui/react-tooltip": "^1.1.6",
         "@react-email/components": "0.0.31",
+        "@t3-oss/env-nextjs": "^0.11.1",
         "@tanstack/react-query": "^5.62.15",
         "axios": "^1.7.9",
         "better-auth": "^1.0.22",
@@ -46,7 +51,6 @@
         "clsx": "^2.1.1",
         "cmdk": "1.0.0",
         "cross-env": "^7.0.3",
-        "dotenv": "^16.4.7",
         "drizzle-orm": "^0.38.2",
         "drizzle-zod": "^0.5.1",
         "emoji-picker-react": "^4.12.0",
@@ -68,7 +72,7 @@
         "tailwind-merge": "^2.5.5",
         "tailwindcss-animate": "^1.0.7",
         "usehooks-ts": "^3.1.0",
-        "wrangler": "^3.98.0",
+        "wrangler": "3.103.2",
         "zod": "^3.24.1"
     },
     "devDependencies": {

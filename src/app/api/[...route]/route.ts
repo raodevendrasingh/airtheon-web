@@ -4,7 +4,7 @@ import waitlist from "./waitlist";
 import uploadImage from "./upload-image";
 import onboard from "./onboard";
 
-export const runtime = "nodejs"; // or "edge"
+export const runtime = "edge";
 
 const app = new Hono().basePath("/api");
 
