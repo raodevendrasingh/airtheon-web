@@ -2,3 +2,23 @@ name = "airtheon"
 compatibility_date = "2024-12-30"
 compatibility_flags = ["nodejs_compat"]
 pages_build_output_dir = ".vercel/output/static"
+
+
+#[ai]
+#binding = "AI"
+
+
+#[[d1_databases]]
+#binding = "<BINDING_NAME>"
+#database_name = "<DATABASE_NAME>"
+#database_id = "<DATABASE_ID>"
+
+
+#[[r2_buckets]]
+#binding = "<BINDING_NAME1>"
+#bucket_name = "<BUCKET_NAME1>"
+
+
+#[[vectorize]]
+#binding = "<BINDING_NAME>"
+#index_name = "<INDEX_NAME>"

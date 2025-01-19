@@ -5,6 +5,12 @@ import ThemeProvider from "@/providers/ThemeProvider";
 import { Toaster } from "@/components/ui/sonner";
 import "./globals.css";
 import QueryProviders from "@/providers/query-provider";
+// @ts-ignore
+// import xhr2 from "xhr2";
+
+// if (typeof window === "undefined") {
+//     global.XMLHttpRequest = xhr2;
+// }
 
 const outfit = Outfit({
     subsets: ["latin"],
