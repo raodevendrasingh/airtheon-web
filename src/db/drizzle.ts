@@ -1,8 +1,7 @@
-import { neon } from "@neondatabase/serverless";
-import { config } from "dotenv";
-import { drizzle } from "drizzle-orm/neon-http";
+import { drizzle } from "drizzle-orm/d1";
+import * as schema from "@/db/schema/index";
 
-config({ path: ".env.local" });
-
-const sql = neon(process.env.DATABASE_URL!);
-export const db = drizzle({ client: sql });
+export const db = drizzle(process.env.CLOUDFLARE_DATABASE_ID, {
+    schema,
+    logger: process.env.NODE_ENV === "development",
+});

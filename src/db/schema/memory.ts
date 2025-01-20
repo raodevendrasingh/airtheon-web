@@ -1,38 +1,31 @@
-import {
-    pgTable,
-    text,
-    timestamp,
-    json,
-    integer,
-    index,
-} from "drizzle-orm/pg-core";
+import { sqliteTable, text, integer, index } from "drizzle-orm/sqlite-core";
 import { user } from "./user";
 import { organization, space } from "./workplace";
 import { memoryTypeEnum } from "./enums";
 
-export const memory = pgTable(
+export const memory = sqliteTable(
     "memory",
     {
         id: text("id").primaryKey(),
         spaceId: text("spaceId")
             .notNull()
             .references(() => space.id, { onDelete: "cascade" }),
-        type: memoryTypeEnum("type").notNull(),
-        content: json("content").notNull(),
-        metadata: json("metadata"),
+        type: text("memoryType", { enum: memoryTypeEnum }).notNull(),
+        content: text("content").notNull(),
+        metadata: text("metadata"),
         extractedText: text("extractedText"),
         vectorId: text("vectorId"),
         createdBy: text("createdBy")
             .notNull()
             .references(() => user.id),
-        createdAt: timestamp("createdAt").defaultNow().notNull(),
-        updatedAt: timestamp("updatedAt").defaultNow().notNull(),
-        deletedAt: timestamp("deletedAt"),
+        createdAt: integer("createdAt", { mode: "timestamp" }).notNull(),
+        updatedAt: integer("updatedAt", { mode: "timestamp" }).notNull(),
+        deletedAt: integer("deletedAt", { mode: "timestamp" }),
     },
     (t) => [index("spaceIdIdx").on(t.spaceId)],
 );
 
-export const media = pgTable(
+export const media = sqliteTable(
     "media",
     {
         id: text("id").primaryKey(),
@@ -43,13 +36,13 @@ export const media = pgTable(
         fileType: text("fileType").notNull(),
         fileSize: integer("fileSize"),
         extractedText: text("extractedText"),
-        createdAt: timestamp("createdAt").defaultNow().notNull(),
-        updatedAt: timestamp("updatedAt").defaultNow().notNull(),
+        createdAt: integer("createdAt", { mode: "timestamp" }).notNull(),
+        updatedAt: integer("updatedAt", { mode: "timestamp" }).notNull(),
     },
     (t) => [index("memoryIdIdx").on(t.memoryId)],
 );
 
-export const tags = pgTable(
+export const tags = sqliteTable(
     "tags",
     {
         id: text("id").primaryKey(),
@@ -57,13 +50,13 @@ export const tags = pgTable(
         workplaceId: text("workplaceId")
             .notNull()
             .references(() => organization.id, { onDelete: "cascade" }),
-        createdAt: timestamp("createdAt").defaultNow().notNull(),
-        updatedAt: timestamp("updatedAt").defaultNow().notNull(),
+        createdAt: integer("createdAt", { mode: "timestamp" }).notNull(),
+        updatedAt: integer("updatedAt", { mode: "timestamp" }).notNull(),
     },
     (t) => [index("workplaceTagIdx").on(t.workplaceId, t.name)],
 );
 
-export const discardedMemory = pgTable(
+export const discardedMemory = sqliteTable(
     "discardedMemory",
     {
         id: text("id").primaryKey(),
@@ -73,14 +66,14 @@ export const discardedMemory = pgTable(
         spaceId: text("spaceId")
             .notNull()
             .references(() => space.id, { onDelete: "cascade" }),
-        type: memoryTypeEnum("type").notNull(),
-        content: json("content").notNull(),
-        metadata: json("metadata"),
+        type: text("memoryType", { enum: memoryTypeEnum }).notNull(),
+        content: text("content").notNull(),
+        metadata: text("metadata"),
         discardedBy: text("discardedBy")
             .notNull()
             .references(() => user.id),
-        discardedAt: timestamp("discardedAt").defaultNow().notNull(),
-        expirationAt: timestamp("expirationAt").notNull(),
+        discardedAt: integer("discardedAt", { mode: "timestamp" }).notNull(),
+        expirationAt: integer("expirationAt", { mode: "timestamp" }).notNull(),
     },
     (t) => [index("discardedMemory_spaceIdIdx").on(t.spaceId)],
 );

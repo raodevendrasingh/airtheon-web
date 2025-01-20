@@ -1,109 +1,109 @@
 {
-    "id": "af49bbf6-7dfd-4b6b-9b56-7eea597f8e1a",
+    "version": "6",
+    "dialect": "sqlite",
+    "id": "84339985-9c1c-40a0-a3a6-88eca9ac5eec",
     "prevId": "00000000-0000-0000-0000-000000000000",
-    "version": "7",
-    "dialect": "postgresql",
     "tables": {
-        "public.account": {
+        "account": {
             "name": "account",
-            "schema": "",
             "columns": {
                 "id": {
                     "name": "id",
                     "type": "text",
                     "primaryKey": true,
-                    "notNull": true
+                    "notNull": true,
+                    "autoincrement": false
                 },
                 "accountId": {
                     "name": "accountId",
                     "type": "text",
                     "primaryKey": false,
-                    "notNull": true
+                    "notNull": true,
+                    "autoincrement": false
                 },
                 "providerId": {
                     "name": "providerId",
                     "type": "text",
                     "primaryKey": false,
-                    "notNull": true
+                    "notNull": true,
+                    "autoincrement": false
                 },
                 "userId": {
                     "name": "userId",
                     "type": "text",
                     "primaryKey": false,
-                    "notNull": true
+                    "notNull": true,
+                    "autoincrement": false
                 },
                 "accessToken": {
                     "name": "accessToken",
                     "type": "text",
                     "primaryKey": false,
-                    "notNull": false
+                    "notNull": false,
+                    "autoincrement": false
                 },
                 "refreshToken": {
                     "name": "refreshToken",
                     "type": "text",
                     "primaryKey": false,
-                    "notNull": false
+                    "notNull": false,
+                    "autoincrement": false
                 },
                 "idToken": {
                     "name": "idToken",
                     "type": "text",
                     "primaryKey": false,
-                    "notNull": false
+                    "notNull": false,
+                    "autoincrement": false
                 },
                 "accessTokenExpiresAt": {
                     "name": "accessTokenExpiresAt",
-                    "type": "timestamp",
+                    "type": "integer",
                     "primaryKey": false,
-                    "notNull": false
+                    "notNull": false,
+                    "autoincrement": false
                 },
                 "refreshTokenExpiresAt": {
                     "name": "refreshTokenExpiresAt",
-                    "type": "timestamp",
+                    "type": "integer",
                     "primaryKey": false,
-                    "notNull": false
+                    "notNull": false,
+                    "autoincrement": false
                 },
                 "scope": {
                     "name": "scope",
                     "type": "text",
                     "primaryKey": false,
-                    "notNull": false
+                    "notNull": false,
+                    "autoincrement": false
                 },
                 "password": {
                     "name": "password",
                     "type": "text",
                     "primaryKey": false,
-                    "notNull": false
+                    "notNull": false,
+                    "autoincrement": false
                 },
                 "createdAt": {
                     "name": "createdAt",
-                    "type": "timestamp",
+                    "type": "integer",
                     "primaryKey": false,
                     "notNull": true,
-                    "default": "now()"
+                    "autoincrement": false
                 },
                 "updatedAt": {
                     "name": "updatedAt",
-                    "type": "timestamp",
+                    "type": "integer",
                     "primaryKey": false,
                     "notNull": true,
-                    "default": "now()"
+                    "autoincrement": false
                 }
             },
             "indexes": {
                 "account_userIdIdx": {
                     "name": "account_userIdIdx",
-                    "columns": [
-                        {
-                            "expression": "userId",
-                            "isExpression": false,
-                            "asc": true,
-                            "nulls": "last"
-                        }
-                    ],
-                    "isUnique": false,
-                    "concurrently": false,
-                    "method": "btree",
-                    "with": {}
+                    "columns": ["userId"],
+                    "isUnique": false
                 }
             },
             "foreignKeys": {
@@ -119,86 +119,85 @@
             },
             "compositePrimaryKeys": {},
             "uniqueConstraints": {},
-            "policies": {},
-            "checkConstraints": {},
-            "isRLSEnabled": false
+            "checkConstraints": {}
         },
-        "public.session": {
+        "session": {
             "name": "session",
-            "schema": "",
             "columns": {
                 "id": {
                     "name": "id",
                     "type": "text",
                     "primaryKey": true,
-                    "notNull": true
+                    "notNull": true,
+                    "autoincrement": false
                 },
                 "expiresAt": {
                     "name": "expiresAt",
-                    "type": "timestamp",
+                    "type": "integer",
                     "primaryKey": false,
-                    "notNull": true
+                    "notNull": true,
+                    "autoincrement": false
                 },
                 "token": {
                     "name": "token",
                     "type": "text",
                     "primaryKey": false,
-                    "notNull": true
+                    "notNull": true,
+                    "autoincrement": false
                 },
                 "createdAt": {
                     "name": "createdAt",
-                    "type": "timestamp",
+                    "type": "integer",
                     "primaryKey": false,
                     "notNull": true,
-                    "default": "now()"
+                    "autoincrement": false
                 },
                 "updatedAt": {
                     "name": "updatedAt",
-                    "type": "timestamp",
+                    "type": "integer",
                     "primaryKey": false,
                     "notNull": true,
-                    "default": "now()"
+                    "autoincrement": false
                 },
                 "ipAddress": {
                     "name": "ipAddress",
                     "type": "text",
                     "primaryKey": false,
-                    "notNull": false
+                    "notNull": false,
+                    "autoincrement": false
                 },
                 "userAgent": {
                     "name": "userAgent",
                     "type": "text",
                     "primaryKey": false,
-                    "notNull": false
+                    "notNull": false,
+                    "autoincrement": false
                 },
                 "userId": {
                     "name": "userId",
                     "type": "text",
                     "primaryKey": false,
-                    "notNull": true
+                    "notNull": true,
+                    "autoincrement": false
                 },
                 "activeOrganizationId": {
                     "name": "activeOrganizationId",
                     "type": "text",
                     "primaryKey": false,
-                    "notNull": false
+                    "notNull": false,
+                    "autoincrement": false
                 }
             },
             "indexes": {
+                "session_token_unique": {
+                    "name": "session_token_unique",
+                    "columns": ["token"],
+                    "isUnique": true
+                },
                 "session_userIdIdx": {
                     "name": "session_userIdIdx",
-                    "columns": [
-                        {
-                            "expression": "userId",
-                            "isExpression": false,
-                            "asc": true,
-                            "nulls": "last"
-                        }
-                    ],
-                    "isUnique": false,
-                    "concurrently": false,
-                    "method": "btree",
-                    "with": {}
+                    "columns": ["userId"],
+                    "isUnique": false
                 }
             },
             "foreignKeys": {
@@ -213,230 +212,206 @@
                 }
             },
             "compositePrimaryKeys": {},
-            "uniqueConstraints": {
-                "session_token_unique": {
-                    "name": "session_token_unique",
-                    "nullsNotDistinct": false,
-                    "columns": ["token"]
-                }
-            },
-            "policies": {},
-            "checkConstraints": {},
-            "isRLSEnabled": false
+            "uniqueConstraints": {},
+            "checkConstraints": {}
         },
-        "public.user": {
+        "user": {
             "name": "user",
-            "schema": "",
             "columns": {
                 "id": {
                     "name": "id",
                     "type": "text",
                     "primaryKey": true,
-                    "notNull": true
+                    "notNull": true,
+                    "autoincrement": false
                 },
                 "name": {
                     "name": "name",
                     "type": "text",
                     "primaryKey": false,
-                    "notNull": true
+                    "notNull": true,
+                    "autoincrement": false
                 },
                 "email": {
                     "name": "email",
                     "type": "text",
                     "primaryKey": false,
-                    "notNull": true
+                    "notNull": true,
+                    "autoincrement": false
                 },
                 "emailVerified": {
                     "name": "emailVerified",
-                    "type": "boolean",
+                    "type": "integer",
                     "primaryKey": false,
                     "notNull": true,
+                    "autoincrement": false,
                     "default": false
                 },
                 "image": {
                     "name": "image",
                     "type": "text",
                     "primaryKey": false,
-                    "notNull": false
+                    "notNull": false,
+                    "autoincrement": false
                 },
                 "isOnboarded": {
                     "name": "isOnboarded",
-                    "type": "boolean",
+                    "type": "integer",
                     "primaryKey": false,
                     "notNull": true,
+                    "autoincrement": false,
                     "default": false
                 },
                 "createdAt": {
                     "name": "createdAt",
-                    "type": "timestamp",
+                    "type": "integer",
                     "primaryKey": false,
                     "notNull": true,
-                    "default": "now()"
+                    "autoincrement": false
                 },
                 "updatedAt": {
                     "name": "updatedAt",
-                    "type": "timestamp",
+                    "type": "integer",
                     "primaryKey": false,
                     "notNull": true,
-                    "default": "now()"
+                    "autoincrement": false
                 }
             },
             "indexes": {
+                "user_email_unique": {
+                    "name": "user_email_unique",
+                    "columns": ["email"],
+                    "isUnique": true
+                },
                 "user_emailIdx": {
                     "name": "user_emailIdx",
-                    "columns": [
-                        {
-                            "expression": "email",
-                            "isExpression": false,
-                            "asc": true,
-                            "nulls": "last"
-                        }
-                    ],
-                    "isUnique": false,
-                    "concurrently": false,
-                    "method": "btree",
-                    "with": {}
+                    "columns": ["email"],
+                    "isUnique": false
                 }
             },
             "foreignKeys": {},
             "compositePrimaryKeys": {},
-            "uniqueConstraints": {
-                "user_email_unique": {
-                    "name": "user_email_unique",
-                    "nullsNotDistinct": false,
-                    "columns": ["email"]
-                }
-            },
-            "policies": {},
-            "checkConstraints": {},
-            "isRLSEnabled": false
+            "uniqueConstraints": {},
+            "checkConstraints": {}
         },
-        "public.verification": {
+        "verification": {
             "name": "verification",
-            "schema": "",
             "columns": {
                 "id": {
                     "name": "id",
                     "type": "text",
                     "primaryKey": true,
-                    "notNull": true
+                    "notNull": true,
+                    "autoincrement": false
                 },
                 "identifier": {
                     "name": "identifier",
                     "type": "text",
                     "primaryKey": false,
-                    "notNull": true
+                    "notNull": true,
+                    "autoincrement": false
                 },
                 "value": {
                     "name": "value",
                     "type": "text",
                     "primaryKey": false,
-                    "notNull": true
+                    "notNull": true,
+                    "autoincrement": false
                 },
                 "expiresAt": {
                     "name": "expiresAt",
-                    "type": "timestamp",
+                    "type": "integer",
                     "primaryKey": false,
-                    "notNull": true
+                    "notNull": true,
+                    "autoincrement": false
                 },
                 "createdAt": {
                     "name": "createdAt",
-                    "type": "timestamp",
+                    "type": "integer",
                     "primaryKey": false,
                     "notNull": false,
-                    "default": "now()"
+                    "autoincrement": false
                 },
                 "updatedAt": {
                     "name": "updatedAt",
-                    "type": "timestamp",
+                    "type": "integer",
                     "primaryKey": false,
                     "notNull": false,
-                    "default": "now()"
+                    "autoincrement": false
                 }
             },
             "indexes": {},
             "foreignKeys": {},
             "compositePrimaryKeys": {},
             "uniqueConstraints": {},
-            "policies": {},
-            "checkConstraints": {},
-            "isRLSEnabled": false
+            "checkConstraints": {}
         },
-        "public.invitation": {
+        "invitation": {
             "name": "invitation",
-            "schema": "",
             "columns": {
                 "id": {
                     "name": "id",
                     "type": "text",
                     "primaryKey": true,
-                    "notNull": true
+                    "notNull": true,
+                    "autoincrement": false
                 },
                 "email": {
                     "name": "email",
                     "type": "text",
                     "primaryKey": false,
-                    "notNull": true
+                    "notNull": true,
+                    "autoincrement": false
                 },
                 "organizationId": {
                     "name": "organizationId",
                     "type": "text",
                     "primaryKey": false,
-                    "notNull": true
+                    "notNull": true,
+                    "autoincrement": false
                 },
                 "role": {
                     "name": "role",
                     "type": "text",
                     "primaryKey": false,
-                    "notNull": false
+                    "notNull": false,
+                    "autoincrement": false
                 },
                 "status": {
                     "name": "status",
                     "type": "text",
                     "primaryKey": false,
-                    "notNull": true
+                    "notNull": true,
+                    "autoincrement": false
                 },
                 "expiresAt": {
                     "name": "expiresAt",
-                    "type": "timestamp",
+                    "type": "integer",
                     "primaryKey": false,
-                    "notNull": true
+                    "notNull": true,
+                    "autoincrement": false
                 },
                 "createdAt": {
                     "name": "createdAt",
-                    "type": "timestamp",
+                    "type": "integer",
                     "primaryKey": false,
                     "notNull": true,
-                    "default": "now()"
+                    "autoincrement": false,
+                    "default": "(cast((julianday('now') - 2440587.5)*86400000 as integer))"
                 },
                 "inviter_id": {
                     "name": "inviter_id",
                     "type": "text",
                     "primaryKey": false,
-                    "notNull": true
+                    "notNull": true,
+                    "autoincrement": false
                 }
             },
             "indexes": {
                 "orgEmailIdx": {
                     "name": "orgEmailIdx",
-                    "columns": [
-                        {
-                            "expression": "organizationId",
-                            "isExpression": false,
-                            "asc": true,
-                            "nulls": "last"
-                        },
-                        {
-                            "expression": "email",
-                            "isExpression": false,
-                            "asc": true,
-                            "nulls": "last"
-                        }
-                    ],
-                    "isUnique": false,
-                    "concurrently": false,
-                    "method": "btree",
-                    "with": {}
+                    "columns": ["organizationId", "email"],
+                    "isUnique": false
                 }
             },
             "foreignKeys": {
@@ -461,67 +436,53 @@
             },
             "compositePrimaryKeys": {},
             "uniqueConstraints": {},
-            "policies": {},
-            "checkConstraints": {},
-            "isRLSEnabled": false
+            "checkConstraints": {}
         },
-        "public.member": {
+        "member": {
             "name": "member",
-            "schema": "",
             "columns": {
                 "id": {
                     "name": "id",
                     "type": "text",
                     "primaryKey": true,
-                    "notNull": true
+                    "notNull": true,
+                    "autoincrement": false
                 },
                 "organizationId": {
                     "name": "organizationId",
                     "type": "text",
                     "primaryKey": false,
-                    "notNull": true
+                    "notNull": true,
+                    "autoincrement": false
                 },
                 "userId": {
                     "name": "userId",
                     "type": "text",
                     "primaryKey": false,
-                    "notNull": true
+                    "notNull": true,
+                    "autoincrement": false
                 },
                 "role": {
                     "name": "role",
                     "type": "text",
                     "primaryKey": false,
-                    "notNull": true
+                    "notNull": true,
+                    "autoincrement": false
                 },
                 "createdAt": {
                     "name": "createdAt",
-                    "type": "timestamp",
+                    "type": "integer",
                     "primaryKey": false,
                     "notNull": true,
-                    "default": "now()"
+                    "autoincrement": false,
+                    "default": "(cast((julianday('now') - 2440587.5)*86400000 as integer))"
                 }
             },
             "indexes": {
                 "orgUserIdx": {
                     "name": "orgUserIdx",
-                    "columns": [
-                        {
-                            "expression": "organizationId",
-                            "isExpression": false,
-                            "asc": true,
-                            "nulls": "last"
-                        },
-                        {
-                            "expression": "userId",
-                            "isExpression": false,
-                            "asc": true,
-                            "nulls": "last"
-                        }
-                    ],
-                    "isUnique": false,
-                    "concurrently": false,
-                    "method": "btree",
-                    "with": {}
+                    "columns": ["organizationId", "userId"],
+                    "isUnique": false
                 }
             },
             "foreignKeys": {
@@ -546,158 +507,146 @@
             },
             "compositePrimaryKeys": {},
             "uniqueConstraints": {},
-            "policies": {},
-            "checkConstraints": {},
-            "isRLSEnabled": false
+            "checkConstraints": {}
         },
-        "public.organization": {
+        "organization": {
             "name": "organization",
-            "schema": "",
             "columns": {
                 "id": {
                     "name": "id",
                     "type": "text",
                     "primaryKey": true,
-                    "notNull": true
+                    "notNull": true,
+                    "autoincrement": false
                 },
                 "name": {
                     "name": "name",
                     "type": "text",
                     "primaryKey": false,
-                    "notNull": true
+                    "notNull": true,
+                    "autoincrement": false
                 },
                 "slug": {
                     "name": "slug",
                     "type": "text",
                     "primaryKey": false,
-                    "notNull": false
+                    "notNull": false,
+                    "autoincrement": false
                 },
                 "logo": {
                     "name": "logo",
                     "type": "text",
                     "primaryKey": false,
-                    "notNull": false
+                    "notNull": false,
+                    "autoincrement": false
                 },
                 "createdAt": {
                     "name": "createdAt",
-                    "type": "timestamp",
+                    "type": "integer",
                     "primaryKey": false,
                     "notNull": true,
-                    "default": "now()"
+                    "autoincrement": false,
+                    "default": "(cast((julianday('now') - 2440587.5)*86400000 as integer))"
                 },
                 "metadata": {
                     "name": "metadata",
-                    "type": "json",
+                    "type": "text",
                     "primaryKey": false,
-                    "notNull": false
+                    "notNull": false,
+                    "autoincrement": false
                 }
             },
             "indexes": {
+                "organization_slug_unique": {
+                    "name": "organization_slug_unique",
+                    "columns": ["slug"],
+                    "isUnique": true
+                },
                 "slugIdx": {
                     "name": "slugIdx",
-                    "columns": [
-                        {
-                            "expression": "slug",
-                            "isExpression": false,
-                            "asc": true,
-                            "nulls": "last"
-                        }
-                    ],
-                    "isUnique": false,
-                    "concurrently": false,
-                    "method": "btree",
-                    "with": {}
+                    "columns": ["slug"],
+                    "isUnique": false
                 }
             },
             "foreignKeys": {},
             "compositePrimaryKeys": {},
-            "uniqueConstraints": {
-                "organization_slug_unique": {
-                    "name": "organization_slug_unique",
-                    "nullsNotDistinct": false,
-                    "columns": ["slug"]
-                }
-            },
-            "policies": {},
-            "checkConstraints": {},
-            "isRLSEnabled": false
+            "uniqueConstraints": {},
+            "checkConstraints": {}
         },
-        "public.space": {
+        "space": {
             "name": "space",
-            "schema": "",
             "columns": {
                 "id": {
                     "name": "id",
                     "type": "text",
                     "primaryKey": true,
-                    "notNull": true
+                    "notNull": true,
+                    "autoincrement": false
                 },
                 "workplaceId": {
                     "name": "workplaceId",
                     "type": "text",
                     "primaryKey": false,
-                    "notNull": true
+                    "notNull": true,
+                    "autoincrement": false
                 },
                 "name": {
                     "name": "name",
                     "type": "text",
                     "primaryKey": false,
-                    "notNull": true
+                    "notNull": true,
+                    "autoincrement": false
                 },
                 "logo": {
                     "name": "logo",
                     "type": "text",
                     "primaryKey": false,
-                    "notNull": true
+                    "notNull": true,
+                    "autoincrement": false
                 },
                 "description": {
                     "name": "description",
                     "type": "text",
                     "primaryKey": false,
-                    "notNull": false
+                    "notNull": false,
+                    "autoincrement": false
                 },
                 "createdBy": {
                     "name": "createdBy",
                     "type": "text",
                     "primaryKey": false,
-                    "notNull": true
+                    "notNull": true,
+                    "autoincrement": false
                 },
                 "createdAt": {
                     "name": "createdAt",
-                    "type": "timestamp",
+                    "type": "integer",
                     "primaryKey": false,
                     "notNull": true,
-                    "default": "now()"
+                    "autoincrement": false,
+                    "default": "(cast((julianday('now') - 2440587.5)*86400000 as integer))"
                 },
                 "updatedAt": {
                     "name": "updatedAt",
-                    "type": "timestamp",
+                    "type": "integer",
                     "primaryKey": false,
                     "notNull": true,
-                    "default": "now()"
+                    "autoincrement": false,
+                    "default": "(cast((julianday('now') - 2440587.5)*86400000 as integer))"
                 },
                 "deletedAt": {
                     "name": "deletedAt",
-                    "type": "timestamp",
+                    "type": "integer",
                     "primaryKey": false,
-                    "notNull": false
+                    "notNull": false,
+                    "autoincrement": false
                 }
             },
             "indexes": {
                 "workplaceIdIdx": {
                     "name": "workplaceIdIdx",
-                    "columns": [
-                        {
-                            "expression": "workplaceId",
-                            "isExpression": false,
-                            "asc": true,
-                            "nulls": "last"
-                        }
-                    ],
-                    "isUnique": false,
-                    "concurrently": false,
-                    "method": "btree",
-                    "with": {}
+                    "columns": ["workplaceId"],
+                    "isUnique": false
                 }
             },
             "foreignKeys": {
@@ -722,76 +671,70 @@
             },
             "compositePrimaryKeys": {},
             "uniqueConstraints": {},
-            "policies": {},
-            "checkConstraints": {},
-            "isRLSEnabled": false
+            "checkConstraints": {}
         },
-        "public.workspaceSettings": {
+        "workspaceSettings": {
             "name": "workspaceSettings",
-            "schema": "",
             "columns": {
                 "id": {
                     "name": "id",
                     "type": "text",
                     "primaryKey": true,
-                    "notNull": true
+                    "notNull": true,
+                    "autoincrement": false
                 },
                 "workplaceId": {
                     "name": "workplaceId",
                     "type": "text",
                     "primaryKey": false,
-                    "notNull": true
+                    "notNull": true,
+                    "autoincrement": false
                 },
                 "defaultSpaceId": {
                     "name": "defaultSpaceId",
                     "type": "text",
                     "primaryKey": false,
-                    "notNull": false
+                    "notNull": false,
+                    "autoincrement": false
                 },
                 "allowMemberInvitations": {
                     "name": "allowMemberInvitations",
-                    "type": "boolean",
+                    "type": "integer",
                     "primaryKey": false,
                     "notNull": false,
+                    "autoincrement": false,
                     "default": true
                 },
                 "activityLogsEnabled": {
                     "name": "activityLogsEnabled",
-                    "type": "boolean",
+                    "type": "integer",
                     "primaryKey": false,
                     "notNull": false,
+                    "autoincrement": false,
                     "default": true
                 },
                 "createdAt": {
                     "name": "createdAt",
-                    "type": "timestamp",
+                    "type": "integer",
                     "primaryKey": false,
                     "notNull": true,
-                    "default": "now()"
+                    "autoincrement": false,
+                    "default": "(cast((julianday('now') - 2440587.5)*86400000 as integer))"
                 },
                 "updatedAt": {
                     "name": "updatedAt",
-                    "type": "timestamp",
+                    "type": "integer",
                     "primaryKey": false,
                     "notNull": true,
-                    "default": "now()"
+                    "autoincrement": false,
+                    "default": "(cast((julianday('now') - 2440587.5)*86400000 as integer))"
                 }
             },
             "indexes": {
                 "settings_workplaceId_idx": {
                     "name": "settings_workplaceId_idx",
-                    "columns": [
-                        {
-                            "expression": "workplaceId",
-                            "isExpression": false,
-                            "asc": true,
-                            "nulls": "last"
-                        }
-                    ],
-                    "isUnique": false,
-                    "concurrently": false,
-                    "method": "btree",
-                    "with": {}
+                    "columns": ["workplaceId"],
+                    "isUnique": false
                 }
             },
             "foreignKeys": {
@@ -816,86 +759,80 @@
             },
             "compositePrimaryKeys": {},
             "uniqueConstraints": {},
-            "policies": {},
-            "checkConstraints": {},
-            "isRLSEnabled": false
+            "checkConstraints": {}
         },
-        "public.discardedMemory": {
+        "discardedMemory": {
             "name": "discardedMemory",
-            "schema": "",
             "columns": {
                 "id": {
                     "name": "id",
                     "type": "text",
                     "primaryKey": true,
-                    "notNull": true
+                    "notNull": true,
+                    "autoincrement": false
                 },
                 "originalMemoryId": {
                     "name": "originalMemoryId",
                     "type": "text",
                     "primaryKey": false,
-                    "notNull": true
+                    "notNull": true,
+                    "autoincrement": false
                 },
                 "spaceId": {
                     "name": "spaceId",
                     "type": "text",
                     "primaryKey": false,
-                    "notNull": true
+                    "notNull": true,
+                    "autoincrement": false
                 },
-                "type": {
-                    "name": "type",
-                    "type": "memoryTypeEnum",
-                    "typeSchema": "public",
+                "memoryType": {
+                    "name": "memoryType",
+                    "type": "text",
                     "primaryKey": false,
-                    "notNull": true
+                    "notNull": true,
+                    "autoincrement": false
                 },
                 "content": {
                     "name": "content",
-                    "type": "json",
+                    "type": "text",
                     "primaryKey": false,
-                    "notNull": true
+                    "notNull": true,
+                    "autoincrement": false
                 },
                 "metadata": {
                     "name": "metadata",
-                    "type": "json",
+                    "type": "text",
                     "primaryKey": false,
-                    "notNull": false
+                    "notNull": false,
+                    "autoincrement": false
                 },
                 "discardedBy": {
                     "name": "discardedBy",
                     "type": "text",
                     "primaryKey": false,
-                    "notNull": true
+                    "notNull": true,
+                    "autoincrement": false
                 },
                 "discardedAt": {
                     "name": "discardedAt",
-                    "type": "timestamp",
+                    "type": "integer",
                     "primaryKey": false,
                     "notNull": true,
-                    "default": "now()"
+                    "autoincrement": false
                 },
                 "expirationAt": {
                     "name": "expirationAt",
-                    "type": "timestamp",
+                    "type": "integer",
                     "primaryKey": false,
-                    "notNull": true
+                    "notNull": true,
+                    "autoincrement": false
                 }
             },
             "indexes": {
                 "discardedMemory_spaceIdIdx": {
                     "name": "discardedMemory_spaceIdIdx",
-                    "columns": [
-                        {
-                            "expression": "spaceId",
-                            "isExpression": false,
-                            "asc": true,
-                            "nulls": "last"
-                        }
-                    ],
-                    "isUnique": false,
-                    "concurrently": false,
-                    "method": "btree",
-                    "with": {}
+                    "columns": ["spaceId"],
+                    "isUnique": false
                 }
             },
             "foreignKeys": {
@@ -929,80 +866,73 @@
             },
             "compositePrimaryKeys": {},
             "uniqueConstraints": {},
-            "policies": {},
-            "checkConstraints": {},
-            "isRLSEnabled": false
+            "checkConstraints": {}
         },
-        "public.media": {
+        "media": {
             "name": "media",
-            "schema": "",
             "columns": {
                 "id": {
                     "name": "id",
                     "type": "text",
                     "primaryKey": true,
-                    "notNull": true
+                    "notNull": true,
+                    "autoincrement": false
                 },
                 "memoryId": {
                     "name": "memoryId",
                     "type": "text",
                     "primaryKey": false,
-                    "notNull": true
+                    "notNull": true,
+                    "autoincrement": false
                 },
                 "filePath": {
                     "name": "filePath",
                     "type": "text",
                     "primaryKey": false,
-                    "notNull": true
+                    "notNull": true,
+                    "autoincrement": false
                 },
                 "fileType": {
                     "name": "fileType",
                     "type": "text",
                     "primaryKey": false,
-                    "notNull": true
+                    "notNull": true,
+                    "autoincrement": false
                 },
                 "fileSize": {
                     "name": "fileSize",
                     "type": "integer",
                     "primaryKey": false,
-                    "notNull": false
+                    "notNull": false,
+                    "autoincrement": false
                 },
                 "extractedText": {
                     "name": "extractedText",
                     "type": "text",
                     "primaryKey": false,
-                    "notNull": false
+                    "notNull": false,
+                    "autoincrement": false
                 },
                 "createdAt": {
                     "name": "createdAt",
-                    "type": "timestamp",
+                    "type": "integer",
                     "primaryKey": false,
                     "notNull": true,
-                    "default": "now()"
+                    "autoincrement": false
                 },
                 "updatedAt": {
                     "name": "updatedAt",
-                    "type": "timestamp",
+                    "type": "integer",
                     "primaryKey": false,
                     "notNull": true,
-                    "default": "now()"
+                    "autoincrement": false
                 }
             },
             "indexes": {
                 "memoryIdIdx": {
                     "name": "memoryIdIdx",
-                    "columns": [
-                        {
-                            "expression": "memoryId",
-                            "isExpression": false,
-                            "asc": true,
-                            "nulls": "last"
-                        }
-                    ],
-                    "isUnique": false,
-                    "concurrently": false,
-                    "method": "btree",
-                    "with": {}
+                    "columns": ["memoryId"],
+                    "isUnique": false
                 }
             },
             "foreignKeys": {
@@ -1018,99 +948,94 @@
             },
             "compositePrimaryKeys": {},
             "uniqueConstraints": {},
-            "policies": {},
-            "checkConstraints": {},
-            "isRLSEnabled": false
+            "checkConstraints": {}
         },
-        "public.memory": {
+        "memory": {
             "name": "memory",
-            "schema": "",
             "columns": {
                 "id": {
                     "name": "id",
                     "type": "text",
                     "primaryKey": true,
-                    "notNull": true
+                    "notNull": true,
+                    "autoincrement": false
                 },
                 "spaceId": {
                     "name": "spaceId",
                     "type": "text",
                     "primaryKey": false,
-                    "notNull": true
+                    "notNull": true,
+                    "autoincrement": false
                 },
-                "type": {
-                    "name": "type",
-                    "type": "memoryTypeEnum",
-                    "typeSchema": "public",
+                "memoryType": {
+                    "name": "memoryType",
+                    "type": "text",
                     "primaryKey": false,
-                    "notNull": true
+                    "notNull": true,
+                    "autoincrement": false
                 },
                 "content": {
                     "name": "content",
-                    "type": "json",
+                    "type": "text",
                     "primaryKey": false,
-                    "notNull": true
+                    "notNull": true,
+                    "autoincrement": false
                 },
                 "metadata": {
                     "name": "metadata",
-                    "type": "json",
+                    "type": "text",
                     "primaryKey": false,
-                    "notNull": false
+                    "notNull": false,
+                    "autoincrement": false
                 },
                 "extractedText": {
                     "name": "extractedText",
                     "type": "text",
                     "primaryKey": false,
-                    "notNull": false
+                    "notNull": false,
+                    "autoincrement": false
                 },
                 "vectorId": {
                     "name": "vectorId",
                     "type": "text",
                     "primaryKey": false,
-                    "notNull": false
+                    "notNull": false,
+                    "autoincrement": false
                 },
                 "createdBy": {
                     "name": "createdBy",
                     "type": "text",
                     "primaryKey": false,
-                    "notNull": true
+                    "notNull": true,
+                    "autoincrement": false
                 },
                 "createdAt": {
                     "name": "createdAt",
-                    "type": "timestamp",
+                    "type": "integer",
                     "primaryKey": false,
                     "notNull": true,
-                    "default": "now()"
+                    "autoincrement": false
                 },
                 "updatedAt": {
                     "name": "updatedAt",
-                    "type": "timestamp",
+                    "type": "integer",
                     "primaryKey": false,
                     "notNull": true,
-                    "default": "now()"
+                    "autoincrement": false
                 },
                 "deletedAt": {
                     "name": "deletedAt",
-                    "type": "timestamp",
+                    "type": "integer",
                     "primaryKey": false,
-                    "notNull": false
+                    "notNull": false,
+                    "autoincrement": false
                 }
             },
             "indexes": {
                 "spaceIdIdx": {
                     "name": "spaceIdIdx",
-                    "columns": [
-                        {
-                            "expression": "spaceId",
-                            "isExpression": false,
-                            "asc": true,
-                            "nulls": "last"
-                        }
-                    ],
-                    "isUnique": false,
-                    "concurrently": false,
-                    "method": "btree",
-                    "with": {}
+                    "columns": ["spaceId"],
+                    "isUnique": false
                 }
             },
             "foreignKeys": {
@@ -1135,68 +1060,52 @@
             },
             "compositePrimaryKeys": {},
             "uniqueConstraints": {},
-            "policies": {},
-            "checkConstraints": {},
-            "isRLSEnabled": false
+            "checkConstraints": {}
         },
-        "public.tags": {
+        "tags": {
             "name": "tags",
-            "schema": "",
             "columns": {
                 "id": {
                     "name": "id",
                     "type": "text",
                     "primaryKey": true,
-                    "notNull": true
+                    "notNull": true,
+                    "autoincrement": false
                 },
                 "name": {
                     "name": "name",
                     "type": "text",
                     "primaryKey": false,
-                    "notNull": true
+                    "notNull": true,
+                    "autoincrement": false
                 },
                 "workplaceId": {
                     "name": "workplaceId",
                     "type": "text",
                     "primaryKey": false,
-                    "notNull": true
+                    "notNull": true,
+                    "autoincrement": false
                 },
                 "createdAt": {
                     "name": "createdAt",
-                    "type": "timestamp",
+                    "type": "integer",
                     "primaryKey": false,
                     "notNull": true,
-                    "default": "now()"
+                    "autoincrement": false
                 },
                 "updatedAt": {
                     "name": "updatedAt",
-                    "type": "timestamp",
+                    "type": "integer",
                     "primaryKey": false,
                     "notNull": true,
-                    "default": "now()"
+                    "autoincrement": false
                 }
             },
             "indexes": {
                 "workplaceTagIdx": {
                     "name": "workplaceTagIdx",
-                    "columns": [
-                        {
-                            "expression": "workplaceId",
-                            "isExpression": false,
-                            "asc": true,
-                            "nulls": "last"
-                        },
-                        {
-                            "expression": "name",
-                            "isExpression": false,
-                            "asc": true,
-                            "nulls": "last"
-                        }
-                    ],
-                    "isUnique": false,
-                    "concurrently": false,
-                    "method": "btree",
-                    "with": {}
+                    "columns": ["workplaceId", "name"],
+                    "isUnique": false
                 }
             },
             "foreignKeys": {
@@ -1212,94 +1121,78 @@
             },
             "compositePrimaryKeys": {},
             "uniqueConstraints": {},
-            "policies": {},
-            "checkConstraints": {},
-            "isRLSEnabled": false
+            "checkConstraints": {}
         },
-        "public.auditLog": {
+        "auditLog": {
             "name": "auditLog",
-            "schema": "",
             "columns": {
                 "id": {
                     "name": "id",
                     "type": "text",
                     "primaryKey": true,
-                    "notNull": true
+                    "notNull": true,
+                    "autoincrement": false
                 },
                 "workplaceId": {
                     "name": "workplaceId",
                     "type": "text",
                     "primaryKey": false,
-                    "notNull": true
+                    "notNull": true,
+                    "autoincrement": false
                 },
                 "userId": {
                     "name": "userId",
                     "type": "text",
                     "primaryKey": false,
-                    "notNull": true
+                    "notNull": true,
+                    "autoincrement": false
                 },
                 "action": {
                     "name": "action",
                     "type": "text",
                     "primaryKey": false,
-                    "notNull": true
+                    "notNull": true,
+                    "autoincrement": false
                 },
                 "targetType": {
                     "name": "targetType",
                     "type": "text",
                     "primaryKey": false,
-                    "notNull": true
+                    "notNull": true,
+                    "autoincrement": false
                 },
                 "targetId": {
                     "name": "targetId",
                     "type": "text",
                     "primaryKey": false,
-                    "notNull": true
+                    "notNull": true,
+                    "autoincrement": false
                 },
                 "details": {
                     "name": "details",
-                    "type": "json",
+                    "type": "text",
                     "primaryKey": false,
-                    "notNull": false
+                    "notNull": false,
+                    "autoincrement": false
                 },
                 "timestamp": {
                     "name": "timestamp",
-                    "type": "timestamp",
+                    "type": "integer",
                     "primaryKey": false,
                     "notNull": true,
-                    "default": "now()"
+                    "autoincrement": false
                 }
             },
             "indexes": {
                 "auditLog_workplaceIdIdx": {
                     "name": "auditLog_workplaceIdIdx",
-                    "columns": [
-                        {
-                            "expression": "workplaceId",
-                            "isExpression": false,
-                            "asc": true,
-                            "nulls": "last"
-                        }
-                    ],
-                    "isUnique": false,
-                    "concurrently": false,
-                    "method": "btree",
-                    "with": {}
+                    "columns": ["workplaceId"],
+                    "isUnique": false
                 },
                 "auditLog_userIdIdx": {
                     "name": "auditLog_userIdIdx",
-                    "columns": [
-                        {
-                            "expression": "userId",
-                            "isExpression": false,
-                            "asc": true,
-                            "nulls": "last"
-                        }
-                    ],
-                    "isUnique": false,
-                    "concurrently": false,
-                    "method": "btree",
-                    "with": {}
+                    "columns": ["userId"],
+                    "isUnique": false
                 }
             },
             "foreignKeys": {
@@ -1324,67 +1217,59 @@
             },
             "compositePrimaryKeys": {},
             "uniqueConstraints": {},
-            "policies": {},
-            "checkConstraints": {},
-            "isRLSEnabled": false
+            "checkConstraints": {}
         },
-        "public.errorLog": {
+        "errorLog": {
             "name": "errorLog",
-            "schema": "",
             "columns": {
                 "id": {
                     "name": "id",
                     "type": "text",
                     "primaryKey": true,
-                    "notNull": true
+                    "notNull": true,
+                    "autoincrement": false
                 },
                 "userId": {
                     "name": "userId",
                     "type": "text",
                     "primaryKey": false,
-                    "notNull": false
+                    "notNull": false,
+                    "autoincrement": false
                 },
                 "workplaceId": {
                     "name": "workplaceId",
                     "type": "text",
                     "primaryKey": false,
-                    "notNull": false
+                    "notNull": false,
+                    "autoincrement": false
                 },
                 "errorMessage": {
                     "name": "errorMessage",
                     "type": "text",
                     "primaryKey": false,
-                    "notNull": true
+                    "notNull": true,
+                    "autoincrement": false
                 },
                 "stackTrace": {
                     "name": "stackTrace",
                     "type": "text",
                     "primaryKey": false,
-                    "notNull": false
+                    "notNull": false,
+                    "autoincrement": false
                 },
                 "timestamp": {
                     "name": "timestamp",
-                    "type": "timestamp",
+                    "type": "integer",
                     "primaryKey": false,
                     "notNull": true,
-                    "default": "now()"
+                    "autoincrement": false
                 }
             },
             "indexes": {
                 "errorLog_userIdIdx": {
                     "name": "errorLog_userIdIdx",
-                    "columns": [
-                        {
-                            "expression": "userId",
-                            "isExpression": false,
-                            "asc": true,
-                            "nulls": "last"
-                        }
-                    ],
-                    "isUnique": false,
-                    "concurrently": false,
-                    "method": "btree",
-                    "with": {}
+                    "columns": ["userId"],
+                    "isUnique": false
                 }
             },
             "foreignKeys": {
@@ -1409,73 +1294,66 @@
             },
             "compositePrimaryKeys": {},
             "uniqueConstraints": {},
-            "policies": {},
-            "checkConstraints": {},
-            "isRLSEnabled": false
+            "checkConstraints": {}
         },
-        "public.searchLog": {
+        "searchLog": {
             "name": "searchLog",
-            "schema": "",
             "columns": {
                 "id": {
                     "name": "id",
                     "type": "text",
                     "primaryKey": true,
-                    "notNull": true
+                    "notNull": true,
+                    "autoincrement": false
                 },
                 "userId": {
                     "name": "userId",
                     "type": "text",
                     "primaryKey": false,
-                    "notNull": true
+                    "notNull": true,
+                    "autoincrement": false
                 },
                 "workplaceId": {
                     "name": "workplaceId",
                     "type": "text",
                     "primaryKey": false,
-                    "notNull": true
+                    "notNull": true,
+                    "autoincrement": false
                 },
                 "searchQuery": {
                     "name": "searchQuery",
                     "type": "text",
                     "primaryKey": false,
-                    "notNull": true
+                    "notNull": true,
+                    "autoincrement": false
                 },
                 "searchResult": {
                     "name": "searchResult",
-                    "type": "json",
+                    "type": "text",
                     "primaryKey": false,
-                    "notNull": true
+                    "notNull": true,
+                    "autoincrement": false
                 },
                 "resultCount": {
                     "name": "resultCount",
                     "type": "integer",
                     "primaryKey": false,
-                    "notNull": true
+                    "notNull": true,
+                    "autoincrement": false
                 },
                 "timestamp": {
                     "name": "timestamp",
-                    "type": "timestamp",
+                    "type": "integer",
                     "primaryKey": false,
                     "notNull": true,
-                    "default": "now()"
+                    "autoincrement": false
                 }
             },
             "indexes": {
                 "searchLog_userIdIdx": {
                     "name": "searchLog_userIdIdx",
-                    "columns": [
-                        {
-                            "expression": "userId",
-                            "isExpression": false,
-                            "asc": true,
-                            "nulls": "last"
-                        }
-                    ],
-                    "isUnique": false,
-                    "concurrently": false,
-                    "method": "btree",
-                    "with": {}
+                    "columns": ["userId"],
+                    "isUnique": false
                 }
             },
             "foreignKeys": {
@@ -1500,97 +1378,79 @@
             },
             "compositePrimaryKeys": {},
             "uniqueConstraints": {},
-            "policies": {},
-            "checkConstraints": {},
-            "isRLSEnabled": false
+            "checkConstraints": {}
         },
-        "public.notification": {
+        "notification": {
             "name": "notification",
-            "schema": "",
             "columns": {
                 "id": {
                     "name": "id",
                     "type": "text",
                     "primaryKey": true,
-                    "notNull": true
+                    "notNull": true,
+                    "autoincrement": false
                 },
                 "userId": {
                     "name": "userId",
                     "type": "text",
                     "primaryKey": false,
-                    "notNull": true
+                    "notNull": true,
+                    "autoincrement": false
                 },
                 "workplaceId": {
                     "name": "workplaceId",
                     "type": "text",
                     "primaryKey": false,
-                    "notNull": true
+                    "notNull": true,
+                    "autoincrement": false
                 },
-                "type": {
-                    "name": "type",
-                    "type": "notificationTypeEnum",
-                    "typeSchema": "public",
+                "notificationType": {
+                    "name": "notificationType",
+                    "type": "text",
                     "primaryKey": false,
-                    "notNull": true
+                    "notNull": true,
+                    "autoincrement": false
                 },
                 "content": {
                     "name": "content",
                     "type": "text",
                     "primaryKey": false,
-                    "notNull": true
+                    "notNull": true,
+                    "autoincrement": false
                 },
                 "read": {
                     "name": "read",
-                    "type": "boolean",
+                    "type": "integer",
                     "primaryKey": false,
                     "notNull": true,
+                    "autoincrement": false,
                     "default": false
                 },
                 "createdAt": {
                     "name": "createdAt",
-                    "type": "timestamp",
+                    "type": "integer",
                     "primaryKey": false,
                     "notNull": true,
-                    "default": "now()"
+                    "autoincrement": false
                 },
                 "updatedAt": {
                     "name": "updatedAt",
-                    "type": "timestamp",
+                    "type": "integer",
                     "primaryKey": false,
                     "notNull": true,
-                    "default": "now()"
+                    "autoincrement": false
                 }
             },
             "indexes": {
                 "notification_userIdIdx": {
                     "name": "notification_userIdIdx",
-                    "columns": [
-                        {
-                            "expression": "userId",
-                            "isExpression": false,
-                            "asc": true,
-                            "nulls": "last"
-                        }
-                    ],
-                    "isUnique": false,
-                    "concurrently": false,
-                    "method": "btree",
-                    "with": {}
+                    "columns": ["userId"],
+                    "isUnique": false
                 },
                 "notification_workplaceIdIdx": {
                     "name": "notification_workplaceIdIdx",
-                    "columns": [
-                        {
-                            "expression": "workplaceId",
-                            "isExpression": false,
-                            "asc": true,
-                            "nulls": "last"
-                        }
-                    ],
-                    "isUnique": false,
-                    "concurrently": false,
-                    "method": "btree",
-                    "with": {}
+                    "columns": ["workplaceId"],
+                    "isUnique": false
                 }
             },
             "foreignKeys": {
@@ -1615,98 +1475,93 @@
             },
             "compositePrimaryKeys": {},
             "uniqueConstraints": {},
-            "policies": {},
-            "checkConstraints": {},
-            "isRLSEnabled": false
+            "checkConstraints": {}
         },
-        "public.notificationSettings": {
+        "notificationSettings": {
             "name": "notificationSettings",
-            "schema": "",
             "columns": {
                 "id": {
                     "name": "id",
                     "type": "text",
                     "primaryKey": true,
-                    "notNull": true
+                    "notNull": true,
+                    "autoincrement": false
                 },
                 "userId": {
                     "name": "userId",
                     "type": "text",
                     "primaryKey": false,
-                    "notNull": true
+                    "notNull": true,
+                    "autoincrement": false
                 },
                 "marketingEmails": {
                     "name": "marketingEmails",
-                    "type": "boolean",
+                    "type": "integer",
                     "primaryKey": false,
                     "notNull": false,
+                    "autoincrement": false,
                     "default": false
                 },
                 "securityEmails": {
                     "name": "securityEmails",
-                    "type": "boolean",
+                    "type": "integer",
                     "primaryKey": false,
                     "notNull": false,
+                    "autoincrement": false,
                     "default": true
                 },
                 "inAppReminders": {
                     "name": "inAppReminders",
-                    "type": "boolean",
+                    "type": "integer",
                     "primaryKey": false,
                     "notNull": false,
+                    "autoincrement": false,
                     "default": true
                 },
                 "browserNotifications": {
                     "name": "browserNotifications",
-                    "type": "boolean",
+                    "type": "integer",
                     "primaryKey": false,
                     "notNull": false,
+                    "autoincrement": false,
                     "default": true
                 },
                 "appNotifications": {
                     "name": "appNotifications",
-                    "type": "boolean",
+                    "type": "integer",
                     "primaryKey": false,
                     "notNull": false,
+                    "autoincrement": false,
                     "default": true
                 },
                 "desktopNotifications": {
                     "name": "desktopNotifications",
-                    "type": "boolean",
+                    "type": "integer",
                     "primaryKey": false,
                     "notNull": false,
+                    "autoincrement": false,
                     "default": true
                 },
                 "createdAt": {
                     "name": "createdAt",
-                    "type": "timestamp",
+                    "type": "integer",
                     "primaryKey": false,
                     "notNull": true,
-                    "default": "now()"
+                    "autoincrement": false
                 },
                 "updatedAt": {
                     "name": "updatedAt",
-                    "type": "timestamp",
+                    "type": "integer",
                     "primaryKey": false,
                     "notNull": true,
-                    "default": "now()"
+                    "autoincrement": false
                 }
             },
             "indexes": {
                 "notificationSettings_userIdIdx": {
                     "name": "notificationSettings_userIdIdx",
-                    "columns": [
-                        {
-                            "expression": "userId",
-                            "isExpression": false,
-                            "asc": true,
-                            "nulls": "last"
-                        }
-                    ],
-                    "isUnique": false,
-                    "concurrently": false,
-                    "method": "btree",
-                    "with": {}
+                    "columns": ["userId"],
+                    "isUnique": false
                 }
             },
             "foreignKeys": {
@@ -1722,146 +1577,134 @@
             },
             "compositePrimaryKeys": {},
             "uniqueConstraints": {},
-            "policies": {},
-            "checkConstraints": {},
-            "isRLSEnabled": false
+            "checkConstraints": {}
         },
-        "public.billing": {
+        "billing": {
             "name": "billing",
-            "schema": "",
             "columns": {
                 "id": {
                     "name": "id",
                     "type": "text",
                     "primaryKey": true,
-                    "notNull": true
+                    "notNull": true,
+                    "autoincrement": false
                 },
                 "workplaceId": {
                     "name": "workplaceId",
                     "type": "text",
                     "primaryKey": false,
-                    "notNull": true
+                    "notNull": true,
+                    "autoincrement": false
                 },
                 "userId": {
                     "name": "userId",
                     "type": "text",
                     "primaryKey": false,
-                    "notNull": true
+                    "notNull": true,
+                    "autoincrement": false
                 },
                 "planId": {
                     "name": "planId",
                     "type": "text",
                     "primaryKey": false,
-                    "notNull": true
+                    "notNull": true,
+                    "autoincrement": false
                 },
-                "currentPlanType": {
-                    "name": "currentPlanType",
-                    "type": "planTypeEnum",
-                    "typeSchema": "public",
+                "planType": {
+                    "name": "planType",
+                    "type": "text",
                     "primaryKey": false,
                     "notNull": true,
-                    "default": "'free'"
+                    "autoincrement": false
                 },
                 "spacesLimit": {
                     "name": "spacesLimit",
                     "type": "integer",
                     "primaryKey": false,
-                    "notNull": true
+                    "notNull": true,
+                    "autoincrement": false
                 },
                 "storageLimit": {
                     "name": "storageLimit",
                     "type": "integer",
                     "primaryKey": false,
-                    "notNull": false
+                    "notNull": false,
+                    "autoincrement": false
                 },
                 "startDate": {
                     "name": "startDate",
-                    "type": "timestamp",
+                    "type": "integer",
                     "primaryKey": false,
-                    "notNull": true
+                    "notNull": true,
+                    "autoincrement": false
                 },
                 "endDate": {
                     "name": "endDate",
-                    "type": "timestamp",
+                    "type": "integer",
                     "primaryKey": false,
-                    "notNull": false
+                    "notNull": false,
+                    "autoincrement": false
                 },
-                "status": {
-                    "name": "status",
-                    "type": "billingStatusEnum",
-                    "typeSchema": "public",
+                "billingStatus": {
+                    "name": "billingStatus",
+                    "type": "text",
                     "primaryKey": false,
-                    "notNull": true
+                    "notNull": true,
+                    "autoincrement": false
                 },
                 "autoRenew": {
                     "name": "autoRenew",
-                    "type": "boolean",
+                    "type": "integer",
                     "primaryKey": false,
-                    "notNull": true
+                    "notNull": true,
+                    "autoincrement": false
                 },
                 "paymentMethod": {
                     "name": "paymentMethod",
                     "type": "text",
                     "primaryKey": false,
-                    "notNull": false
+                    "notNull": false,
+                    "autoincrement": false
                 },
                 "payerInfo": {
                     "name": "payerInfo",
-                    "type": "json",
+                    "type": "text",
                     "primaryKey": false,
-                    "notNull": false
+                    "notNull": false,
+                    "autoincrement": false
                 },
                 "billingHistory": {
                     "name": "billingHistory",
-                    "type": "json",
+                    "type": "text",
                     "primaryKey": false,
-                    "notNull": false
+                    "notNull": false,
+                    "autoincrement": false
                 },
                 "createdAt": {
                     "name": "createdAt",
-                    "type": "timestamp",
+                    "type": "integer",
                     "primaryKey": false,
                     "notNull": true,
-                    "default": "now()"
+                    "autoincrement": false
                 },
                 "updatedAt": {
                     "name": "updatedAt",
-                    "type": "timestamp",
+                    "type": "integer",
                     "primaryKey": false,
                     "notNull": true,
-                    "default": "now()"
+                    "autoincrement": false
                 }
             },
             "indexes": {
                 "billing_workplaceIdIdx": {
                     "name": "billing_workplaceIdIdx",
-                    "columns": [
-                        {
-                            "expression": "workplaceId",
-                            "isExpression": false,
-                            "asc": true,
-                            "nulls": "last"
-                        }
-                    ],
-                    "isUnique": false,
-                    "concurrently": false,
-                    "method": "btree",
-                    "with": {}
+                    "columns": ["workplaceId"],
+                    "isUnique": false
                 },
                 "billing_userIdIdx": {
                     "name": "billing_userIdIdx",
-                    "columns": [
-                        {
-                            "expression": "userId",
-                            "isExpression": false,
-                            "asc": true,
-                            "nulls": "last"
-                        }
-                    ],
-                    "isUnique": false,
-                    "concurrently": false,
-                    "method": "btree",
-                    "with": {}
+                    "columns": ["userId"],
+                    "isUnique": false
                 }
             },
             "foreignKeys": {
@@ -1886,158 +1729,153 @@
             },
             "compositePrimaryKeys": {},
             "uniqueConstraints": {},
-            "policies": {},
-            "checkConstraints": {},
-            "isRLSEnabled": false
+            "checkConstraints": {}
         },
-        "public.plan": {
+        "plan": {
             "name": "plan",
-            "schema": "",
             "columns": {
                 "id": {
                     "name": "id",
                     "type": "text",
                     "primaryKey": true,
-                    "notNull": true
+                    "notNull": true,
+                    "autoincrement": false
                 },
                 "name": {
                     "name": "name",
                     "type": "text",
                     "primaryKey": false,
-                    "notNull": true
+                    "notNull": true,
+                    "autoincrement": false
                 },
-                "type": {
-                    "name": "type",
-                    "type": "planTypeEnum",
-                    "typeSchema": "public",
+                "planType": {
+                    "name": "planType",
+                    "type": "text",
                     "primaryKey": false,
-                    "notNull": true
+                    "notNull": true,
+                    "autoincrement": false
                 },
                 "description": {
                     "name": "description",
                     "type": "text",
                     "primaryKey": false,
-                    "notNull": false
+                    "notNull": false,
+                    "autoincrement": false
                 },
                 "maxSpaces": {
                     "name": "maxSpaces",
                     "type": "integer",
                     "primaryKey": false,
-                    "notNull": true
+                    "notNull": true,
+                    "autoincrement": false
                 },
                 "storageLimit": {
                     "name": "storageLimit",
                     "type": "integer",
                     "primaryKey": false,
-                    "notNull": false
+                    "notNull": false,
+                    "autoincrement": false
                 },
                 "price": {
                     "name": "price",
                     "type": "integer",
                     "primaryKey": false,
-                    "notNull": false
+                    "notNull": false,
+                    "autoincrement": false
                 },
-                "billingCycle": {
-                    "name": "billingCycle",
-                    "type": "durationCycleEnum",
-                    "typeSchema": "public",
+                "durationCycle": {
+                    "name": "durationCycle",
+                    "type": "text",
                     "primaryKey": false,
-                    "notNull": true
+                    "notNull": true,
+                    "autoincrement": false
                 },
                 "createdAt": {
                     "name": "createdAt",
-                    "type": "timestamp",
+                    "type": "integer",
                     "primaryKey": false,
                     "notNull": true,
-                    "default": "now()"
+                    "autoincrement": false
                 },
                 "updatedAt": {
                     "name": "updatedAt",
-                    "type": "timestamp",
+                    "type": "integer",
                     "primaryKey": false,
                     "notNull": true,
-                    "default": "now()"
+                    "autoincrement": false
                 }
             },
             "indexes": {},
             "foreignKeys": {},
             "compositePrimaryKeys": {},
             "uniqueConstraints": {},
-            "policies": {},
-            "checkConstraints": {},
-            "isRLSEnabled": false
+            "checkConstraints": {}
         },
-        "public.subscription": {
+        "subscription": {
             "name": "subscription",
-            "schema": "",
             "columns": {
                 "id": {
                     "name": "id",
                     "type": "text",
                     "primaryKey": true,
-                    "notNull": true
+                    "notNull": true,
+                    "autoincrement": false
                 },
                 "workplaceId": {
                     "name": "workplaceId",
                     "type": "text",
                     "primaryKey": false,
-                    "notNull": true
+                    "notNull": true,
+                    "autoincrement": false
                 },
                 "planId": {
                     "name": "planId",
                     "type": "text",
                     "primaryKey": false,
-                    "notNull": true
+                    "notNull": true,
+                    "autoincrement": false
                 },
-                "status": {
-                    "name": "status",
-                    "type": "billingStatusEnum",
-                    "typeSchema": "public",
+                "billingStatus": {
+                    "name": "billingStatus",
+                    "type": "text",
                     "primaryKey": false,
-                    "notNull": true
+                    "notNull": true,
+                    "autoincrement": false
                 },
                 "startDate": {
                     "name": "startDate",
-                    "type": "timestamp",
+                    "type": "integer",
                     "primaryKey": false,
-                    "notNull": true
+                    "notNull": true,
+                    "autoincrement": false
                 },
                 "endDate": {
                     "name": "endDate",
-                    "type": "timestamp",
+                    "type": "integer",
                     "primaryKey": false,
-                    "notNull": false
+                    "notNull": false,
+                    "autoincrement": false
                 },
                 "createdAt": {
                     "name": "createdAt",
-                    "type": "timestamp",
+                    "type": "integer",
                     "primaryKey": false,
                     "notNull": true,
-                    "default": "now()"
+                    "autoincrement": false
                 },
                 "updatedAt": {
                     "name": "updatedAt",
-                    "type": "timestamp",
+                    "type": "integer",
                     "primaryKey": false,
                     "notNull": true,
-                    "default": "now()"
+                    "autoincrement": false
                 }
             },
             "indexes": {
                 "subscription_workplaceIdIdx": {
                     "name": "subscription_workplaceIdIdx",
-                    "columns": [
-                        {
-                            "expression": "workplaceId",
-                            "isExpression": false,
-                            "asc": true,
-                            "nulls": "last"
-                        }
-                    ],
-                    "isUnique": false,
-                    "concurrently": false,
-                    "method": "btree",
-                    "with": {}
+                    "columns": ["workplaceId"],
+                    "isUnique": false
                 }
             },
             "foreignKeys": {
@@ -2053,71 +1891,75 @@
             },
             "compositePrimaryKeys": {},
             "uniqueConstraints": {},
-            "policies": {},
-            "checkConstraints": {},
-            "isRLSEnabled": false
+            "checkConstraints": {}
         },
-        "public.dataAndSecuritySettings": {
+        "dataAndSecuritySettings": {
             "name": "dataAndSecuritySettings",
-            "schema": "",
             "columns": {
                 "id": {
                     "name": "id",
                     "type": "text",
                     "primaryKey": true,
-                    "notNull": true
+                    "notNull": true,
+                    "autoincrement": false
                 },
                 "userId": {
                     "name": "userId",
                     "type": "text",
                     "primaryKey": false,
-                    "notNull": true
+                    "notNull": true,
+                    "autoincrement": false
                 },
                 "twoFactorEnabled": {
                     "name": "twoFactorEnabled",
-                    "type": "boolean",
+                    "type": "integer",
                     "primaryKey": false,
                     "notNull": false,
+                    "autoincrement": false,
                     "default": false
                 },
                 "googleConnection": {
                     "name": "googleConnection",
-                    "type": "boolean",
+                    "type": "integer",
                     "primaryKey": false,
-                    "notNull": false
+                    "notNull": false,
+                    "autoincrement": false
                 },
                 "exportDataRequestedAt": {
                     "name": "exportDataRequestedAt",
-                    "type": "timestamp",
+                    "type": "integer",
                     "primaryKey": false,
-                    "notNull": false
+                    "notNull": false,
+                    "autoincrement": false
                 },
                 "dataRetentionPolicy": {
                     "name": "dataRetentionPolicy",
                     "type": "integer",
                     "primaryKey": false,
                     "notNull": false,
+                    "autoincrement": false,
                     "default": 30
                 },
                 "accountDeactivatedAt": {
                     "name": "accountDeactivatedAt",
-                    "type": "timestamp",
+                    "type": "integer",
                     "primaryKey": false,
-                    "notNull": false
+                    "notNull": false,
+                    "autoincrement": false
                 },
                 "createdAt": {
                     "name": "createdAt",
-                    "type": "timestamp",
+                    "type": "integer",
                     "primaryKey": false,
                     "notNull": true,
-                    "default": "now()"
+                    "autoincrement": false
                 },
                 "updatedAt": {
                     "name": "updatedAt",
-                    "type": "timestamp",
+                    "type": "integer",
                     "primaryKey": false,
                     "notNull": true,
-                    "default": "now()"
+                    "autoincrement": false
                 }
             },
             "indexes": {},
@@ -2134,164 +1976,155 @@
             },
             "compositePrimaryKeys": {},
             "uniqueConstraints": {},
-            "policies": {},
-            "checkConstraints": {},
-            "isRLSEnabled": false
+            "checkConstraints": {}
         },
-        "public.plugin": {
+        "plugin": {
             "name": "plugin",
-            "schema": "",
             "columns": {
                 "id": {
                     "name": "id",
                     "type": "text",
                     "primaryKey": true,
-                    "notNull": true
+                    "notNull": true,
+                    "autoincrement": false
                 },
                 "name": {
                     "name": "name",
                     "type": "text",
                     "primaryKey": false,
-                    "notNull": true
+                    "notNull": true,
+                    "autoincrement": false
                 },
-                "type": {
-                    "name": "type",
-                    "type": "pluginTypeEnum",
-                    "typeSchema": "public",
+                "pluginType": {
+                    "name": "pluginType",
+                    "type": "text",
                     "primaryKey": false,
-                    "notNull": true
+                    "notNull": true,
+                    "autoincrement": false
                 },
-                "status": {
-                    "name": "status",
-                    "type": "pluginStatusEnum",
-                    "typeSchema": "public",
+                "pluginStatus": {
+                    "name": "pluginStatus",
+                    "type": "text",
                     "primaryKey": false,
-                    "notNull": true
+                    "notNull": true,
+                    "autoincrement": false
                 },
                 "description": {
                     "name": "description",
                     "type": "text",
                     "primaryKey": false,
-                    "notNull": false
+                    "notNull": false,
+                    "autoincrement": false
                 },
                 "version": {
                     "name": "version",
                     "type": "text",
                     "primaryKey": false,
-                    "notNull": false
+                    "notNull": false,
+                    "autoincrement": false
                 },
                 "downloadUrl": {
                     "name": "downloadUrl",
                     "type": "text",
                     "primaryKey": false,
-                    "notNull": false
+                    "notNull": false,
+                    "autoincrement": false
                 },
                 "createdAt": {
                     "name": "createdAt",
-                    "type": "timestamp",
+                    "type": "integer",
                     "primaryKey": false,
                     "notNull": true,
-                    "default": "now()"
+                    "autoincrement": false
                 },
                 "updatedAt": {
                     "name": "updatedAt",
-                    "type": "timestamp",
+                    "type": "integer",
                     "primaryKey": false,
                     "notNull": true,
-                    "default": "now()"
+                    "autoincrement": false
                 }
             },
             "indexes": {},
             "foreignKeys": {},
             "compositePrimaryKeys": {},
             "uniqueConstraints": {},
-            "policies": {},
-            "checkConstraints": {},
-            "isRLSEnabled": false
+            "checkConstraints": {}
         },
-        "public.waitlist": {
+        "waitlist": {
             "name": "waitlist",
-            "schema": "",
             "columns": {
                 "id": {
                     "name": "id",
-                    "type": "serial",
+                    "type": "integer",
                     "primaryKey": true,
-                    "notNull": true
+                    "notNull": true,
+                    "autoincrement": true
                 },
                 "email": {
                     "name": "email",
                     "type": "text",
                     "primaryKey": false,
-                    "notNull": true
+                    "notNull": true,
+                    "autoincrement": false
                 },
                 "createdAt": {
                     "name": "createdAt",
-                    "type": "timestamp",
+                    "type": "integer",
                     "primaryKey": false,
                     "notNull": true,
-                    "default": "now()"
+                    "autoincrement": false
                 }
             },
-            "indexes": {},
-            "foreignKeys": {},
-            "compositePrimaryKeys": {},
-            "uniqueConstraints": {
+            "indexes": {
                 "waitlist_email_unique": {
                     "name": "waitlist_email_unique",
-                    "nullsNotDistinct": false,
-                    "columns": ["email"]
+                    "columns": ["email"],
+                    "isUnique": true
                 }
             },
-            "policies": {},
-            "checkConstraints": {},
-            "isRLSEnabled": false
+            "foreignKeys": {},
+            "compositePrimaryKeys": {},
+            "uniqueConstraints": {},
+            "checkConstraints": {}
         },
-        "public.personalization": {
+        "personalization": {
             "name": "personalization",
-            "schema": "",
             "columns": {
                 "id": {
                     "name": "id",
                     "type": "text",
                     "primaryKey": true,
-                    "notNull": true
+                    "notNull": true,
+                    "autoincrement": false
                 },
                 "userId": {
                     "name": "userId",
                     "type": "text",
                     "primaryKey": false,
-                    "notNull": true
+                    "notNull": true,
+                    "autoincrement": false
                 },
                 "responses": {
                     "name": "responses",
-                    "type": "jsonb",
+                    "type": "text",
                     "primaryKey": false,
-                    "notNull": true
+                    "notNull": true,
+                    "autoincrement": false
                 },
                 "createdAt": {
                     "name": "createdAt",
-                    "type": "timestamp",
+                    "type": "integer",
                     "primaryKey": false,
                     "notNull": true,
-                    "default": "now()"
+                    "autoincrement": false
                 }
             },
             "indexes": {
                 "personalization_userIdIdx": {
                     "name": "personalization_userIdIdx",
-                    "columns": [
-                        {
-                            "expression": "userId",
-                            "isExpression": false,
-                            "asc": true,
-                            "nulls": "last"
-                        }
-                    ],
-                    "isUnique": false,
-                    "concurrently": false,
-                    "method": "btree",
-                    "with": {}
+                    "columns": ["userId"],
+                    "isUnique": false
                 }
             },
             "foreignKeys": {
@@ -2307,71 +2140,17 @@
             },
             "compositePrimaryKeys": {},
             "uniqueConstraints": {},
-            "policies": {},
-            "checkConstraints": {},
-            "isRLSEnabled": false
+            "checkConstraints": {}
         }
     },
-    "enums": {
-        "public.actionEnum": {
-            "name": "actionEnum",
-            "schema": "public",
-            "values": ["create", "update", "delete"]
-        },
-        "public.billingStatusEnum": {
-            "name": "billingStatusEnum",
-            "schema": "public",
-            "values": ["active", "cancelled", "expired", "pending"]
-        },
-        "public.durationCycleEnum": {
-            "name": "durationCycleEnum",
-            "schema": "public",
-            "values": ["monthly", "yearly", "lifetime"]
-        },
-        "public.memoryTypeEnum": {
-            "name": "memoryTypeEnum",
-            "schema": "public",
-            "values": ["note", "url", "file", "message"]
-        },
-        "public.notificationTypeEnum": {
-            "name": "notificationTypeEnum",
-            "schema": "public",
-            "values": ["reminder", "update", "alert"]
-        },
-        "public.planTypeEnum": {
-            "name": "planTypeEnum",
-            "schema": "public",
-            "values": ["free", "pro", "premium"]
-        },
-        "public.pluginStatusEnum": {
-            "name": "pluginStatusEnum",
-            "schema": "public",
-            "values": ["available", "coming_soon"]
-        },
-        "public.pluginTypeEnum": {
-            "name": "pluginTypeEnum",
-            "schema": "public",
-            "values": ["browser_extension", "mobile_app"]
-        },
-        "public.roleEnum": {
-            "name": "roleEnum",
-            "schema": "public",
-            "values": ["owner", "admin", "member"]
-        },
-        "public.statusEnum": {
-            "name": "statusEnum",
-            "schema": "public",
-            "values": ["pending", "accepted", "rejected"]
-        }
-    },
-    "schemas": {},
-    "sequences": {},
-    "roles": {},
-    "policies": {},
     "views": {},
+    "enums": {},
     "_meta": {
-        "columns": {},
         "schemas": {},
-        "tables": {}
+        "tables": {},
+        "columns": {}
+    },
+    "internal": {
+        "indexes": {}
     }
 }

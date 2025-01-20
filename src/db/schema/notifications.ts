@@ -1,9 +1,9 @@
-import { pgTable, text, timestamp, boolean, index } from "drizzle-orm/pg-core";
+import { sqliteTable, text, integer, index } from "drizzle-orm/sqlite-core";
 import { user } from "./user";
 import { organization } from "./workplace";
 import { notificationTypeEnum } from "./enums";
 
-export const notification = pgTable(
+export const notification = sqliteTable(
     "notification",
     {
         id: text("id").primaryKey(),
@@ -13,11 +13,13 @@ export const notification = pgTable(
         workplaceId: text("workplaceId")
             .notNull()
             .references(() => organization.id, { onDelete: "cascade" }),
-        type: notificationTypeEnum("type").notNull(),
+        type: text("notificationType", {
+            enum: notificationTypeEnum,
+        }).notNull(),
         content: text("content").notNull(),
-        read: boolean("read").notNull().default(false),
-        createdAt: timestamp("createdAt").defaultNow().notNull(),
-        updatedAt: timestamp("updatedAt").defaultNow().notNull(),
+        read: integer("read", { mode: "boolean" }).notNull().default(false),
+        createdAt: integer("createdAt", { mode: "timestamp" }).notNull(),
+        updatedAt: integer("updatedAt", { mode: "timestamp" }).notNull(),
     },
     (t) => [
         index("notification_userIdIdx").on(t.userId),
@@ -25,21 +27,33 @@ export const notification = pgTable(
     ],
 );
 
-export const notificationSettings = pgTable(
+export const notificationSettings = sqliteTable(
     "notificationSettings",
     {
         id: text("id").primaryKey(),
         userId: text("userId")
             .notNull()
             .references(() => user.id, { onDelete: "cascade" }),
-        marketingEmails: boolean("marketingEmails").default(false),
-        securityEmails: boolean("securityEmails").default(true),
-        inAppReminders: boolean("inAppReminders").default(true),
-        browserNotifications: boolean("browserNotifications").default(true),
-        appNotifications: boolean("appNotifications").default(true),
-        desktopNotifications: boolean("desktopNotifications").default(true),
-        createdAt: timestamp("createdAt").defaultNow().notNull(),
-        updatedAt: timestamp("updatedAt").defaultNow().notNull(),
+        marketingEmails: integer("marketingEmails", {
+            mode: "boolean",
+        }).default(false),
+        securityEmails: integer("securityEmails", { mode: "boolean" }).default(
+            true,
+        ),
+        inAppReminders: integer("inAppReminders", { mode: "boolean" }).default(
+            true,
+        ),
+        browserNotifications: integer("browserNotifications", {
+            mode: "boolean",
+        }).default(true),
+        appNotifications: integer("appNotifications", {
+            mode: "boolean",
+        }).default(true),
+        desktopNotifications: integer("desktopNotifications", {
+            mode: "boolean",
+        }).default(true),
+        createdAt: integer("createdAt", { mode: "timestamp" }).notNull(),
+        updatedAt: integer("updatedAt", { mode: "timestamp" }).notNull(),
     },
     (t) => [index("notificationSettings_userIdIdx").on(t.userId)],
 );

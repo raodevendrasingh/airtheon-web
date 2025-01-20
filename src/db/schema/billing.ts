@@ -1,30 +1,22 @@
-import {
-    pgTable,
-    text,
-    timestamp,
-    boolean,
-    json,
-    integer,
-    index,
-} from "drizzle-orm/pg-core";
+import { sqliteTable, text, integer, index } from "drizzle-orm/sqlite-core";
 import { organization } from "./workplace";
 import { user } from "./user";
 import { durationCycleEnum, planTypeEnum, billingStatusEnum } from "./enums";
 
-export const plan = pgTable("plan", {
+export const plan = sqliteTable("plan", {
     id: text("id").primaryKey(),
     name: text("name").notNull(),
-    type: planTypeEnum("type").notNull(),
+    type: text("planType", { enum: planTypeEnum }).notNull(),
     description: text("description"),
     maxSpaces: integer("maxSpaces").notNull(),
     storageLimit: integer("storageLimit"),
     price: integer("price"),
-    billingCycle: durationCycleEnum("billingCycle").notNull(),
-    createdAt: timestamp("createdAt").defaultNow().notNull(),
-    updatedAt: timestamp("updatedAt").defaultNow().notNull(),
+    billingCycle: text("durationCycle", { enum: durationCycleEnum }).notNull(),
+    createdAt: integer("createdAt", { mode: "timestamp" }).notNull(),
+    updatedAt: integer("updatedAt", { mode: "timestamp" }).notNull(),
 });
 
-export const subscription = pgTable(
+export const subscription = sqliteTable(
     "subscription",
     {
         id: text("id").primaryKey(),
@@ -32,16 +24,16 @@ export const subscription = pgTable(
             .notNull()
             .references(() => organization.id, { onDelete: "cascade" }),
         planId: text("planId").notNull(),
-        status: billingStatusEnum("status").notNull(),
-        startDate: timestamp("startDate").notNull(),
-        endDate: timestamp("endDate"),
-        createdAt: timestamp("createdAt").defaultNow().notNull(),
-        updatedAt: timestamp("updatedAt").defaultNow().notNull(),
+        status: text("billingStatus", { enum: billingStatusEnum }).notNull(),
+        startDate: integer("startDate", { mode: "timestamp" }).notNull(),
+        endDate: integer("endDate", { mode: "timestamp" }),
+        createdAt: integer("createdAt", { mode: "timestamp" }).notNull(),
+        updatedAt: integer("updatedAt", { mode: "timestamp" }).notNull(),
     },
     (t) => [index("subscription_workplaceIdIdx").on(t.workplaceId)],
 );
 
-export const billing = pgTable(
+export const billing = sqliteTable(
     "billing",
     {
         id: text("id").primaryKey(),
@@ -52,20 +44,18 @@ export const billing = pgTable(
             .notNull()
             .references(() => user.id),
         currentPlanId: text("planId").notNull(),
-        currentPlanType: planTypeEnum("currentPlanType")
-            .notNull()
-            .default("free"),
+        currentPlanType: text("planType", { enum: planTypeEnum }).notNull(),
         spacesLimit: integer("spacesLimit").notNull(),
         storageLimit: integer("storageLimit"),
-        startDate: timestamp("startDate").notNull(),
-        endDate: timestamp("endDate"),
-        status: billingStatusEnum("status").notNull(),
-        autoRenew: boolean("autoRenew").notNull(),
+        startDate: integer("startDate", { mode: "timestamp" }).notNull(),
+        endDate: integer("endDate", { mode: "timestamp" }),
+        status: text("billingStatus", { enum: billingStatusEnum }).notNull(),
+        autoRenew: integer("autoRenew", { mode: "boolean" }).notNull(),
         paymentMethod: text("paymentMethod"),
-        payerInfo: json("payerInfo"),
-        billingHistory: json("billingHistory"),
-        createdAt: timestamp("createdAt").defaultNow().notNull(),
-        updatedAt: timestamp("updatedAt").defaultNow().notNull(),
+        payerInfo: text("payerInfo"),
+        billingHistory: text("billingHistory"),
+        createdAt: integer("createdAt", { mode: "timestamp" }).notNull(),
+        updatedAt: integer("updatedAt", { mode: "timestamp" }).notNull(),
     },
     (t) => [
         index("billing_workplaceIdIdx").on(t.workplaceId),

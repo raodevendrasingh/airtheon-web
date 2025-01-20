@@ -1,7 +1,7 @@
-import { pgTable, serial, text, timestamp } from "drizzle-orm/pg-core";
+import { sqliteTable, integer, text } from "drizzle-orm/sqlite-core";
 
-export const waitlist = pgTable("waitlist", {
-    id: serial("id").primaryKey(),
+export const waitlist = sqliteTable("waitlist", {
+    id: integer("id").primaryKey({ autoIncrement: true }),
     email: text("email").unique().notNull(),
-    createdAt: timestamp("createdAt").defaultNow().notNull(),
+    createdAt: integer("createdAt", { mode: "timestamp" }).notNull(),
 });

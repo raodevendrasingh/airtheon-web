@@ -1,15 +1,15 @@
-import { pgTable, text, timestamp, jsonb, index } from "drizzle-orm/pg-core";
+import { sqliteTable, text, integer, index } from "drizzle-orm/sqlite-core";
 import { user } from "./user";
 
-export const personalization = pgTable(
+export const personalization = sqliteTable(
     "personalization",
     {
         id: text("id").primaryKey(),
         userId: text("userId")
             .notNull()
             .references(() => user.id, { onDelete: "cascade" }),
-        responses: jsonb("responses").notNull(),
-        createdAt: timestamp("createdAt").defaultNow().notNull(),
+        responses: text("responses").notNull(),
+        createdAt: integer("createdAt", { mode: "timestamp" }).notNull(),
     },
     (t) => [index("personalization_userIdIdx").on(t.userId)],
 );

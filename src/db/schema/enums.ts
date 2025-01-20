@@ -1,40 +1,15 @@
-import { pgEnum } from "drizzle-orm/pg-core";
-
-export const roleEnum = pgEnum("roleEnum", ["owner", "admin", "member"]);
-export const memoryTypeEnum = pgEnum("memoryTypeEnum", [
-    "note",
-    "url",
-    "file",
-    "message",
-]);
-export const actionEnum = pgEnum("actionEnum", ["create", "update", "delete"]);
-export const statusEnum = pgEnum("statusEnum", [
-    "pending",
-    "accepted",
-    "rejected",
-]);
-export const planTypeEnum = pgEnum("planTypeEnum", ["free", "pro", "premium"]);
-export const notificationTypeEnum = pgEnum("notificationTypeEnum", [
-    "reminder",
-    "update",
-    "alert",
-]);
-export const durationCycleEnum = pgEnum("durationCycleEnum", [
-    "monthly",
-    "yearly",
-    "lifetime",
-]);
-export const billingStatusEnum = pgEnum("billingStatusEnum", [
+export const roleEnum = ["owner", "admin", "member"] as const;
+export const memoryTypeEnum = ["note", "url", "file", "message"] as const;
+export const actionEnum = ["create", "update", "delete"] as const;
+export const statusEnum = ["pending", "accepted", "rejected"] as const;
+export const planTypeEnum = ["free", "pro", "premium"] as const;
+export const notificationTypeEnum = ["reminder", "update", "alert"] as const;
+export const durationCycleEnum = ["monthly", "yearly", "lifetime"] as const;
+export const billingStatusEnum = [
     "active",
     "cancelled",
     "expired",
     "pending",
-]);
-export const pluginTypeEnum = pgEnum("pluginTypeEnum", [
-    "browser_extension",
-    "mobile_app",
-]);
-export const pluginStatusEnum = pgEnum("pluginStatusEnum", [
-    "available",
-    "coming_soon",
-]);
+] as const;
+export const pluginTypeEnum = ["browser_extension", "mobile_app"] as const;
+export const pluginStatusEnum = ["available", "coming_soon"] as const;

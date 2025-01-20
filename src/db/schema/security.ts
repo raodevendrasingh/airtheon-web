@@ -1,22 +1,22 @@
-import {
-    pgTable,
-    text,
-    timestamp,
-    boolean,
-    integer,
-} from "drizzle-orm/pg-core";
+import { sqliteTable, text, integer } from "drizzle-orm/sqlite-core";
 import { user } from "./user";
 
-export const dataAndSecuritySettings = pgTable("dataAndSecuritySettings", {
+export const dataAndSecuritySettings = sqliteTable("dataAndSecuritySettings", {
     id: text("id").primaryKey(),
     userId: text("userId")
         .notNull()
         .references(() => user.id, { onDelete: "cascade" }),
-    twoFactorEnabled: boolean("twoFactorEnabled").default(false),
-    googleConnection: boolean("googleConnection"),
-    exportDataRequestedAt: timestamp("exportDataRequestedAt"),
+    twoFactorEnabled: integer("twoFactorEnabled", { mode: "boolean" }).default(
+        false,
+    ),
+    googleConnection: integer("googleConnection", { mode: "boolean" }),
+    exportDataRequestedAt: integer("exportDataRequestedAt", {
+        mode: "timestamp",
+    }),
     dataRetentionPolicy: integer("dataRetentionPolicy").default(30),
-    accountDeactivatedAt: timestamp("accountDeactivatedAt"),
-    createdAt: timestamp("createdAt").defaultNow().notNull(),
-    updatedAt: timestamp("updatedAt").defaultNow().notNull(),
+    accountDeactivatedAt: integer("accountDeactivatedAt", {
+        mode: "timestamp",
+    }),
+    createdAt: integer("createdAt", { mode: "timestamp" }).notNull(),
+    updatedAt: integer("updatedAt", { mode: "timestamp" }).notNull(),
 });

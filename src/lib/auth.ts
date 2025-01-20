@@ -1,7 +1,6 @@
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { db } from "@/db/drizzle";
-import { config } from "dotenv";
 import { emailOTP, openAPI, organization } from "better-auth/plugins";
 import {
     account,
@@ -14,11 +13,9 @@ import {
 } from "@/db/schema";
 import { sendVerificationEmail } from "@/actions/send-verification-email";
 
-config({ path: ".env.local" });
-
 export const auth = betterAuth({
     database: drizzleAdapter(db, {
-        provider: "pg",
+        provider: "sqlite",
         schema: {
             user: user,
             account: account,
