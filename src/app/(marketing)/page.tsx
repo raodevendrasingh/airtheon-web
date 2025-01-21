@@ -16,7 +16,6 @@ import {
     FormItem,
     FormMessage,
 } from "@/components/ui/form";
-import axios from "axios";
 import { toast } from "sonner";
 import { sendWaitlistConfirmationEmail } from "@/actions/send-waitlist-confirmation-email";
 import { ArrowRightIcon } from "lucide-react";
@@ -36,11 +35,12 @@ export default function HomePage() {
             setPending(true);
             const email = { email: values.email };
             const url = `/api/waitlist`;
-            const response = await axios.post(url, email, {
+            const response = await fetch(url, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
+                body: JSON.stringify(email),
             });
             if (response.status === 201) {
                 form.reset();

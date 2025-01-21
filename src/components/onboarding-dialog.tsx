@@ -14,7 +14,6 @@ import { LoadingButton } from "./LoadingButton";
 import { MoveRight } from "lucide-react";
 import { onboardingFormSchema, OnboardingFormValues } from "@/lib/app-schema";
 import { authClient, useSession } from "@/lib/auth-client";
-import axios from "axios";
 import { useEffect, useState } from "react";
 import {
     personalisationQuestions,
@@ -88,10 +87,16 @@ export const OnboardingDialog = () => {
     const handleImageUpload = async (imageData: IconData) => {
         try {
             const url = `/api/upload-image/workplace-logo`;
-            const res = await axios.post(url, imageData, {
+            const response = await fetch(url, {
+                method: "POST",
                 headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(imageData),
             });
-            return res.data.url;
+            if (!response.ok) {
+                throw new Error(`Image upload failed: ${response.statusText}`);
+            }
+            const data = await response.json();
+            return data.url;
         } catch (error) {
             console.error("Error uploading image", error);
         }
@@ -128,9 +133,12 @@ export const OnboardingDialog = () => {
             });
 
             // send formdata to backend
-            const response = await axios.post("/api/onboard", formData);
-
-            if (response.status === 200) {
+            const response = await fetch("/api/onboard", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(formData),
+            });
+            if (response.ok) {
                 setIsOnboarded(true);
             }
         } catch (error: any) {

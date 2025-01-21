@@ -2,7 +2,7 @@
 
 import { useParams } from "next/navigation";
 
-// export const runtime = "edge";
+export const runtime = "edge";
 
 export default function Page() {
     const params = useParams();
