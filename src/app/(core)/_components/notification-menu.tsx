@@ -21,8 +21,8 @@ import {
 import { Label } from "@/components/ui/label";
 import { DialogTitle } from "@/components/ui/dialog";
 import Link from "next/link";
-import { handleMarkAllAsRead } from "@/app/(core)/notifications/page";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
+import { handleMarkAllAsRead } from "@/utils/noti-actions";
 
 export const NotificationMenu = () => {
     const isDesktop = useMediaQuery("768px");

@@ -24,8 +24,7 @@ export async function middleware(request: NextRequest) {
     const pathName = request.nextUrl.pathname;
     const hostname = request.headers.get("host");
 
-    const baseDomain = process.env.NEXT_PUBLIC_BASE_DOMAIN;
-    const helpDomain = process.env.NEXT_PUBLIC_HELP_DOMAIN;
+    const baseDomain = process.env.NEXT_PUBLIC_BASE_DOMAIN!;
 
     const isPrivateRoute = privateRoutes.some((route) => {
         return route.endsWith("/*")
@@ -59,7 +58,7 @@ export async function middleware(request: NextRequest) {
     const { data: session } = await betterFetch<Session>(
         "/api/auth/get-session",
         {
-            baseURL: process.env.BETTER_AUTH_URL!,
+            baseURL: process.env.NEXT_PUBLIC_BASE_URL!,
             headers: {
                 cookie: request.headers.get("cookie") || "",
             },

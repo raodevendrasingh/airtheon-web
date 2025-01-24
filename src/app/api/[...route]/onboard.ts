@@ -31,7 +31,8 @@ app.post("/", zValidator("json", onboardingFormSchema), async (c) => {
         await db.insert(personalization).values({
             id: crypto.randomUUID(),
             userId: userId,
-            responses: body.responses,
+            responses: JSON.stringify(body.responses),
+            createdAt: new Date(),
         });
 
         await db

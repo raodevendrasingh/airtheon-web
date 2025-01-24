@@ -35,6 +35,7 @@ app.post("/", zValidator("json", waitlistSchema), async (c) => {
 
         await db.insert(waitlist).values({
             email: email,
+            createdAt: new Date(),
         });
 
         return c.json(

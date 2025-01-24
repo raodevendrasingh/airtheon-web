@@ -10,19 +10,8 @@ import {
 } from "@/components/ui/tooltip";
 import { dummyNotifications } from "@/DATA/dummy-notifications";
 import { cn } from "@/lib/utils";
+import { handleMarkAllAsRead } from "@/utils/noti-actions";
 import { BellOff, CheckCheck } from "lucide-react";
-
-export const handleMarkAllAsRead = () => {
-    //implement mark all as read logic
-};
-
-export const handleRemoveNotification = () => {
-    //implement remove notification logic
-};
-
-export const handleReadNotification = () => {
-    //implement read notification logic
-};
 
 export default function page() {
     return (

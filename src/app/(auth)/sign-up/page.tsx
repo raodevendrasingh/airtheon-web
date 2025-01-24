@@ -53,7 +53,7 @@ export default function SignUpPage() {
             name,
             email,
             password,
-            callbackURL: `${process.env.NEXT_PUBLIC_APP_URL}/verify`,
+            callbackURL: `${process.env.NEXT_PUBLIC_BASE_URL!}/verify`,
             fetchOptions: {
                 onRequest: () => {
                     setPending(true);

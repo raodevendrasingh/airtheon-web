@@ -10,10 +10,12 @@
         "lint": "next lint",
         "email": "email dev --dir src/utils/emails",
         "generate": "drizzle-kit generate --config ./drizzle.config.ts",
-        "migrate": "drizzle-kit migrate --config ./drizzle.config.ts",
         "push": "drizzle-kit push --config ./drizzle.config.ts",
         "studio": "drizzle-kit studio --config ./drizzle.config.ts",
-        "migrate:cf": "wrangler d1 migrations apply airtheon-one"
+        "pages:build": "bunx @cloudflare/next-on-pages",
+        "preview": "bun pages:build && wrangler pages dev --experimental-vectorize-bind-to-prod --ai",
+        "deploy": "bun pages:build && wrangler pages deploy",
+        "cf-typegen": "wrangler types --env-interface CloudflareEnv env.d.ts"
     },
     "dependencies": {
         "@arcjet/next": "^1.0.0-alpha.34",
