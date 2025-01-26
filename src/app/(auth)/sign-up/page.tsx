@@ -16,7 +16,7 @@ import {
     FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { signUpSchema } from "@/lib/authSchema";
+import { signUpSchema } from "@/lib/auth-schema";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";

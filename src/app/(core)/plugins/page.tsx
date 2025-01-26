@@ -10,7 +10,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
-import { plugins } from "@/DATA/plugins";
+import { plugins } from "@/data/plugins";
 
 export default function PluginsPage() {
     return (

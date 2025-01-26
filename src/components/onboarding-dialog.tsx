@@ -18,7 +18,7 @@ import { useEffect, useState } from "react";
 import {
     personalisationQuestions,
     Question,
-} from "@/DATA/personalization-options";
+} from "@/data/personalization-options";
 import { omit } from "lodash";
 import { motion, AnimatePresence } from "motion/react";
 import { Button } from "@/components/ui/button";
@@ -95,7 +95,7 @@ export const OnboardingDialog = () => {
             if (!response.ok) {
                 throw new Error(`Image upload failed: ${response.statusText}`);
             }
-            const data = await response.json();
+            const data = (await response.json()) as { url: string };
             return data.url;
         } catch (error) {
             console.error("Error uploading image", error);

@@ -2,8 +2,9 @@ import { Hono } from "hono";
 import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
 import { zValidator } from "@hono/zod-validator";
 import { IconFileSchema } from "@/lib/app-schema";
+import { auth } from "@/lib/auth";
 
-const app = new Hono();
+const app = new Hono<{ Bindings: CloudflareEnv }>();
 
 const r2 = new S3Client({
     region: "auto",
@@ -16,6 +17,22 @@ const r2 = new S3Client({
 
 app.post("/workplace-logo", zValidator("json", IconFileSchema), async (c) => {
     try {
+        const session = await auth.api.getSession({
+            headers: c.req.raw.headers,
+        });
+
+        const userId = session?.user?.id;
+
+        if (!userId) {
+            return c.json(
+                {
+                    success: false,
+                    message: "Invalid session",
+                },
+                401,
+            );
+        }
+
         const { buffer, fileName } = await c.req.json();
 
         // Convert base64 to buffer

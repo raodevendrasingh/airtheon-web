@@ -1,6 +1,5 @@
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
-import { db } from "@/db/drizzle";
 import { emailOTP, openAPI, organization } from "better-auth/plugins";
 import {
     account,
@@ -12,9 +11,10 @@ import {
     organization as workplace,
 } from "@/db/schema";
 import { sendVerificationEmail } from "@/actions/send-verification-email";
+import { getDrizzleDb } from "@/db/drizzle";
 
 export const auth = betterAuth({
-    database: drizzleAdapter(db, {
+    database: drizzleAdapter(getDrizzleDb(), {
         provider: "sqlite",
         schema: {
             user: user,
@@ -85,6 +85,5 @@ export const auth = betterAuth({
             clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
         },
     },
+    secret: process.env.BETTER_AUTH_SECRET!,
 });
-
-export type Session = typeof auth.$Infer.Session;

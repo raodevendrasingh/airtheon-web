@@ -8,10 +8,10 @@ enabled = true
 
 [[d1_databases]]
 binding = "DB"
-database_name = "second-brain-db"
-database_id = "7da7dc1b-53b0-41c1-a348-29cb424fe73b"
+database_name = "airtheon-prod"
+database_id = "14f845d1-8b6a-4677-a9f3-a95bfc23e772"
 migrations_dir = "./src/db/migrations"
 
 [[r2_buckets]]
-binding = "airtheon-assets"
+binding = "R2"
 bucket_name = "airtheon-assets"

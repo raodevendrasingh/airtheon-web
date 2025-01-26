@@ -10,7 +10,7 @@ import {
 import { cn } from "@/lib/utils";
 import { ArrowUpRight, Bell, BellOff, CheckCheck, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { dummyNotifications } from "@/DATA/dummy-notifications";
+import { dummyNotifications } from "@/data/dummy-notifications";
 import { NotificationCard } from "@/components/notification-card";
 import {
     Sheet,

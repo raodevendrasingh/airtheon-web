@@ -2,7 +2,7 @@
 
 import { betterFetch } from "@better-fetch/fetch";
 import { NextResponse, type NextRequest } from "next/server";
-import type { Session } from "@/lib/auth";
+import type { Session } from "@/db/schema/user";
 
 const privateRoutes = [
     "/search/*",
@@ -58,7 +58,7 @@ export async function middleware(request: NextRequest) {
     const { data: session } = await betterFetch<Session>(
         "/api/auth/get-session",
         {
-            baseURL: process.env.NEXT_PUBLIC_BASE_URL!,
+            baseURL: process.env.BETTER_AUTH_URL!,
             headers: {
                 cookie: request.headers.get("cookie") || "",
             },

@@ -21,7 +21,7 @@ import {
     FormLabel,
     FormMessage,
 } from "@/components/ui/form";
-import { verifyEmailSchema } from "@/lib/authSchema";
+import { verifyEmailSchema } from "@/lib/auth-schema";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";

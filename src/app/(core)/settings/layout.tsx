@@ -3,7 +3,7 @@
 import { usePathname, useRouter } from "next/navigation";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
-import { settingsTabs } from "@/DATA/settingsTabs";
+import { settingsTabs } from "@/data/settingsTabs";
 
 export default function SettingsLayout({
     children,

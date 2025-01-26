@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Upload, AlertCircle } from "lucide-react";
-import { MAX_WORKPLACE_ICON_SIZE } from "@/DATA/constants";
+import { MAX_WORKPLACE_ICON_SIZE } from "@/data/constants";
 import { Input } from "@/components/ui/input";
 
 interface ImageUploadProps {

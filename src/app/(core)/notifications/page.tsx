@@ -8,7 +8,7 @@ import {
     TooltipProvider,
     TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { dummyNotifications } from "@/DATA/dummy-notifications";
+import { dummyNotifications } from "@/data/dummy-notifications";
 import { cn } from "@/lib/utils";
 import { handleMarkAllAsRead } from "@/utils/noti-actions";
 import { BellOff, CheckCheck } from "lucide-react";

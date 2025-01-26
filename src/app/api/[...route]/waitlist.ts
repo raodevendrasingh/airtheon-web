@@ -1,21 +1,21 @@
 import { Hono } from "hono";
 import { zValidator } from "@hono/zod-validator";
-import { db } from "@/db/drizzle";
+import { getDrizzleDb } from "@/db/drizzle";
 import { waitlist } from "@/db/schema/waitlist";
-import { waitlistSchema } from "@/lib/authSchema";
+import { waitlistSchema } from "@/lib/auth-schema";
 import arcjet, { validateEmail } from "@arcjet/next";
 
 const aj = arcjet({
     key: process.env.ARCJET_KEY!,
     rules: [
         validateEmail({
-            mode: "LIVE",
+            mode: "DRY_RUN",
             block: ["DISPOSABLE", "INVALID", "NO_MX_RECORDS"],
         }),
     ],
 });
 
-const app = new Hono();
+const app = new Hono<{ Bindings: CloudflareEnv }>();
 
 app.post("/", zValidator("json", waitlistSchema), async (c) => {
     try {
@@ -33,6 +33,8 @@ app.post("/", zValidator("json", waitlistSchema), async (c) => {
             );
         }
 
+        const db = getDrizzleDb();
+
         await db.insert(waitlist).values({
             email: email,
             createdAt: new Date(),
@@ -46,8 +48,9 @@ app.post("/", zValidator("json", waitlistSchema), async (c) => {
             201,
         );
     } catch (error: any) {
+        console.log("error: ", error);
         // Handle unique constraint violation
-        if (error.code === "23505") {
+        if (error.includes("UNIQUE constraint failed")) {
             return c.json(
                 {
                     success: false,
@@ -60,7 +63,7 @@ app.post("/", zValidator("json", waitlistSchema), async (c) => {
         return c.json(
             {
                 success: false,
-                message: "Failed to add to waitlist",
+                message: error,
             },
             500,
         );

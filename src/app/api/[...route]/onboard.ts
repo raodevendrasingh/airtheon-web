@@ -1,12 +1,12 @@
 import { Hono } from "hono";
 import { zValidator } from "@hono/zod-validator";
-import { db } from "@/db/drizzle";
+import { getDrizzleDb } from "@/db/drizzle";
 import { onboardingFormSchema } from "@/lib/app-schema";
 import { personalization, user } from "@/db/schema";
 import { auth } from "@/lib/auth";
 import { eq } from "drizzle-orm";
 
-const app = new Hono();
+const app = new Hono<{ Bindings: CloudflareEnv }>();
 
 app.post("/", zValidator("json", onboardingFormSchema), async (c) => {
     try {
@@ -27,6 +27,8 @@ app.post("/", zValidator("json", onboardingFormSchema), async (c) => {
         }
 
         const body = c.req.valid("json");
+
+        const db = getDrizzleDb();
 
         await db.insert(personalization).values({
             id: crypto.randomUUID(),

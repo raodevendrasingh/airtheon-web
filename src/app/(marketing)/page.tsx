@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { waitlistSchema } from "@/lib/authSchema";
+import { waitlistSchema } from "@/lib/auth-schema";
 import { z } from "zod";
 import {
     Form,
