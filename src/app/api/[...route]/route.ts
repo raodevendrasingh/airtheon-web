@@ -1,5 +1,6 @@
 import { Hono } from "hono";
 import { handle } from "hono/vercel";
+
 import waitlist from "./waitlist";
 import uploadImage from "./upload-image";
 import onboard from "./onboard";

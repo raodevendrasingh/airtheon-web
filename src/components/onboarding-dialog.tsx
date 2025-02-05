@@ -35,7 +35,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { checkUserOnboarding } from "@/actions/get-onboarding-status";
+import { OnboardApiResponse } from "@/types/ApiResponse";
 import { z } from "zod";
 
 export const OnboardingDialog = () => {
@@ -66,11 +66,17 @@ export const OnboardingDialog = () => {
         if (isPending) return;
 
         const checkOnboarding = async () => {
-            const onboarded = await checkUserOnboarding(session.user.id);
-            setIsOnboarded(onboarded);
+            try {
+                const response = await fetch(
+                    `/api/onboard/status?userId=${session.user.id}`,
+                );
+                const data = (await response.json()) as OnboardApiResponse;
+                setIsOnboarded(data.isOnboarded);
+            } catch (error) {
+                console.error("Error checking onboarding status:", error);
+            }
         };
         checkOnboarding();
-        console.log("isOnboarding called");
     }, [session]);
 
     if (!session) {
@@ -83,7 +89,6 @@ export const OnboardingDialog = () => {
         }
     };
 
-    // Example image upload handler
     const handleImageUpload = async (imageData: IconData) => {
         try {
             const url = `/api/upload-image/workplace-logo`;
