@@ -32,7 +32,7 @@ export default function LegalPage() {
                             href={page.href}
                             className="group text-sm text-muted-foreground"
                         >
-                            <div className="w-full border border-border rounded-md px-3 py-3 flex items-center justify-between hover:bg-accent/30 hover:text-lime-400 transition-colors">
+                            <div className="w-full border border-border rounded-lg px-3 py-3 flex items-center justify-between hover:bg-accent/30 hover:text-lime-400 transition-colors">
                                 <span className="text-sm font-medium">
                                     {page.name}
                                 </span>

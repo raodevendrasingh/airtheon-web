@@ -65,6 +65,10 @@ export async function middleware(request: NextRequest) {
         },
     );
 
+    if (pathName === "/") {
+        return NextResponse.redirect(new URL("/waitlist", request.url));
+    }
+
     if (isPrivateRoute || isAdminRoute) {
         if (!session) {
             return NextResponse.redirect(new URL("/sign-in", request.url));

@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { BrandLogoWordmark } from "@/components/brand-logo";
 
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL!;
+const waitlistUrl = `${process.env.NEXT_PUBLIC_BASE_URL!}/waitlist`;
 
 export const Navbar = () => {
     return (
@@ -19,7 +19,7 @@ export const Navbar = () => {
                     <div className="flex items-center space-x-6">
                         <ThemeToggle />
                         <div className="flex items-center space-x-6">
-                            <Link href={baseUrl}>
+                            <Link href={waitlistUrl}>
                                 <Button>Join Waitlist</Button>
                             </Link>
                         </div>

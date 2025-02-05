@@ -1,3 +1,4 @@
+import { BackButton } from "@/components/back-button";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -8,14 +9,17 @@ export default function RefundPolicy() {
     return (
         <div className="container mx-auto max-w-3xl min-h-screen py-10">
             <div className="space-y-8">
-                <div className="space-y-4">
-                    <h1 className="text-4xl font-bold tracking-tighter">
-                        Refund Policy
-                    </h1>
-                    <p className="text-muted-foreground">
-                        Last updated: January 17, 2025
-                    </p>
-                </div>
+                <main className="flex justify-between">
+                    <div className="space-y-4">
+                        <h1 className="text-4xl font-bold tracking-tighter">
+                            Refund Policy
+                        </h1>
+                        <p className="text-muted-foreground">
+                            Last updated: January 17, 2025
+                        </p>
+                    </div>
+                    <BackButton />
+                </main>
 
                 {/* Introduction */}
                 <section className="space-y-4">

@@ -1,7 +1,6 @@
 "use client";
 
 import { Navbar } from "@/app/(marketing)/_components/navbar";
-import { Footer } from "@/app/(marketing)/_components/footer";
 import { AnimatedCircles } from "@/components/ui/animated-circles";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
@@ -19,8 +18,9 @@ import {
 import { toast } from "sonner";
 import { sendWaitlistConfirmationEmail } from "@/actions/send-waitlist-confirmation-email";
 import { ArrowRightIcon } from "lucide-react";
+import { Footer2 } from "../_components/footer2";
 
-export default function HomePage() {
+export default function WaitlistPage() {
     const [pending, setPending] = useState<boolean>(false);
 
     const form = useForm<z.infer<typeof waitlistSchema>>({
@@ -59,7 +59,7 @@ export default function HomePage() {
         <div className="relative min-h-screen flex flex-col">
             <Navbar />
             <main className="flex-1">
-                <section className="h-[80vh] pt-20 relative overflow-hidden">
+                <section className="h-[80vh] pt-10 relative overflow-hidden">
                     <AnimatedCircles />
                     <div className="container mx-auto px-5 relative flex flex-col items-center justify-center gap-4 py-24 md:py-28 lg:py-32 xl:py-36">
                         <div className="space-y-4 text-center">
@@ -142,7 +142,7 @@ export default function HomePage() {
                     </div>
                 </section>
             </main>
-            <Footer />
+            <Footer2 />
         </div>
     );
 }
