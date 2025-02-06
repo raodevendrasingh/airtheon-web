@@ -10,7 +10,6 @@ import {
     verification,
     organization as workplace,
 } from "@/db/schema";
-import { sendVerificationEmail } from "@/actions/send-verification-email";
 import { getDrizzleDb } from "@/db/drizzle";
 
 export const auth = betterAuth({
@@ -61,9 +60,15 @@ export const auth = betterAuth({
             expiresIn: 10 * 60, // 10 minutes
             sendVerificationOnSignUp: true,
             async sendVerificationOTP({ email, otp, type }) {
+                const baseUrl = process.env.NEXT_PUBLIC_BASE_URL!;
                 try {
                     if (type === "email-verification") {
-                        await sendVerificationEmail({ email, otp });
+                        fetch(`${baseUrl}/api/email/verify/${email}/${otp}`, {
+                            method: "GET",
+                            headers: {
+                                "Content-Type": "application/json",
+                            },
+                        });
                     } else {
                         console.log("Password reset not implemented yet");
                     }

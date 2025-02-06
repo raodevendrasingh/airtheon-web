@@ -16,7 +16,6 @@ import {
     FormMessage,
 } from "@/components/ui/form";
 import { toast } from "sonner";
-import { sendWaitlistConfirmationEmail } from "@/actions/send-waitlist-confirmation-email";
 import { ArrowRightIcon } from "lucide-react";
 import { Footer2 } from "../_components/footer2";
 
@@ -45,7 +44,12 @@ export default function WaitlistPage() {
             if (response.status === 201) {
                 form.reset();
                 toast.success("Added to waitlist successfully");
-                sendWaitlistConfirmationEmail({ email: values.email });
+                fetch(`/api/email/waitlist/${values.email}`, {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                });
             }
         } catch (error: any) {
             console.log("Unexpected Error: ", error);
