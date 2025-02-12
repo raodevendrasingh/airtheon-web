@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { BrandLogoWordmark } from "@/components/brand-logo";
 
-const waitlistUrl = `${process.env.NEXT_PUBLIC_BASE_URL!}/waitlist`;
+const waitlistUrl = `${process.env.NEXT_PUBLIC_BASE_URL!}`;
 
 export const Navbar = () => {
     return (

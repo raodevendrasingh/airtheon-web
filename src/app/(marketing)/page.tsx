@@ -17,7 +17,7 @@ import {
 } from "@/components/ui/form";
 import { toast } from "sonner";
 import { ArrowRightIcon } from "lucide-react";
-import { Footer2 } from "../_components/footer2";
+import { Footer2 } from "./_components/footer2";
 
 export default function WaitlistPage() {
     const [pending, setPending] = useState<boolean>(false);

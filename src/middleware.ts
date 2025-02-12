@@ -33,16 +33,15 @@ export async function middleware(request: NextRequest) {
 
     const pathName = request.nextUrl.pathname;
     const hostname = request.headers.get("host");
-
     const baseDomain = process.env.NEXT_PUBLIC_BASE_DOMAIN!;
 
+    const isAdminRoute = adminRoutes.includes(pathName);
+    const isAuthRoute = authRoutes.includes(pathName);
     const isPrivateRoute = privateRoutes.some((route) => {
         return route.endsWith("/*")
             ? pathName.startsWith(route.slice(0, -2))
             : pathName === route;
     });
-    const isAdminRoute = adminRoutes.includes(pathName);
-    const isAuthRoute = authRoutes.includes(pathName);
 
     // Check if the host is not localhost
     // const isLocalhost = hostname === "localhost" || hostname === "127.0.0.1";
@@ -60,10 +59,6 @@ export async function middleware(request: NextRequest) {
 
     if (hostname?.startsWith("help.") && pathName === "/") {
         return NextResponse.redirect(new URL("/legal", request.url));
-    }
-
-    if (pathName === "/") {
-        return NextResponse.redirect(new URL("/waitlist", request.url));
     }
 
     if (isPrivateRoute || isAdminRoute) {
