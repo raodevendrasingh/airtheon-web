@@ -1,64 +1,116 @@
 import { Hono } from "hono";
-import { Resend } from "resend";
-import WaitlistTemplate from "@/utils/emails/waitlist";
-import { EmailTemplate } from "@/utils/email-otp";
-
-const resend = new Resend(process.env.RESEND_API_KEY!);
+import { signAWSRequest } from "@/utils/aws-signer";
 
 const app = new Hono()
-    .get("/waitlist/:email", async (c) => {
-        try {
-            const email = c.req.param("email") as string;
+    .post("/waitlist", async (c) => {
+        const { email }: { email: string } = await c.req.json();
 
-            const { data, error } = await resend.emails.send({
-                from: "Airtheon <hello@airtheon.com>",
-                to: email,
-                subject: "Your spot has been reserved",
-                react: WaitlistTemplate(),
+        const sesPayload = new URLSearchParams({
+            Action: "SendEmail",
+            Version: "2010-12-01",
+            Source: `"Airtheon" <${process.env.AWS_SES_SENDER!}>`,
+            "Destination.ToAddresses.member.1": email,
+            "Message.Subject.Data":
+                "Your spot on our waitlist is confirmed! 🎉",
+            "Message.Body.Text.Data":
+                "Thank you for joining our waitlist! We're thrilled to have you as part of our growing community.",
+        }).toString();
+
+        const region = process.env.AWS_REGION!;
+        const service = "ses";
+        const url = `https://email.${region}.amazonaws.com/`;
+
+        try {
+            const headers = await signAWSRequest({
+                method: "POST",
+                url,
+                region,
+                service,
+                body: sesPayload,
+                accessKeyId: process.env.AWS_ACCESS_KEY_ID!,
+                secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY!,
             });
 
-            if (error) {
-                console.error("Resend error:", error);
-                throw new Error("Failed to send confirmation email");
+            const response = await fetch(url, {
+                method: "POST",
+                headers,
+                body: sesPayload,
+            });
+
+            if (!response.ok) {
+                const errorText = await response.text();
+                console.error(
+                    "Error response from SES in waitlist email:",
+                    errorText,
+                );
+                return c.json(
+                    {
+                        error: "Failed to send waitlist email",
+                        details: errorText,
+                    },
+                    500,
+                );
             }
-            return c.json(
-                {
-                    success: true,
-                    message: "Waitlist Confirmation Email Sent Successfully",
-                },
-                200,
-            );
+
+            return c.json({ message: "Waitlist email sent successfully" });
         } catch (error) {
-            console.error("Failed to send confirmation email:", error);
-            return c.json({ success: false, message: error }, 500);
+            console.error("Error sending waitlst email:", error);
+            return c.json({ error: "Failed to send waitlist email" }, 500);
         }
     })
-    .get("/verify/:email/:otp", async (c) => {
-        try {
-            const email = c.req.param("email") as string;
-            const otp = c.req.param("otp") as string;
+    .post("/verify", async (c) => {
+        const { email, otp }: { email: string; otp: string } =
+            await c.req.json();
 
-            const { data, error } = await resend.emails.send({
-                from: "Airtheon <no-reply@airtheon.com>",
-                to: email,
-                subject: "Airtheon | Verify Your Email",
-                react: EmailTemplate({ email, otp }),
+        const sesPayload = new URLSearchParams({
+            Action: "SendEmail",
+            Version: "2010-12-01",
+            Source: `"Airtheon" <${process.env.AWS_SES_SENDER!}>`,
+            "Destination.ToAddresses.member.1": email,
+            "Message.Subject.Data": "Airtheon | Verify Your Email",
+            "Message.Body.Text.Data": `Thank you for signin up! Please use the following verification code to verify your email address: ${otp}`,
+        }).toString();
+
+        const region = process.env.AWS_REGION!;
+        const service = "ses";
+        const url = `https://email.${region}.amazonaws.com/`;
+
+        try {
+            const headers = await signAWSRequest({
+                method: "POST",
+                url,
+                region,
+                service,
+                body: sesPayload,
+                accessKeyId: process.env.AWS_ACCESS_KEY_ID!,
+                secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY!,
             });
 
-            if (error) {
-                console.error("Resend error:", error);
-                throw new Error("Failed to send verification email");
+            const response = await fetch(url, {
+                method: "POST",
+                headers,
+                body: sesPayload,
+            });
+
+            if (!response.ok) {
+                const errorText = await response.text();
+                console.error(
+                    "Error response from SES in email verification:",
+                    errorText,
+                );
+                return c.json(
+                    {
+                        error: "Failed to send verfication email",
+                        details: errorText,
+                    },
+                    500,
+                );
             }
-            return c.json(
-                {
-                    success: true,
-                    message: "Verification Email Sent Successfully",
-                },
-                200,
-            );
+
+            return c.json({ message: "Verification email sent successfully" });
         } catch (error) {
-            console.error("Failed to send verification email:", error);
-            return c.json({ success: false, message: error }, 500);
+            console.error("Error sending verification email:", error);
+            return c.json({ error: "Failed to send verification email" }, 500);
         }
     });
 

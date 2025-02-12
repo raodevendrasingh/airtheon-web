@@ -42,13 +42,14 @@ export default function WaitlistPage() {
                 body: JSON.stringify(email),
             });
             if (response.status === 201) {
-                // form.reset();
+                form.reset();
                 toast.success("Added to waitlist successfully");
-                fetch(`/api/aws-email/waitlist/${values.email}`, {
+                fetch(`/api/email/waitlist`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
                     },
+                    body: JSON.stringify(email),
                 });
             }
         } catch (error: any) {

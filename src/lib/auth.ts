@@ -63,11 +63,12 @@ export const auth = betterAuth({
                 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL!;
                 try {
                     if (type === "email-verification") {
-                        fetch(`${baseUrl}/api/email/verify/${email}/${otp}`, {
-                            method: "GET",
+                        fetch(`${baseUrl}/api/email/verify`, {
+                            method: "POST",
                             headers: {
                                 "Content-Type": "application/json",
                             },
+                            body: JSON.stringify({ email, otp }),
                         });
                     } else {
                         console.log("Password reset not implemented yet");

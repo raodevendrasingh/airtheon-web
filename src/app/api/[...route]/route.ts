@@ -5,7 +5,6 @@ import waitlist from "./waitlist";
 import uploadImage from "./upload-image";
 import onboard from "./onboard";
 import email from "./email";
-import awsEmail from "./aws-email";
 
 export const runtime = "edge";
 
@@ -15,8 +14,7 @@ const routes = app
     .route("/waitlist", waitlist)
     .route("/upload-image", uploadImage)
     .route("/onboard", onboard)
-    .route("/email", email)
-    .route("/aws-email", awsEmail);
+    .route("/email", email);
 
 export const GET = handle(app);
 export const POST = handle(app);

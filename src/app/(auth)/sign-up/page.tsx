@@ -20,7 +20,7 @@ import { signUpSchema } from "@/lib/auth-schema";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { emailOtp, signUp } from "@/lib/auth-client";
+import { signUp } from "@/lib/auth-client";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { GoogleAuthButton } from "../_components/GoogleAuthButton";
@@ -66,10 +66,6 @@ export default function SignUpPage() {
                     toast.success("Account created", {
                         description:
                             "Your account has been created. Check your email for a verification code.",
-                    });
-                    await emailOtp.sendVerificationOtp({
-                        email,
-                        type: "email-verification",
                     });
                     router.push("/verify");
                 },
