@@ -1,4 +1,3 @@
-// aws-signer.ts
 export async function signAWSRequest({
     method,
     url,

@@ -1,9 +1,13 @@
 import { Hono } from "hono";
 import { signAWSRequest } from "@/utils/aws-signer";
+import { renderWaitlistEmail } from "@/utils/emails/waitlist";
+import { renderOTPEmail } from "@/utils/emails/email-otp";
 
 const app = new Hono()
     .post("/waitlist", async (c) => {
         const { email }: { email: string } = await c.req.json();
+
+        const emailTemplate = renderWaitlistEmail();
 
         const sesPayload = new URLSearchParams({
             Action: "SendEmail",
@@ -12,8 +16,7 @@ const app = new Hono()
             "Destination.ToAddresses.member.1": email,
             "Message.Subject.Data":
                 "Your spot on our waitlist is confirmed! 🎉",
-            "Message.Body.Text.Data":
-                "Thank you for joining our waitlist! We're thrilled to have you as part of our growing community.",
+            "Message.Body.Html.Data": emailTemplate,
         }).toString();
 
         const region = process.env.AWS_REGION!;
@@ -62,13 +65,15 @@ const app = new Hono()
         const { email, otp }: { email: string; otp: string } =
             await c.req.json();
 
+        const emailTemplate = renderOTPEmail(email, otp);
+
         const sesPayload = new URLSearchParams({
             Action: "SendEmail",
             Version: "2010-12-01",
             Source: `"Airtheon" <${process.env.AWS_SES_SENDER!}>`,
             "Destination.ToAddresses.member.1": email,
             "Message.Subject.Data": "Airtheon | Verify Your Email",
-            "Message.Body.Text.Data": `Thank you for signin up! Please use the following verification code to verify your email address: ${otp}`,
+            "Message.Body.Html.Data": emailTemplate,
         }).toString();
 
         const region = process.env.AWS_REGION!;

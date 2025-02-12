@@ -1,4 +1,4 @@
-export function renderWaitlistEmail() {
+export function renderOTPEmail(email: string, otp: string) {
     const currentYear = new Date().getFullYear();
 
     return `<!DOCTYPE html>
@@ -6,7 +6,7 @@ export function renderWaitlistEmail() {
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your spot on our waitlist is confirmed! 🎉</title>
+    <title>Verify your email address</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -61,40 +61,46 @@ export function renderWaitlistEmail() {
             font-family: 'Outfit', sans-serif;
         }
 
+        h2 {
+            font-size: 28px;
+            font-weight: 700;
+            text-align: center;
+            color: #1f2937;
+            margin: 24px 0;
+            font-family: 'Outfit', sans-serif;
+        }
+
         p {
             margin: 16px 0;
             font-size: 16px;
-            text-align: justify;
-            font-family: 'Outfit', sans-serif;
-        }
-
-        .social-section {
             text-align: center;
-            margin: 32px 0;
-        }
-
-        .social-heading {
-            font-weight: 700;
-            color: #1f2937;
-            margin-bottom: 16px;
             font-family: 'Outfit', sans-serif;
+            color: #374151;
         }
 
-        .social-button {
-            display: inline-flex;
-            align-items: center;
-            background-color: #000000;
-            color: #ffffff;
-            text-decoration: none;
-            padding: 12px 24px;
+        .otp-container {
+            background-color: #f3f4f6;
             border-radius: 12px;
-            font-size: 14px;
+            padding: 24px;
+            margin: 24px 0;
+            text-align: center;
+        }
+
+        .otp-code {
+            font-size: 32px;
             font-weight: 700;
+            letter-spacing: 4px;
+            color: #1f2937;
+            margin: 0;
             font-family: 'Outfit', sans-serif;
         }
 
-        .social-button img {
-            margin-right: 8px;
+        .footer-text {
+            font-size: 12px;
+            color: #6b7280;
+            text-align: center;
+            margin: 24px 0 8px 0;
+            font-family: 'Outfit', sans-serif;
         }
 
         hr {
@@ -103,12 +109,14 @@ export function renderWaitlistEmail() {
             margin: 24px 0;
         }
 
-        .footer-text {
-            font-size: 12px;
-            color: #6b7280;
-            text-align: center;
-            margin: 8px 0;
-            font-family: 'Outfit', sans-serif;
+        @media (prefers-color-scheme: dark) {
+            .otp-container {
+                background-color: #374151;
+            }
+
+            .otp-code {
+                color: #f3f4f6;
+            }
         }
     </style>
 </head>
@@ -127,38 +135,21 @@ export function renderWaitlistEmail() {
             />
         </div>
 
-        <h1>You're on the list! 🎉</h1>
+        <h2>Email Verification</h2>
 
-        <p>
-            Thank you for joining our waitlist! We're thrilled to have you as part of our growing community.
-        </p>
+        <p>Your verification code is:</p>
 
-        <p>
-            We're working hard to create something special and you'll be among the first to know when we launch.
-            We'll keep you updated on our progress and let you know when it's your turn to join.
-        </p>
-
-        <p>
-            While you wait, why not stay updated with our latest news and announcements?
-        </p>
-
-        <div class="social-section">
-            <p class="social-heading">Follow us for updates:</p>
-            <a href="https://x.com/airtheonlabs" target="_blank" class="social-button">
-                <img
-                    src="https://static.vecteezy.com/system/resources/thumbnails/031/737/206/small_2x/twitter-new-logo-twitter-icons-new-twitter-logo-x-2023-x-social-media-icon-free-png.png"
-                    width="20"
-                    height="20"
-                    alt="X logo"
-                />
-                @airtheonlabs
-            </a>
+        <div class="otp-container">
+            <div class="otp-code">${otp}</div>
         </div>
+
+        <p>This code will expire in 10 minutes.</p>
 
         <hr />
 
         <p class="footer-text">
-            If you didn't sign up for the Airtheon waitlist, please disregard this email.
+            This code was sent to ${email}. If you didn't request this verification,
+            please ignore this email.
         </p>
 
         <p class="footer-text">
