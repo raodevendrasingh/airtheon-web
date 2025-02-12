@@ -15,3 +15,10 @@ migrations_dir = "./src/db/migrations"
 [[r2_buckets]]
 binding = "R2"
 bucket_name = "airtheon-assets"
+
+[vars]
+NEXT_PUBLIC_BASE_DOMAIN="airtheon.com"
+NEXT_PUBLIC_HELP_DOMAIN="help.airtheon.com"
+NEXT_PUBLIC_BASE_URL="https://airtheon.com"
+NEXT_PUBLIC_HELP_URL="https://help.airtheon.com"
+BETTER_AUTH_URL="https://airtheon.com"

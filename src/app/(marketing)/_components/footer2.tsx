@@ -4,7 +4,7 @@ import { BrandLogoWordmark } from "@/components/brand-logo";
 import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
 
-const helpUrl = `${process.env.NEXT_PUBLIC_HELP_URL!}/legal`;
+const helpUrl = `${process.env.NEXT_PUBLIC_HELP_URL!}`;
 
 export function Footer2() {
     return (
@@ -17,13 +17,13 @@ export function Footer2() {
                     </div>
                     <div className="flex gap-4">
                         <Link
-                            href={`${helpUrl}/terms-of-service`}
+                            href={`${helpUrl}/legal/terms-of-service`}
                             className="text-sm hover:underline underline-offset-4"
                         >
                             Terms
                         </Link>
                         <Link
-                            href={`${helpUrl}/privacy-policy`}
+                            href={`${helpUrl}/legal/privacy-policy`}
                             className="text-sm hover:underline underline-offset-4"
                         >
                             Privacy

@@ -21,6 +21,16 @@ const authRoutes = ["/sign-in", "/sign-up", "/verify"];
 const adminRoutes = ["/admin"];
 
 export async function middleware(request: NextRequest) {
+    const { data: session } = await betterFetch<Session>(
+        "/api/auth/get-session",
+        {
+            baseURL: process.env.BETTER_AUTH_URL!,
+            headers: {
+                cookie: request.headers.get("cookie") || "",
+            },
+        },
+    );
+
     const pathName = request.nextUrl.pathname;
     const hostname = request.headers.get("host");
 
@@ -48,22 +58,9 @@ export async function middleware(request: NextRequest) {
         return NextResponse.rewrite(new URL("/not-found", request.url));
     }
 
-    if (hostname?.startsWith("help.")) {
-        if (!pathName.startsWith("/legal")) {
-            return NextResponse.redirect(new URL("/legal", request.url));
-        }
-        return NextResponse.next();
+    if (hostname?.startsWith("help.") && pathName === "/") {
+        return NextResponse.redirect(new URL("/legal", request.url));
     }
-
-    const { data: session } = await betterFetch<Session>(
-        "/api/auth/get-session",
-        {
-            baseURL: process.env.BETTER_AUTH_URL!,
-            headers: {
-                cookie: request.headers.get("cookie") || "",
-            },
-        },
-    );
 
     if (pathName === "/") {
         return NextResponse.redirect(new URL("/waitlist", request.url));
