@@ -20,7 +20,7 @@ import { signInSchema } from "@/lib/auth-schema";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { signIn } from "@/lib/auth-client";
+import { authClient } from "@/lib/auth-client";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { GoogleAuthButton } from "../_components/GoogleAuthButton";
@@ -45,7 +45,7 @@ export default function SignInPage() {
     });
 
     const onSubmit = async (values: z.infer<typeof signInSchema>) => {
-        await signIn.email({
+        await authClient.signIn.email({
             email: values.email,
             password: values.password,
             callbackURL: "/dash",

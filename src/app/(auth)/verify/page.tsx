@@ -1,6 +1,6 @@
 "use client";
 
-import { emailOtp } from "@/lib/auth-client";
+import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
@@ -72,11 +72,11 @@ export default function Page() {
     const handleResendEmail = async () => {
         try {
             setPending(true);
-            await emailOtp.sendVerificationOtp({
+            await authClient.emailOtp.sendVerificationOtp({
                 email: email!,
                 type: "email-verification",
             });
-            toast.success("Email sent again");
+            toast.success("Email Resent!");
             // Start 60 second countdown
             setCountdown(60);
         } catch (error) {
@@ -87,7 +87,7 @@ export default function Page() {
     };
 
     const onSubmit = async (values: z.infer<typeof verifyEmailSchema>) => {
-        await emailOtp.verifyEmail({
+        await authClient.emailOtp.verifyEmail({
             email,
             otp: values.verificationCode,
             fetchOptions: {

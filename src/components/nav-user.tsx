@@ -17,13 +17,13 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { signOut, useSession } from "@/lib/auth-client";
+import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
 import { ThemeModeToggle } from "./ThemeModeToggle";
 
 export function NavUser() {
     const router = useRouter();
-    const { data: session } = useSession();
+    const { data: session } = authClient.useSession();
 
     if (!session) {
         return <div>Not signed in</div>;
@@ -36,7 +36,7 @@ export function NavUser() {
     };
 
     const handleLogout = () => {
-        signOut();
+        authClient.signOut();
         router.replace("/");
     };
 

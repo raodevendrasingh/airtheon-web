@@ -13,7 +13,7 @@ import { Form } from "@/components/ui/form";
 import { LoadingButton } from "./LoadingButton";
 import { MoveRight } from "lucide-react";
 import { onboardingFormSchema, OnboardingFormValues } from "@/lib/app-schema";
-import { authClient, useSession } from "@/lib/auth-client";
+import { authClient } from "@/lib/auth-client";
 import { useEffect, useState } from "react";
 import {
     personalisationQuestions,
@@ -43,7 +43,7 @@ export const OnboardingDialog = () => {
     const [iconData, setIconData] = useState<IconData | null>(null);
     const [isOnboarded, setIsOnboarded] = useState<boolean | null>(null);
     const [pending, setPending] = useState<boolean>(false);
-    const { data: session, isPending } = useSession();
+    const { data: session, isPending } = authClient.useSession();
 
     const form = useForm<z.infer<typeof onboardingFormSchema>>({
         resolver: zodResolver(onboardingFormSchema),

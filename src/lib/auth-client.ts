@@ -5,18 +5,3 @@ export const authClient = createAuthClient({
     baseURL: process.env.BETTER_AUTH_URL!,
     plugins: [emailOTPClient(), organizationClient()],
 });
-
-export const {
-    signIn,
-    signUp,
-    signOut,
-    getSession,
-    useSession,
-    emailOtp,
-    verifyEmail,
-    changeEmail,
-    changePassword,
-    resetPassword,
-    updateUser,
-    deleteUser,
-} = authClient;

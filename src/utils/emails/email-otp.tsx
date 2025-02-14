@@ -1,5 +1,6 @@
 export function renderOTPEmail(email: string, otp: string) {
     const currentYear = new Date().getFullYear();
+    const username = email.split("@")[0];
 
     return `<!DOCTYPE html>
 <html>
@@ -135,21 +136,27 @@ export function renderOTPEmail(email: string, otp: string) {
             />
         </div>
 
-        <h2>Email Verification</h2>
+        <h2>Hi ${username},</h2>
 
-        <p>Your verification code is:</p>
+        <p>Thank you for choosing Airtheon! To complete your sign-up, please verify your email address using the code below:</p>
 
         <div class="otp-container">
             <div class="otp-code">${otp}</div>
         </div>
 
-        <p>This code will expire in 10 minutes.</p>
+        <p>This code will expire in <strong>10 minutes</strong>.</p>
+
+        <p>If you didn't request this verification, please ignore this email.</p>
 
         <hr />
 
         <p class="footer-text">
-            This code was sent to ${email}. If you didn't request this verification,
-            please ignore this email.
+            This email was sent to <strong>${email}</strong>.
+        </p>
+
+        <p class="footer-text">
+            <a href="https://help.airtheon.com/legal/terms-of-service" target="_blank">Terms of Service</a> |
+            <a href="https://help.airtheon.com/legal/privacy-policy" target="_blank">Privacy Policy</a>
         </p>
 
         <p class="footer-text">

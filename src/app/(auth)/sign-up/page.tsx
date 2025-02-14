@@ -20,7 +20,6 @@ import { signUpSchema } from "@/lib/auth-schema";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { signUp } from "@/lib/auth-client";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { GoogleAuthButton } from "../_components/GoogleAuthButton";
@@ -29,6 +28,7 @@ import Link from "next/link";
 import { HiOutlineArrowNarrowRight } from "react-icons/hi";
 import { useRouter } from "next/navigation";
 import { BrandLogoWordmark } from "@/components/brand-logo";
+import { authClient } from "@/lib/auth-client";
 
 export default function SignUpPage() {
     const router = useRouter();
@@ -49,7 +49,7 @@ export default function SignUpPage() {
 
     const onSubmit = async (values: z.infer<typeof signUpSchema>) => {
         const { name, email, password } = values;
-        await signUp.email({
+        await authClient.signUp.email({
             name,
             email,
             password,
@@ -65,7 +65,7 @@ export default function SignUpPage() {
                 onSuccess: async () => {
                     toast.success("Account created", {
                         description:
-                            "Your account has been created. Check your email for a verification code.",
+                            "Check your email for a verification code.",
                     });
                     router.push("/verify");
                 },
@@ -171,8 +171,14 @@ export default function SignUpPage() {
                     </Card>
                     <div className="text-balance text-center text-xs text-muted-foreground [&_a]:underline [&_a]:underline-offset-4 [&_a]:hover:text-primary  ">
                         By clicking continue, you agree to our{" "}
-                        <a href="#">Terms of Service</a> and{" "}
-                        <a href="#">Privacy Policy</a>.
+                        <Link href="https://help.airtheon.com/legal/privacy-policy">
+                            Terms of Service
+                        </Link>{" "}
+                        and{" "}
+                        <Link href="https://help.airtheon.com/legal/terms-of-service">
+                            Privacy Policy
+                        </Link>
+                        .
                     </div>
                 </div>
             </div>

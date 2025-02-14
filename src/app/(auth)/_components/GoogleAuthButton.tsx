@@ -1,9 +1,9 @@
 import { Button } from "@/components/ui/button";
-import { signIn } from "@/lib/auth-client";
+import { authClient } from "@/lib/auth-client";
 
 export const GoogleAuthButton = () => {
     const handleGoogleAuth = async () => {
-        await signIn.social({
+        await authClient.signIn.social({
             provider: "google",
         });
     };

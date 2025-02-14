@@ -28,9 +28,9 @@ export const auth = betterAuth({
     user: {
         additionalFields: {
             isOnboarded: {
-                type: "boolean",
-                required: true,
-                defaultValue: "false",
+                type: "number",
+                required: false,
+                defaultValue: 0,
                 description:
                     "Boolean to check whether the user is onboarded or not",
                 input: false,
@@ -63,13 +63,24 @@ export const auth = betterAuth({
                 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL!;
                 try {
                     if (type === "email-verification") {
-                        fetch(`${baseUrl}/api/email/verify`, {
-                            method: "POST",
-                            headers: {
-                                "Content-Type": "application/json",
+                        const response = await fetch(
+                            `${baseUrl}/api/email/verify`,
+                            {
+                                method: "POST",
+                                headers: {
+                                    "Content-Type": "application/json",
+                                },
+                                body: JSON.stringify({ email, otp }),
                             },
-                            body: JSON.stringify({ email, otp }),
-                        });
+                        );
+
+                        if (!response.ok) {
+                            const error = await response.text();
+                            console.error(
+                                "Error sending verification email:",
+                                error,
+                            );
+                        }
                     } else {
                         console.log("Password reset not implemented yet");
                     }
