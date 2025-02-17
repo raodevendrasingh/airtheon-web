@@ -44,14 +44,14 @@ export async function middleware(request: NextRequest) {
     });
 
     // Check if the host is not localhost
-    // const isLocalhost = hostname === "localhost" || hostname === "127.0.0.1";
+    const isLocalhost = hostname === "localhost" || hostname === "127.0.0.1";
 
     // If not localhost, restrict access to private and auth routes
-    // if (!isLocalhost) {
-    //     if (isPrivateRoute || isAuthRoute) {
-    //         return NextResponse.rewrite(new URL("/not-found", request.url));
-    //     }
-    // }
+    if (!isLocalhost) {
+        if (isPrivateRoute || isAuthRoute) {
+            return NextResponse.rewrite(new URL("/", request.url));
+        }
+    }
 
     if (pathName.startsWith("/legal") && hostname === baseDomain) {
         return NextResponse.rewrite(new URL("/not-found", request.url));
