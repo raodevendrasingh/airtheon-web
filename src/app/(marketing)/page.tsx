@@ -18,6 +18,7 @@ import {
 import { toast } from "sonner";
 import { ArrowRightIcon } from "lucide-react";
 import { Footer2 } from "./_components/footer2";
+import { AnimatedText } from "@/components/animated-text";
 
 export default function WaitlistPage() {
     const [pending, setPending] = useState<boolean>(false);
@@ -64,17 +65,16 @@ export default function WaitlistPage() {
         <div className="relative min-h-screen flex flex-col">
             <Navbar />
             <main className="flex-1">
-                <section className="h-[80vh] pt-10 relative overflow-hidden">
+                <section className="h-[80vh] pt-16 relative overflow-hidden">
+                    <AnimatedText />
                     <AnimatedCircles />
-                    <div className="container mx-auto px-5 relative flex flex-col items-center justify-center gap-4 py-24 md:py-28 lg:py-32 xl:py-36">
+                    <div className="container mx-auto px-5 relative flex flex-col items-center justify-center gap-10 py-24 md:py-28 ">
                         <div className="space-y-4 text-center">
                             <h1 className="font-bold tracking-tighter text-5xl md:text-6xl lg:text-7xl">
                                 Copilot for your brain
                             </h1>
                             <p className="mx-auto max-w-[700px] text-pretty text-lg text-muted-foreground sm:text-xl">
-                                Transform your thoughts into actionable
-                                insights. Organize, analyze, and enhance your
-                                knowledge with AI-powered assistance.
+                                Capture, connect, and conquer your day with AI.
                             </p>
                         </div>
                         <div className="mx-auto w-full max-w-md space-y-8">
@@ -98,7 +98,7 @@ export default function WaitlistPage() {
                                                                 disabled={
                                                                     pending
                                                                 }
-                                                                className="group absolute right-1.5 inline-flex items-center justify-center h-12 px-6 rounded-full bg-primary-foreground/90 hover:bg-primary-foreground
+                                                                className="group absolute right-1.5 inline-flex items-center justify-center h-12 px-6 rounded-full bg-primary-foreground hover:bg-primary-foreground/95
                                                                 text-primary font-medium transition-all duration-300
                                                                 hover:shadow-[0_0_20px_rgba(255,255,255,0.3)]
                                                                 disabled:opacity-70 disabled:cursor-not-allowed"
