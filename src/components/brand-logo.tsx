@@ -1,13 +1,13 @@
-import brandWordmarkDark from "@/assets/brand/airtheon-logo-wordmark/airtheon-dark-wordmark.png";
-import brandWordmarkLight from "@/assets/brand/airtheon-logo-wordmark/airtheon-light-wordmark.png";
+import brandWordmarkDark from "@/assets/brand/airtheon-logo-wordmark/brand-wordmark-dark.png";
+import brandWordmarkLight from "@/assets/brand/airtheon-logo-wordmark/brand-wordmark-light.png";
 import Image from "next/image";
 import Link from "next/link";
 
-export const BrandLogoWordmark = () => {
+export const BrandWordmarkLogo = () => {
     return (
         <Link href="/" className="self-center">
             <Image
-                src={brandWordmarkDark}
+                src={brandWordmarkLight}
                 alt="Airtheon Logo"
                 width={180}
                 height={180}
@@ -15,7 +15,7 @@ export const BrandLogoWordmark = () => {
             />
 
             <Image
-                src={brandWordmarkLight}
+                src={brandWordmarkDark}
                 alt="Airtheon Logo"
                 width={180}
                 height={180}

@@ -1,6 +1,6 @@
 "use client";
 
-import { BrandLogoWordmark } from "@/components/brand-logo";
+import { BrandWordmarkLogo } from "@/components/brand-logo";
 import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
 
@@ -53,7 +53,7 @@ export function Footer() {
                 <div className="xl:grid xl:grid-cols-3 xl:gap-8">
                     {/* Brand Section */}
                     <div className="space-y-4">
-                        <BrandLogoWordmark />
+                        <BrandWordmarkLogo />
                         <p className="text-sm text-muted-foreground max-w-xs">
                             Your AI-powered second brain for seamless knowledge
                             management and enhanced productivity.

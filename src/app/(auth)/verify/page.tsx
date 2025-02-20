@@ -33,7 +33,7 @@ import {
     InputOTPSlot,
 } from "@/components/ui/input-otp";
 import { Button } from "@/components/ui/button";
-import { BrandLogoWordmark } from "@/components/brand-logo";
+import { BrandWordmarkLogo } from "@/components/brand-logo";
 
 export default function Page() {
     const [pending, setPending] = useState<boolean>(false);
@@ -116,7 +116,7 @@ export default function Page() {
     return (
         <div className="flex min-h-svh flex-col items-center justify-center gap-6 bg-accent/50 p-6 md:p-10">
             <div className="flex w-full max-w-sm flex-col gap-6">
-                <BrandLogoWordmark />
+                <BrandWordmarkLogo />
                 <div className="flex flex-col gap-5">
                     {emailError ? (
                         <Card className="flex flex-col gap-4 items-center">

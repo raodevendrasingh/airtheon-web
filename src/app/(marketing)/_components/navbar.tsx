@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Share2 } from "lucide-react";
 import { toast } from "sonner";
-import { BrandLogoWordmark } from "@/components/brand-logo";
+import { BrandWordmarkLogo } from "@/components/brand-logo";
 
 export const Navbar = () => {
     const handleShare = async () => {
@@ -46,16 +46,11 @@ export const Navbar = () => {
                 {/* Navbar Content */}
                 <div className="flex h-16 items-center justify-between px-5 lg:px-8">
                     <div className="flex items-center gap-3">
-                        <BrandLogoWordmark />
+                        <BrandWordmarkLogo />
                     </div>
                     <div className="flex items-center space-x-6">
-                        <Button
-                            variant="outline"
-                            className="h-10"
-                            onClick={handleShare}
-                        >
+                        <Button className="" onClick={handleShare}>
                             Spread Word
-                            <Share2 />
                         </Button>
                     </div>
                 </div>

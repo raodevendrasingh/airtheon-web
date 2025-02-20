@@ -1,6 +1,6 @@
 "use client";
 
-import { BrandLogoWordmark } from "@/components/brand-logo";
+import { BrandWordmarkLogo } from "@/components/brand-logo";
 import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
 
@@ -13,7 +13,7 @@ export function Footer2() {
                 <div className="flex items-center justify-between gap-8">
                     {/* Brand Section */}
                     <div className="space-y-4">
-                        <BrandLogoWordmark />
+                        <BrandWordmarkLogo />
                     </div>
                     <div className="flex gap-4">
                         <Link

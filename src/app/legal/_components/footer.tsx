@@ -1,6 +1,6 @@
 "use client";
 
-import { BrandLogoWordmark } from "@/components/brand-logo";
+import { BrandWordmarkLogo } from "@/components/brand-logo";
 import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
 import { FaGithub, FaXTwitter } from "react-icons/fa6";
@@ -31,7 +31,7 @@ export function Footer() {
                 <div className="flex items-center justify-between gap-8">
                     {/* Brand Section */}
                     <div className="space-y-4">
-                        <BrandLogoWordmark />
+                        <BrandWordmarkLogo />
                     </div>
                     <div className="flex justify-center items-center gap-4">
                         {socialLinks.map((social) => (
