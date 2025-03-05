@@ -29,7 +29,7 @@ export default function PluginsPage() {
                 {plugins.map((plugin) => (
                     <Card
                         key={plugin.title}
-                        className="group hover:shadow-sm transition-all"
+                        className="group hover:shadow-xs transition-all"
                     >
                         <CardHeader>
                             <div className="flex items-center justify-between">

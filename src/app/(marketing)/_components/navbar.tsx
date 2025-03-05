@@ -41,8 +41,8 @@ export const Navbar = () => {
     };
 
     return (
-        <header className="sticky top-0 w-full z-[100]">
-            <div className="relative w-full bg-background/80 supports-[backdrop-filter]:bg-background/70 backdrop-blur-lg">
+        <header className="sticky top-0 w-full z-100">
+            <div className="relative w-full bg-background/80 supports-backdrop-filter:bg-background/70 backdrop-blur-lg">
                 {/* Navbar Content */}
                 <div className="flex h-16 items-center justify-between px-5 lg:px-8">
                     <div className="flex items-center gap-3">

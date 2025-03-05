@@ -1,7 +1,6 @@
 import type { Config } from "tailwindcss";
 
 export default {
-    darkMode: ["class"],
     content: [
         "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
         "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -94,11 +93,12 @@ export default {
     },
     plugins: [
         require("tailwindcss-animate"),
-        function ({
+        ({
             addUtilities,
         }: {
+            // biome-ignore lint/suspicious/noExplicitAny: <explanation>
             addUtilities: (utilities: Record<string, any>) => void;
-        }) {
+        }) => {
             addUtilities({
                 ".scrollbar-hide": {
                     /* IE and Edge */

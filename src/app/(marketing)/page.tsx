@@ -90,7 +90,7 @@ export default function WaitlistPage() {
                                                         <div className="relative flex gap-2 w-full items-center bg-primary/90 backdrop-blur-md rounded-full border border-primary/10 shadow-2xl">
                                                             <Input
                                                                 placeholder="Enter your email"
-                                                                className="w-full h-14 px-6 md:text-base bg-transparent border-0 text-primary-foreground placeholder:text-accent/50 focus:outline-none focus:ring-0 rounded-full"
+                                                                className="w-full h-14 px-6 md:text-base bg-transparent border-0 text-primary-foreground placeholder:text-accent/50 focus:outline-hidden focus:ring-0 rounded-full"
                                                                 {...field}
                                                             />
 

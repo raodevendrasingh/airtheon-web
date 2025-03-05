@@ -13,7 +13,7 @@ export function EmojiList({ onSelect }: EmojiListProps) {
     const { theme } = useTheme();
 
     return (
-        <ScrollArea className="h-52 md:h-[290px] w-full rounded-xl border [&_.epr-category-nav]:hidden [&_.epr-search-container]:!bg-transparent [&_.epr-search]:!h-8 [&_.epr-emoji-category-label]:!text-xs [&_.epr-emoji-category-label]:mx-auto [&_.epr-emoji-category-label]:my-1 [&_.epr-emoji-category-label]:w-[95%] [&_.epr-emoji-category-label]:rounded [&_.epr-emoji-category-label]:!text-muted-foreground [&_.epr-emoji-category-label]:!font-medium">
+        <ScrollArea className="h-52 md:h-[290px] w-full rounded-xl border [&_.epr-category-nav]:hidden [&_.epr-search-container]:bg-transparent! [&_.epr-search]:h-8! [&_.epr-emoji-category-label]:text-xs! [&_.epr-emoji-category-label]:mx-auto [&_.epr-emoji-category-label]:my-1 [&_.epr-emoji-category-label]:w-[95%] [&_.epr-emoji-category-label]:rounded [&_.epr-emoji-category-label]:text-muted-foreground! [&_.epr-emoji-category-label]:font-medium!">
             <EmojiPicker
                 theme={theme === "dark" ? Theme.DARK : Theme.LIGHT}
                 skinTonesDisabled

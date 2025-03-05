@@ -19,7 +19,7 @@ import { Input } from "@/components/ui/input";
 import { signInSchema } from "@/lib/auth-schema";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
+import type { z } from "zod";
 import { authClient } from "@/lib/auth-client";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
@@ -163,10 +163,16 @@ export default function SignInPage() {
                             </Form>
                         </CardContent>
                     </Card>
-                    <div className="text-balance text-center text-xs text-muted-foreground [&_a]:underline [&_a]:underline-offset-4 [&_a]:hover:text-primary  ">
+                    <div className="text-balance text-center text-xs text-muted-foreground [&_a]:underline [&_a]:underline-offset-4 hover:[&_a]:text-primary  ">
                         By clicking continue, you agree to our{" "}
-                        <a href="#">Terms of Service</a> and{" "}
-                        <a href="#">Privacy Policy</a>.
+                        <Link href="https://help.airtheon.com/legal/terms-of-service">
+                            Terms of Service
+                        </Link>{" "}
+                        and{" "}
+                        <Link href="https://help.airtheon.com/legal/privacy-policy">
+                            Privacy Policy
+                        </Link>
+                        .
                     </div>
                 </div>
             </div>
